@@ -3,5 +3,9 @@
 # Useful .gitignore templates: https://github.com/github/gitignore
 node_modules
 dist
+<<<<<<< HEAD
 .cache
+=======
+.cach
+>>>>>>> c734ffea42890a2c7f1b24972019c7a84b13675b
 .idea
