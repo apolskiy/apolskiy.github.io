@@ -1,0 +1,259 @@
+/* css style sheets for apolskiy.biz*/
+*{
+	margin: 0;
+	padding:0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 300;
+}
+
+body{
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.menu ul{
+  list-style: none;
+  padding: 0;
+  margin: 10px auto;        /* auto left/right centers the shrink-wrapped menu */
+  width: fit-content;       /* only as wide as the tabs; grows as items are added */
+  display: flex;            /* Arrange tabs horizontally */
+  align-items: center;
+  justify-content: center;  /* Center the tabs horizontally */
+}
+
+.item {
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 15px/25px;
+  /* border-left: 1px ridge forestgreen; */
+  border-top: 1px ridge forestgreen;
+  /* border-right: 2px ridge forestgreen; */
+  background-color: #ffffff;
+  border-bottom: none;
+  margin-right: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+
+}
+
+.item:hover {
+  background-color: darkgray;
+  text-decoration: underline;
+}
+
+.item.active {
+
+  cursor: pointer;
+  border-radius: 15px/25px;
+  background-color: black;
+  /*border-left: 1px ridge black;*/
+  border-top: 1px ridge black;
+  /*border-right: 2px ridge black; */
+  color:whitesmoke;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.item.active:hover {
+  text-decoration:none;
+}
+
+
+.menu-content {
+  display: none; /* Hide all content by default */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.menu-content.active {
+  display: block; /* Show active content */
+}
+
+.submenu {
+  display: none; /* Hide the submenu by default */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  min-width: 150px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.submenu li {
+  width: 100%;
+}
+
+.submenu a {
+  border: none;
+  padding: 8px 15px;
+  white-space: nowrap;
+}
+
+.tab-content {
+  display: none; /* Hidden by default */
+  padding: 40px 10px;
+}
+
+.tab-content.active {
+  display: block; /* Shown when active */
+}
+
+/* Permanent profile header: always visible above the tab menu */
+#profile-header {
+  max-width: 900px;
+  margin: 10px auto;
+  padding: 0 10px;
+}
+
+/* Invisible layout tables: section content without any visible borders/background */
+table.layout {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  border: none;
+  background: none;
+}
+
+table.layout th,
+table.layout td {
+  padding: 0;
+  text-align: left;
+  vertical-align: top;
+  border: none;
+  background: none;
+}
+
+/* GitHub Actions status badge */
+img.ci-badge {
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* Profile photo cell, sits to the left of the name/description.
+   Scoped under #profile-header so it beats the generic "table.layout td { padding: 0 }"
+   rule and actually keeps space between the image and the text. */
+#profile-header table.layout td {
+  padding: 6px 10px;
+  vertical-align: middle; /* center the text vertically against the photo */
+}
+
+#profile-header td.profile-photo-cell {
+  width: 140px;
+  padding-right: 24px;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+img.profile-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Technical Skills Matrix table (scoped so it never affects layout tables) */
+.tab-content table.skills-matrix {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px;
+  margin: 10px auto;
+}
+
+.tab-content table.skills-matrix th,
+.tab-content table.skills-matrix td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid #cccccc;
+}
+
+/* Darker background for the column headers */
+.tab-content table.skills-matrix thead th {
+  background-color: #2f4f4f;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Alternating (zebra) row backgrounds */
+.tab-content table.skills-matrix tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.tab-content table.skills-matrix tbody tr:nth-child(even) {
+  background-color: #e4ece4;
+}
+
+/* Per-project tables (same color scheme as the Skills Matrix) */
+.tab-content table.project-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px;
+  margin: 10px auto 24px auto;
+}
+
+.tab-content table.project-table th,
+.tab-content table.project-table td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid #cccccc;
+}
+
+/* Project title row: darker header, matching the Skills Matrix */
+.tab-content table.project-table thead th {
+  background-color: #2f4f4f;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Left "title" column emphasis */
+.tab-content table.project-table tbody td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Alternating (zebra) row backgrounds, matching the Skills Matrix */
+.tab-content table.project-table tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.tab-content table.project-table tbody tr:nth-child(even) {
+  background-color: #e4ece4;
+}
+
+/* Change row text color on hover (reverts to initial on mouse out) */
+.tab-content table.skills-matrix tbody tr:hover,
+.tab-content table.project-table tbody tr:hover {
+  color: #8b0000;
+}
+
+/* Restore list indentation inside table cells so bullets clear the borders
+   (the global "* { padding: 0 }" reset otherwise pushes markers onto the border) */
+.tab-content td ul {
+  margin: 4px 0;
+  padding-left: 22px;
+}
+
+.tab-content td li {
+  margin-bottom: 4px;
+}
+
+/* Center table titles on screen */
+.tab-content h3 {
+  text-align: center;
+}
+
+.tab-content table.project-table thead th {
+  text-align: center;
+}
+
+/* Change link text color to red on hover (reverts to initial on mouse out) */
+.tab-content a:hover,
+#profile-header a:hover {
+  color: #ff0000;
+}
