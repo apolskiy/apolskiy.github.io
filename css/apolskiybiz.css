@@ -1,4 +1,4 @@
-/* css style sheets for apolskiy.biz*/
+/* css style sheets for https://apolskiy.github.io */
 *{
 	margin: 0;
 	padding:0;
@@ -256,4 +256,108 @@ img.profile-photo {
 .tab-content a:hover,
 #profile-header a:hover {
   color: #ff0000;
+}
+
+/* Copyright footer */
+#site-footer {
+  margin-top: 30px;
+  padding: 16px 12px;
+  border-top: 1px solid #cccccc;
+  text-align: center;
+  font-size: 14px;
+  color: #555555;
+}
+
+/* ============================================================
+   MOBILE / RESPONSIVE LAYOUT
+   Applies on phones (and narrow windows); desktop is unaffected.
+   ============================================================ */
+@media (max-width: 600px) {
+
+  /* Tab menu: let the tabs wrap to multiple lines instead of overflowing,
+     and enlarge them for touch */
+  .menu ul {
+    flex-wrap: wrap;
+    width: auto;
+    max-width: 100%;
+    padding: 0 6px;
+  }
+
+  .item {
+    padding: 12px 14px;
+    margin: 3px;
+    font-size: 16px;
+  }
+
+  /* Constrain everything to the viewport width */
+  #profile-header,
+  .menu-content-container {
+    max-width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
+  /* Profile header: stack the photo above the text, centered */
+  #profile-header table.layout,
+  #profile-header table.layout tbody,
+  #profile-header table.layout tr,
+  #profile-header table.layout td {
+    display: block;
+    width: 100%;
+  }
+
+  #profile-header td.profile-photo-cell {
+    width: auto;
+    padding: 0 0 12px 0;
+    white-space: normal;
+    text-align: center;
+  }
+
+  #profile-header table.layout td {
+    text-align: center;
+    vertical-align: top;
+  }
+
+  img.profile-photo {
+    margin: 0 auto;
+  }
+
+  /* Data tables: stack each row's cells vertically so nothing is cramped */
+  .tab-content table.skills-matrix,
+  .tab-content table.project-table {
+    width: 100%;
+  }
+
+  .tab-content table.skills-matrix tbody,
+  .tab-content table.project-table tbody,
+  .tab-content table.skills-matrix tr,
+  .tab-content table.project-table tr,
+  .tab-content table.skills-matrix tbody td,
+  .tab-content table.project-table tbody td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Project title row stays as a full-width banner */
+  .tab-content table.project-table thead th {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* The redundant "Area / Core Technologies" column headers add nothing once
+     rows are stacked, so hide them on phones */
+  .tab-content table.skills-matrix thead {
+    display: none;
+  }
+
+  /* Make the left "label" cell read as a sub-heading above its content */
+  .tab-content table.skills-matrix tbody td:first-child,
+  .tab-content table.project-table tbody td:first-child {
+    font-weight: 700;
+    white-space: normal;
+    background-color: #dfe7df;
+    border-bottom: none;
+  }
 }

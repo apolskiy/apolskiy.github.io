@@ -1,7 +1,6 @@
 //by Aleksandr Polskiy
-//this javascript for apolskiy.biz
+//this javascript for https://apolskiy.github.io
 //
-//declaring basic contact form elements as an array
 
 
 //navigation menu functions
@@ -34,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     el.replaceWith(link);
   });
 
+  //menu tebs, actication and deactivation loading appropriate contend into div
+  //depending which tab was clicked
   const tabItems = document.querySelectorAll('.item');
   const tabContents = document.querySelectorAll('.tab-content');
 
@@ -88,7 +89,7 @@ for (counterar=0;counterar<30;counterar++){
 	}
 }
 
-
+//this function is for submenu, not yet implemented
 function smenu(control){
   console.log("Entering function smenu");
   if (control!=null){
@@ -110,7 +111,7 @@ function smenu(control){
 }
 
 
-
+//this function is for submenus, not yet implemented
 function reset_smenu(control){
   console.log("Entering function reset_smenu");
   if (control!=null){
