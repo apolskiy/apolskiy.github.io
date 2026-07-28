@@ -7,7 +7,6 @@
 }
 
 body{
-  align-items: center;
   background-color: #ffffff;
 }
 
@@ -59,42 +58,9 @@ body{
 }
 
 
-.menu-content {
-  display: none; /* Hide all content by default */
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-
-.menu-content.active {
-  display: block; /* Show active content */
-}
-
-.submenu {
-  display: none; /* Hide the submenu by default */
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  min-width: 150px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 10;
-}
-
-.submenu li {
-  width: 100%;
-}
-
-.submenu a {
-  border: none;
-  padding: 8px 15px;
-  white-space: nowrap;
-}
-
 .tab-content {
   display: none; /* Hidden by default */
-  padding: 40px 10px;
+  padding: 20px 10px;
 }
 
 .tab-content.active {
@@ -113,7 +79,7 @@ table.layout {
   border-collapse: collapse;
   width: 100%;
   max-width: 900px;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 10px auto;
   border: none;
   background: none;
 }
@@ -162,14 +128,22 @@ img.profile-photo {
   width: 100%;
   max-width: 900px;
   margin: 10px auto;
+  border: 2px solid #2f4f4f;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  font-size: 1.05rem;
 }
 
 .tab-content table.skills-matrix th,
 .tab-content table.skills-matrix td {
-  padding: 10px 14px;
+  padding: 12px 16px;
   text-align: left;
   vertical-align: top;
   border: 1px solid #cccccc;
+}
+
+/* Emphasize the category (left) column */
+.tab-content table.skills-matrix tbody td:first-child {
+  font-weight: 600;
 }
 
 /* Darker background for the column headers */
@@ -177,6 +151,7 @@ img.profile-photo {
   background-color: #2f4f4f;
   color: #ffffff;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* Alternating (zebra) row backgrounds */
@@ -260,8 +235,9 @@ img.profile-photo {
 
 /* Copyright footer */
 #site-footer {
-  margin-top: 30px;
-  padding: 16px 12px;
+  width: fit-content;       /* shrink to the copyright text so the divider matches its width */
+  margin: 30px auto 12px auto;
+  padding: 8px 4px;
   border-top: 1px solid #cccccc;
   text-align: center;
   font-size: 14px;

@@ -33,11 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.replaceWith(link);
   });
 
-  //menu tebs, actication and deactivation loading appropriate contend into div
+  //menu tabs, activation and deactivation loading appropriate content into div
   //depending which tab was clicked
   const tabItems = document.querySelectorAll('.item');
   const tabContents = document.querySelectorAll('.tab-content');
-
 
   tabItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -54,129 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetContent) {
         targetContent.classList.add('active');
       }
-
-      const submenu = item.querySelector('.submenu');
-      if (submenu) {
-        submenu.style.display = item.classList.contains('active') ? 'block' : 'none';
-      }
-
     });
   });
 });
-
-
-
-var formi=["name","email","comment"];
-var contact=document.getElementById("contact");
-var email=document.getElementById("email");
-var comment=document.getElementById("comment");
-var arvalue=new Array(30);
-var arelements=new Array(30);
-var tempcounter=0;
-var counterar=0;
-var elcolor;
-var elbackground;
-
-for (counterar=0;counterar<30;counterar++){
-	tempcounter=counterar+1;
-	arvalue[counterar]="array"+tempcounter.toString();
-
-	arelements[counterar]=document.getElementById(arvalue[counterar]);
-
-	if (typeof(arelements[counterar]) != 'undefined' && arelements[counterar] != null){
-		document.getElementById(arvalue[counterar]).onmouseover = function() {sampleCode1(this)};
-		document.getElementById(arvalue[counterar]).onmouseout = function() {resetCode1(this)};
-	}
-}
-
-//this function is for submenu, not yet implemented
-function smenu(control){
-  console.log("Entering function smenu");
-  if (control!=null){
-    control.style.background="#94c8d3";
-    control.style.textDecoration="underline";
-
-    const subMenu1 = document.getElementById('submenu1');
-    submenu1.positiont ='absolute';
-    subMenu1.style.display = 'block'; // Makes the div visible and display as a block
-    subMenu1.visibilityState = 'visible';
-
-
-  }
-
-  else{
-    console.log("Function smenu. Control value = Null. Check function call.");
-  }
-
-}
-
-
-//this function is for submenus, not yet implemented
-function reset_smenu(control){
-  console.log("Entering function reset_smenu");
-  if (control!=null){
-    control.style.background="#ffffff";
-    control.style.textDecoration="none";
-    const subMenu1 = document.getElementById('submenu1');
-
-    subMenu1.style.display = 'none'; // Makes the div visible and display as a block
-    subMenu1.visibilityState = 'hidden';
-
-
-  }
-
-  else{
-    console.log("Control value = Null. Check function call.");
-  }
-
-}
-
-//color and background of certain code samples changes, when user mouses over those code lines
-function sampleCode1(control){
-	if (control!=null){
-
-		control.style.color="#000000";
-		control.style.background="#d8bfd8";
-	}
-}
-
-//certain snippets return to their original color and background
-function resetCode1(control){
-	if (control!=null){
-			control.style.color="#afeeee";
-			control.style.background="#333333";
-		}
-
-	else{
-		console.log("Control value = Null. Check function call.");
-	}
-
-}
-
-
-
-//this function sets image shadow box
-function setIMGBG(control){
-		control.style.background="#e6e6fa";
-		control.style.boxShadow="2px 4px 8px #228b22";
-}
-
-//this function sets image shadow box
-function setIMGBG2(control){
-		control.style.boxShadow="-2px -4px 8px #999999";
-}
-//this function resets image shadow box
-function resetIMGBG(control){
-	control.style.background="initial";
-	control.style.boxShadow="none";
-}
-
-//this function sets a particular color on mouse in
-function ostyleIN(control){
-		control.style.color="#dc143c";
-}
-
-//this function sets a particular color on mouse out
-function ostyleOUT(control){
-	control.style.background="#32cd32";
-}
