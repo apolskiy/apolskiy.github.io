@@ -1,0 +1,65 @@
+name: Notify Automation Suite
+
+# Tells PlaywrightAPWebsiteAutomation that the deployed site changed, so the E2E
+# suite re-validates the live page instead of waiting for someone to notice.
+#
+# Only files that can change what a visitor sees are watched. A README edit, a
+# LICENSE change, or a tweak to the unused webpack scaffolding must not spend a
+# pipeline run: none of them reach the served page.
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.html'
+      - '**.css'
+      - '**.js'
+      # Unused HTML5 Boilerplate build scaffolding - GitHub Pages serves this
+      # repository directly, so these never affect what is deployed.
+      - '!webpack*.js'
+
+# One notification per branch; a burst of pushes only needs the newest sha,
+# and the suite re-tests whatever is live by the time it runs anyway.
+concurrency:
+  group: notify-automation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dispatch website_updated to the automation repository
+        env:
+          # GITHUB_TOKEN is scoped to THIS repository and cannot dispatch into
+          # another one, so a PAT is required. See the README for the exact
+          # scope this needs.
+          DISPATCH_TOKEN: ${{ secrets.AUTOMATION_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DISPATCH_TOKEN}" ]; then
+            echo "::error::AUTOMATION_DISPATCH_TOKEN is not set. The E2E suite will"
+            echo "::error::not learn about this deploy. Add the secret, or run the"
+            echo "::error::workflow manually from the automation repository."
+            exit 1
+          fi
+
+          # Fail loudly on a rejected dispatch. A silent 4xx here is the worst
+          # outcome: the site deploys, nothing tests it, and the badge stays
+          # green from a previous run.
+          STATUS=$(curl -sS -o dispatch-response.txt -w '%{http_code}' \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${DISPATCH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/apolskiy/PlaywrightAPWebsiteAutomation/dispatches" \
+            -d "$(printf '{"event_type":"website_updated","client_payload":{"sha":"%s","ref":"%s"}}' \
+                  "${GITHUB_SHA}" "${GITHUB_REF_NAME}")")
+
+          if [ "${STATUS}" != "204" ]; then
+            echo "::error::repository_dispatch failed with HTTP ${STATUS}"
+            cat dispatch-response.txt
+            exit 1
+          fi
+
+          echo "Dispatched website_updated for ${GITHUB_SHA}"
