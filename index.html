@@ -141,16 +141,17 @@
               </tr>
               <tr>
                 <td>Overview</td>
-                <td>A high-performance personal portfolio website showcasing software quality engineering, test automation frameworks, and personal projects. Hosted on GitHub Pages, the site serves both as an interactive professional showcase and as the live target application for an automated end-to-end regression testing pipeline.</td>
+                <td>A hand-written personal portfolio site showcasing frontend fundamentals and quality engineering work. Every page is authored in semantic HTML5, CSS3, and vanilla ES6+ JavaScript with no framework and no build step - the sources are served exactly as committed. Hosted on GitHub Pages, the site is both an interactive professional showcase and the live target application for the PlaywrightAPWebsiteAutomation end-to-end regression suite.</td>
               </tr>
               <tr>
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ul>
-                    <li><strong>Event-Driven Integration:</strong> Webhook dispatcher (<code>notify_automation.yml</code>) monitors <code>.html</code>, <code>.css</code>, and <code>.js</code> source files.</li>
-                    <li><strong>Automated Dispatch:</strong> Triggers a <code>website_updated</code> repository dispatch payload to PlaywrightAPWebsiteAutomation upon frontend updates.</li>
-                    <li><strong>Responsive Design:</strong> Native CSS Flexbox and Grid layouts optimized across mobile, tablet, and desktop viewports.</li>
-                    <li><strong>Anti-Spam Obfuscation:</strong> Client-side Base64 decoding for contact details and mail links to prevent automated scraping.</li>
+                    <li><strong>Zero-Dependency Frontend:</strong> No framework, bundler output, or third-party runtime - one stylesheet and one script drive the entire page.</li>
+                    <li><strong>Single-Page Tab Routing:</strong> Vanilla ES6+ DOM manipulation swaps <code>data-tab</code> panels in place, with no page reloads and no router library.</li>
+                    <li><strong>Anti-Spam Obfuscation:</strong> Every outbound URL and the contact address ship as Base64 payloads (<code>data-h</code> / <code>data-e</code>) and are decoded into real anchors on <code>DOMContentLoaded</code>, so scrapers never read them from the markup; a <code>&lt;noscript&gt;</code> fallback keeps the site reachable without JavaScript.</li>
+                    <li><strong>Responsive Layout:</strong> A CSS Flexbox tab strip plus a <code>max-width: 600px</code> breakpoint that wraps the navigation and restructures the skills matrix for mobile viewports.</li>
+                    <li><strong>Continuously Verified:</strong> Each push runs the GitHub Pages build-and-deployment job, and the deployed page is then re-validated end to end by the Playwright suite in the Web Automation tab.</li>
                   </ul>
                 </td>
               </tr>
@@ -158,9 +159,9 @@
                 <td>Tech Stack</td>
                 <td>
                   <ul>
-                    <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
-                    <li><strong>Hosting &amp; Infrastructure:</strong> GitHub Pages, Git</li>
-                    <li><strong>CI/CD Orchestration:</strong> GitHub Actions (repository_dispatch webhooks, cURL)</li>
+                    <li><strong>Frontend:</strong> Semantic HTML5, CSS3 (Flexbox, media-query breakpoint), JavaScript (ES6+, DOM manipulation, Base64 decoding)</li>
+                    <li><strong>Hosting &amp; Deployment:</strong> GitHub Pages (<code>pages-build-deployment</code>), Git</li>
+                    <li><strong>Quality:</strong> Validated in CI by the Playwright / Pytest E2E suite</li>
                   </ul>
                 </td>
               </tr>
@@ -187,21 +188,24 @@
               </tr>
               <tr>
                 <td>Tagline</td>
-                <td>Production-grade Playwright &amp; Pytest E2E automation suite with dynamic site crawling and Allure reporting</td>
+                <td>Production-grade Playwright &amp; Pytest E2E suite with dynamic site crawling, AI failure triage, and Allure reporting</td>
               </tr>
               <tr>
                 <td>Overview</td>
-                <td>An asynchronous-ready E2E web automation and dynamic route discovery framework built in Python using Playwright and Pytest. Architected according to Principal QA standards, it automatically executes visual, functional, and layout regressions against <span class="enc-link" data-nw data-h="aHR0cHM6Ly9hcG9sc2tpeS5naXRodWIuaW8=">https://apolskiy.github.io/</span>.</td>
+                <td>An E2E web automation and dynamic route-discovery framework built in Python with Playwright and Pytest. It runs functional, layout, and cross-viewport regressions against <span class="enc-link" data-nw data-h="aHR0cHM6Ly9hcG9sc2tpeS5naXRodWIuaW8=">https://apolskiy.github.io/</span>, generating its own route list at collection time so the suite grows with the site instead of being hand-maintained.</td>
               </tr>
               <tr>
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ul>
-                    <li><strong>Page Object Model (POM):</strong> Strict encapsulation decoupling UI element locators from test logic.</li>
-                    <li><strong>Dynamic Site Exploration:</strong> Custom crawler (<code>SiteMapCrawler</code>) scans internal links and builds a <code>sitemap.json</code> artifact for dynamic route parameterization.</li>
-                    <li><strong>Concurrency &amp; Race Condition Control:</strong> Scoped GitHub Actions concurrency groups (<code>cancel-in-progress: true</code>) deduplicate simultaneous pushes.</li>
-                    <li><strong>Deployment Resilience:</strong> Dynamic health-check polling loops wait for GitHub Pages CDN propagation before executing browser contexts.</li>
-                    <li><strong>Dual Reporting Engine:</strong> Native Java 21 Allure HTML reporting paired with standalone Pytest HTML summaries.</li>
+                    <li><strong>Page Object Model (POM):</strong> Strict encapsulation - test modules contain no selectors and never touch a Playwright <code>Page</code> directly, so a markup change is absorbed by the Page Object alone.</li>
+                    <li><strong>Dynamic Site Exploration:</strong> An async Playwright crawler renders each page in a real browser (the target publishes its links as Base64, so an HTTP-only crawler would discover nothing), walks the site breadth-first under depth and page-count limits, and writes <code>reports/sitemap.json</code> - the artifact that parameterizes a health check per discovered route.</li>
+                    <li><strong>AI-Powered Failure Triage:</strong> On an assertion failure the rendered DOM snapshot is sent to Claude for a structured root-cause verdict attached to the Allure report. The inspector is strictly advisory: a transport or credential problem degrades to "no report" rather than failing the run.</li>
+                    <li><strong>Cross-Viewport Coverage:</strong> Every layout rule is asserted on both sides of the site's 600px breakpoint - desktop 1920x1080 and mobile 390x844 - including sideways-overflow checks at each size.</li>
+                    <li><strong>Deployment Resilience:</strong> Before any browser context launches, CI polls the site repository's Actions API until no Pages deployment is in flight, then waits for the served <code>ETag</code> to repeat across consecutive polls - an HTTP 200 alone is no proof of freshness, and testing a moving CDN target is how a passing locator times out mid-run.</li>
+                    <li><strong>Concurrency &amp; Race Condition Control:</strong> GitHub Actions concurrency groups scoped by workflow, event, and ref (<code>cancel-in-progress: true</code>) so only the latest push or dispatch executes.</li>
+                    <li><strong>Blocking Quality Gate:</strong> <code>pylint --fail-under=10</code> across every package and <code>conftest.py</code> runs before the suite - a style regression fails the pipeline instead of printing a warning.</li>
+                    <li><strong>Dual Reporting Engine:</strong> Native Java 21 Allure HTML reporting paired with a self-contained Pytest HTML summary, both uploaded as build artifacts.</li>
                   </ul>
                 </td>
               </tr>
@@ -209,10 +213,11 @@
                 <td>Tech Stack</td>
                 <td>
                   <ul>
-                    <li><strong>Core Automation:</strong> Playwright 1.57.0, Python 3.11+, Pytest 9.0.2, pytest-playwright</li>
-                    <li><strong>Reporting &amp; Visual Testing:</strong> Allure Pytest 2.16.0, Pytest HTML 4.2.0, Pillow 12.3.0</li>
-                    <li><strong>Quality &amp; Config:</strong> Pylint 3.3.4, python-dotenv 1.2.2</li>
-                    <li><strong>CI/CD:</strong> GitHub Actions (Java 21 JDK, Allure CLI native generation)</li>
+                    <li><strong>Core Automation:</strong> Playwright 1.61.0, Python 3.10+ (developed on 3.14, CI on 3.11), Pytest 9.1.1, pytest-playwright 0.8.0</li>
+                    <li><strong>AI Diagnostics:</strong> Anthropic SDK 0.120.2 (Claude-based failure triage)</li>
+                    <li><strong>Reporting &amp; Imaging:</strong> Allure Pytest 2.16.0, Pytest HTML 4.2.0, Pillow 12.3.0 (threshold-based screenshot diffing)</li>
+                    <li><strong>Quality &amp; Config:</strong> Pylint 4.0.6 held at 10.00/10, python-dotenv 1.2.2</li>
+                    <li><strong>CI/CD:</strong> GitHub Actions on Ubuntu (Temurin JDK 21, Allure CLI 2.29.0), Bash / cURL polling against the GitHub REST API</li>
                   </ul>
                 </td>
               </tr>
