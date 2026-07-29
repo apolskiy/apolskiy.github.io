@@ -15,7 +15,7 @@ The site doubles as the live target application for an end-to-end regression sui
 - **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper reading the raw markup finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
 - **Responsive Layout:** A Flexbox tab strip plus a single `max-width: 600px` breakpoint that wraps the navigation onto multiple rows, stacks the profile header, and drops the column headers from the skills matrix. Verified free of horizontal overflow at 320px, 390px, and 600px.
 - **Zero Dependencies:** One stylesheet and one script drive the whole page. No bundler output, no CDN fetches, no third-party runtime.
-- **Continuously Verified:** Each push runs the GitHub Pages `pages-build-deployment` job; the deployed page is then re-validated end to end by the Playwright suite, which waits for CDN propagation before asserting.
+- **Continuously Verified:** Each push runs the GitHub Pages `pages-build-deployment` job. A push that touches `.html`, `.css`, or `.js` additionally fires a `website_updated` `repository_dispatch` at the automation repository, so the deployed page is re-validated end to end automatically. Documentation-only commits do not spend a pipeline run.
 
 ---
 
@@ -40,6 +40,9 @@ Exercised on **Chromium** and **Firefox (Gecko)** by the automated suite; CI run
 
 ```text
 apolskiy.github.io/
+├── .github/
+│   └── workflows/
+│       └── notify_automation.yml   # Fires website_updated at the E2E suite
 ├── css/
 │   ├── apolskiybiz.css      # Site stylesheet, including the mobile media query
 │   └── style.css            # Boilerplate base styles
@@ -61,6 +64,21 @@ apolskiy.github.io/
 ### A note on the webpack files
 
 `package.json`, `webpack.common.js`, `webpack.config.dev.js`, and `webpack.config.prod.js` are unused scaffolding left from an HTML5 Boilerplate starter. **GitHub Pages serves this repository directly; nothing is built.** The config is also stale - its entry point is the empty `js/app.js`, and it copies `img/` and `js/vendor/` while never referencing `js/apolskiybiz.js` or `images/` - so `npm run build` would emit a broken `dist/`. Treat these files as removable rather than as the deployment path.
+
+---
+
+## Automation Hand-Off
+
+`.github/workflows/notify_automation.yml` notifies [PlaywrightAPWebsiteAutomation](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation) that the live site changed. It runs only on pushes to `main` that touch `**.html`, `**.css`, or `**.js` (excluding `webpack*.js`), so README, LICENSE, and workflow edits never trigger a test run.
+
+**Required secret.** The built-in `GITHUB_TOKEN` is scoped to this repository and cannot dispatch into another one, so the workflow needs a Personal Access Token stored here as `AUTOMATION_DISPATCH_TOKEN`:
+
+- **Fine-grained PAT** — resource owner `apolskiy`, repository access limited to `PlaywrightAPWebsiteAutomation`, permission **Contents: Read and write** (the scope `POST /dispatches` checks).
+- **Classic PAT** — the `repo` scope.
+
+Add it under *Settings → Secrets and variables → Actions → New repository secret*. Without it the workflow fails loudly rather than deploying untested; a silent failure would leave a stale green badge on a page nothing verified.
+
+The dispatch races the Pages deployment, and that is intentional: the automation pipeline gates itself, waiting until this repository reports no in-flight Actions run and the served `ETag` has settled before it launches a browser.
 
 ---
 

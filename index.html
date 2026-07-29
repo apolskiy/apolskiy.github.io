@@ -94,25 +94,37 @@
               </tr>
               <tr>
                 <td>Tagline</td>
-                <td>End-to-End REST API Automation &amp; Multi-Service Integration Testing</td>
+                <td>Resilient, data-driven REST API test framework with response-time SLA gates and AI-assisted engineering conventions</td>
               </tr>
               <tr>
                 <td>Overview</td>
-                <td>A comprehensive, highly resilient Python test framework designed to validate complex inter-service data dependencies across public REST endpoints (REST Countries API &amp; Open-Meteo Weather API). This project showcases advanced API testing patterns, including dynamic payload validation and automated fault tolerance verification.</td>
+                <td>A Python REST API automation framework validating two independent public services - REST Countries v5 and Open-Meteo v1 - from one shared architecture. Entity data lives in a single source of truth (<code>test_data/master_entities.json</code>) that a <code>pytest_generate_tests</code> hook expands across both suites, while a centralized client layer absorbs the network reality of testing live third-party APIs: burst limits, transient gateway errors, and latency regressions.</td>
               </tr>
               <tr>
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ul>
-                    <li><strong>Intelligent Session Handling:</strong> Built-in retry logic designed specifically around request frequency limits, concurrency caps, and monthly API quota management.</li>
-                    <li><strong>AI-Assisted Workflows:</strong> Integrates Claude AI automation for dynamic test script generation and automated log triage.</li>
-                    <li><strong>CI/CD Pipeline Execution:</strong> Isolated execution environments configured for continuous validation via GitHub Actions.</li>
+                    <li><strong>Single Source of Truth &amp; Dynamic Parametrization:</strong> Any test in any module that declares an <code>entity</code> parameter is automatically parametrized across every record in <code>master_entities.json</code>, with the entity name as the test id. Five entities currently expand nine test functions into <strong>33 executed cases</strong>; adding a country grows both suites with no test edit.</li>
+                    <li><strong>Network Resilience:</strong> A centralized <code>ApiClient</code> retries connection and timeout failures plus HTTP 429/502/503/504 with exponential backoff (<code>retry_backoff * 2**attempt</code>), deferring to the server's <code>Retry-After</code> header when present.</li>
+                    <li><strong>Proactive Rate-Limit Pacing:</strong> Beyond reactive retries, the client enforces a minimum interval between the start of consecutive requests across the whole session, so the suite never bursts past the v5 API's short-window limit in the first place.</li>
+                    <li><strong>Performance SLA Gates:</strong> Every call is asserted against a per-environment <code>max_response_time</code> (5.0s countries, 3.0s weather). Only the successful attempt is timed - backoff and failed-attempt time are deliberately excluded, so a retry storm cannot be misread as server latency.</li>
+                    <li><strong>Typed Schema Validation:</strong> Responses are parsed into dataclass validators through explicit <code>from_dict</code> factories that check field presence and type before construction, normalizing the v5 object model so tests keep a stable shape. Presence-only assertions are rejected by convention.</li>
+                    <li><strong>Quota-Aware CI:</strong> GitHub Actions runs are serialized account-wide under a branch-agnostic concurrency group with <code>cancel-in-progress: false</code> - the upstream API quota is shared across every branch, so a per-branch group would let two branches race the same rate limit.</li>
+                    <li><strong>One Entry Point:</strong> A <code>Makefile</code> owns the pytest invocation and artifact layout, so <code>make test</code> executes the identical command locally and in CI, emitting JUnit XML, a self-contained HTML report, and Allure results in one run.</li>
+                    <li><strong>AI-Assisted Engineering:</strong> Framework conventions - externalized datasets, mandatory schema validation, typed signatures, Google-style docstrings - are codified as machine-readable rules in <code>.claude/rules/</code>, with <code>.claude/skills/CLAUDE_LOG.md</code> recording the architectural decisions and their rationale.</li>
                   </ul>
                 </td>
               </tr>
               <tr>
                 <td>Tech Stack</td>
-                <td>Python, PyTest, Requests, scikit-learn, Claude API, GitHub Actions</td>
+                <td>
+                  <ul>
+                    <li><strong>Core:</strong> Python 3.14, Pytest 9.0.2, Requests 2.32.5, REST Countries v5 &amp; Open-Meteo v1</li>
+                    <li><strong>Architecture:</strong> <code>pytest_generate_tests</code> data-driven parametrization, YAML-configured environments (PyYAML 6.0.3) injected via fixtures, dataclass schema validators, bearer auth read from the environment</li>
+                    <li><strong>Reporting:</strong> Allure Pytest 2.16.0, Pytest HTML 4.2.0, JUnit XML</li>
+                    <li><strong>CI/CD:</strong> GitHub Actions on Ubuntu runners, Make-driven execution, selectable suite via <code>--env=countries|weather</code>, Allure CLI report generation</li>
+                  </ul>
+                </td>
               </tr>
               <tr>
                 <td>CI / Build Status</td>
