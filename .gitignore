@@ -1,11 +1,14 @@
-# Include your project-specific ignores in this file
-# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
-# Useful .gitignore templates: https://github.com/github/gitignore
-node_modules
-dist
-<<<<<<< HEAD
-.cache
-=======
-.cach
->>>>>>> c734ffea42890a2c7f1b24972019c7a84b13675b
-.idea
+# Editors / IDEs
+.idea/
+.vscode/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Local caches
+.cache/
+
+# Node (kept only in case tooling is reintroduced; the site itself has no build
+# step and is served directly from the repository root by GitHub Pages)
+node_modules/

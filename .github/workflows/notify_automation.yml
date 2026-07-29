@@ -13,9 +13,6 @@ on:
       - '**.html'
       - '**.css'
       - '**.js'
-      # Unused HTML5 Boilerplate build scaffolding - GitHub Pages serves this
-      # repository directly, so these never affect what is deployed.
-      - '!webpack*.js'
 
 # One notification per branch; a burst of pushes only needs the newest sha,
 # and the suite re-tests whatever is live by the time it runs anyway.

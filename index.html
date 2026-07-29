@@ -4,6 +4,10 @@
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<link rel="stylesheet" type="text/css" href="css/apolskiybiz.css">
+			<link rel="icon" href="favicon.ico" sizes="any">
+			<link rel="icon" href="icon.svg" type="image/svg+xml">
+			<link rel="manifest" href="site.webmanifest">
+			<meta name="theme-color" content="#fafafa">
 			<TITLE>Sample Projects PYTHON/GO//Playwright/JavaScript/HTML/CSS</TITLE>
 			<!--Aleksandr Polskiy -->
 		</head>
@@ -27,8 +31,8 @@
             </td>
             <td>
               <h2>Aleksandr Polskiy</h2>
-              <p><strong>Senior Quality Leader &amp; Test Automation Professional</strong></p>
-              <p>Architecting scalable test frameworks, custom service emulators, and CI/CD validation pipelines across enterprise platforms requiring 99.999% SLA reliability.</p>
+              <p><strong>Staff / Principal Software QA Engineer &mdash; Test Infrastructure &amp; Automation Architecture</strong></p>
+              <p>Architecting scalable test frameworks, custom service emulators, and CI/CD validation pipelines across enterprise platforms requiring 99.999% SLA reliability &mdash; owning the automation infrastructure, the release gates that depend on it, and the engineering standards that keep both trustworthy.</p>
               <p>
                 <span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5">GitHub Profile</span> &bull;
                 <span class="enc-link" data-h="aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2FsZWtzYW5kci1wb2xza2l5Lw==">LinkedIn Profile</span> &bull;
@@ -44,6 +48,7 @@
             <td>
               <h3>Enterprise and Cloud Test Frameworks &amp; Quality Infrastructure Testing and Engineering</h3>
               <p>With over 15 years of technical experience in test framework architecture, system qualification, and quality engineering leadership, I specialize in building robust test automation tools, enterprise pipelines, and environment emulators. My approach combines full web UI and API automation with machine learning test optimization, deep log analytics, and strict Requirement Traceability Matrix (RTM) governance to guarantee release quality.</p>
+              <p>At staff and principal scope this means designing test infrastructure that stays economical across hundreds of builds, defining the release gates that decide whether a build ships, driving shift-left adoption through cross-functional technical review, and mentoring engineers on the standards that make automation worth trusting. Every project linked on this site is publicly readable and continuously verified &mdash; the pipelines, the quality gates, and the failure diagnostics are all inspectable rather than asserted.</p>
             </td>
           </tr>
         </table>
@@ -51,7 +56,7 @@
       <div class="menu-content-container">
         <div id="aphome1" class="tab-content active">
           <h3>Technical Skills Matrix</h3>
-          <table class="skills-matrix">
+          <table class="skills-matrix" aria-label="Technical Skills Matrix">
             <thead>
               <tr>
                 <th>Area</th>
@@ -60,24 +65,77 @@
             </thead>
             <tbody>
               <tr>
-                <td>Automation &amp; Languages</td>
-                <td>Go (Golang), Python, Playwright, JavaScript, HTML, CSS, PyTest, Selenium WebDriver, Shell/Bash Scripting</td>
+                <td>Strategic QA Leadership &amp; Engineering Governance</td>
+                <td>Automation &amp; Test Infrastructure Architecture, Release Gate Qualification, Shift-Left Strategy, Cross-Functional Technical Reviews, Team Mentorship, Quality Strategy, System Qualification, Release Planning, Requirement Traceability Matrix (RTM), TestIt, PlanIt, Jira</td>
               </tr>
               <tr>
-                <td>CI/CD &amp; DevOps</td>
-                <td>Jenkins, GitHub Actions, Git, Docker, AWS (EC2), Linux/Unix (RHEL, Ubuntu), VM Deployments</td>
+                <td>Automation &amp; Programming</td>
+                <td>Python (advanced automation &amp; scripting), Custom Python Frameworks, Playwright, Pytest, Selenium WebDriver, REST API Validation, Custom Service Emulators (Flask), Go (Golang), JavaScript (ES6+), HTML5, CSS3, Shell/Bash Scripting</td>
               </tr>
               <tr>
-                <td>API, Emulation &amp; Diagnostics</td>
-                <td>Custom Python REST API Emulators, Flask, Wireshark, TCP/IP, DNS, HTTP/S, SIP, Curl Utilities</td>
+                <td>Backend Verification &amp; Databases</td>
+                <td>PostgreSQL, MSSQL, Oracle SQL, MySQL, Apache Cassandra, ElasticSearch, Data Integrity Testing, Backend Automation</td>
               </tr>
               <tr>
-                <td>Data Analytics &amp; Telemetry</td>
-                <td>Custom Python Pandas &amp; NumPy Log Parsers, scikit-learn (Test Prioritization &amp; Flaky Test Detection), Grafana Telemetry, MS SQL Server, PostgreSQL, MySQL, Oracle, Apache Cassandra, Elasticsearch</td>
+                <td>Networking &amp; Security Infrastructure</td>
+                <td>TCP/IP, UDP, IPsec, DNS, TLS/SSL, SSH, SIP, HTTP/S, Wireshark (deep-packet analysis), cURL utilities</td>
               </tr>
               <tr>
-                <td>Quality Leadership &amp; Governance</td>
-                <td>Test Automation Architecture, Quality Strategy, System Qualification, Hardware Device &amp; Simulator Integration, Requirement Traceability Matrix (RTM)</td>
+                <td>Infrastructure &amp; DevOps</td>
+                <td>Docker, Jenkins Agents, GitHub Actions, Git, AWS (EC2), VMware, VirtualBox, VM Deployments</td>
+              </tr>
+              <tr>
+                <td>Operating Systems &amp; Environments</td>
+                <td>Linux (RHEL, Ubuntu, CentOS, Oracle Linux), Windows, macOS</td>
+              </tr>
+              <tr>
+                <td>Intelligent Tooling &amp; Data Science</td>
+                <td>scikit-learn (test prioritization &amp; flaky-test detection), Pandas, NumPy, custom log-parsing utilities, LLM-assisted debugging, agentic workflows, prompt engineering, Grafana telemetry</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Selected Engineering Outcomes</h3>
+          <p class="outcomes-intro">Every outcome below is verifiable in the linked repository rather than self-reported.</p>
+          <table class="outcomes-table" aria-label="Selected Engineering Outcomes">
+            <thead>
+              <tr>
+                <th>Outcome</th>
+                <th>Evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Eliminated a class of false CI failures.</strong> Gated the suite on deployment settlement &mdash; no in-flight Pages run, then a repeated ETag &mdash; instead of trusting an HTTP 200. A half-propagated CDN had been timing out locators that were never broken.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+              </tr>
+              <tr>
+                <td><strong>Cut runner spend without cutting coverage.</strong> Cancel-on-supersede concurrency collapses a commit burst into roughly one suite execution. The policy is deliberately inverted where an external API quota, not compute, is the scarce resource &mdash; there runs are serialized instead.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span><br><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L0NvdW50cnlXZWF0aGVy">AI Assisted Rest API</span></td>
+              </tr>
+              <tr>
+                <td><strong>Built self-extending suites.</strong> A crawler discovers the route surface at collection time; one entity dataset fans out across every suite that requests it. Publishing a page or adding an entity grows coverage with no test edit.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span><br><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L0NvdW50cnlXZWF0aGVy">AI Assisted Rest API</span></td>
+              </tr>
+              <tr>
+                <td><strong>Reduced time-to-resolution on red builds.</strong> Each failure ships a screenshot, the rendered DOM, a replayable Playwright trace, and an LLM root-cause verdict &mdash; diagnosis happens from the CI artifact instead of a local reproduction.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+              </tr>
+              <tr>
+                <td><strong>Made quality gates blocking, not advisory.</strong> Static analysis runs at a hard 10.00/10 threshold before any browser starts, so a regression fails the pipeline rather than accumulating in a log nobody reads.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+              </tr>
+              <tr>
+                <td><strong>Wired event-driven cross-repository regression.</strong> A front-end deploy dispatches an event into a separate automation repository, which waits for propagation and re-validates the live site unattended.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pbw==">Portfolio Website</span><br><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+              </tr>
+              <tr>
+                <td><strong>Found and fixed a real defect with the suite.</strong> A mobile overflow assertion caught a 398px document inside a 390px viewport on its first run, traced to two independent CSS causes &mdash; both since corrected and now regression-covered.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pbw==">Portfolio Website</span></td>
+              </tr>
+              <tr>
+                <td><strong>Published reusable fault-injection infrastructure.</strong> A containerized HTTP error-code simulator plus a dependency-free emulator with server-lifecycle controls, letting suites reproduce specific 4xx/5xx conditions and hung-backend timeouts on demand.</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQ">HTTP Emulators</span></td>
               </tr>
             </tbody>
           </table>

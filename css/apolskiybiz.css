@@ -6,6 +6,16 @@
 	font-weight: 300;
 }
 
+/* The universal selector above also matches <strong> and <b>, and an author
+   rule outranks the browser default of font-weight: bolder - so every emphasis
+   on the page was silently rendering at 300, lighter than the surrounding text.
+   Restore it: the bold lead-in on each list item and table row is what makes
+   these panels scannable instead of a wall of prose. */
+strong,
+b {
+  font-weight: 600;
+}
+
 body{
   background-color: #ffffff;
 }
@@ -160,6 +170,66 @@ img.profile-photo {
 }
 
 .tab-content table.skills-matrix tbody tr:nth-child(even) {
+  background-color: #e4ece4;
+}
+
+/* Selected Engineering Outcomes table on the Home tab. Shares the Skills Matrix
+   palette so the two read as one page rather than two designs. Both tables
+   carry an aria-label, which is what lets automation address each one by
+   accessible name now that the Home panel holds more than one table. */
+.tab-content p.outcomes-intro {
+  max-width: 900px;
+  margin: 18px auto 8px;
+  font-style: italic;
+  color: #555555;
+}
+
+.tab-content table.outcomes-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 10px;
+  border: 2px solid #2f4f4f;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  font-size: 1rem;
+}
+
+.tab-content table.outcomes-table th,
+.tab-content table.outcomes-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid #cccccc;
+  line-height: 1.45;
+}
+
+.tab-content table.outcomes-table thead th {
+  background-color: #2f4f4f;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Outcome prose takes the width; the evidence column stays a narrow gutter */
+.tab-content table.outcomes-table thead th:first-child {
+  width: 74%;
+}
+
+.tab-content table.outcomes-table tbody td:last-child {
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+/* Separate the stacked project links in the evidence column */
+.tab-content table.outcomes-table tbody td:last-child br {
+  line-height: 2.1;
+}
+
+.tab-content table.outcomes-table tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.tab-content table.outcomes-table tbody tr:nth-child(even) {
   background-color: #e4ece4;
 }
 
@@ -326,13 +396,26 @@ img.profile-photo {
 
   .tab-content table.skills-matrix tbody,
   .tab-content table.project-table tbody,
+  .tab-content table.outcomes-table tbody,
   .tab-content table.skills-matrix tr,
   .tab-content table.project-table tr,
+  .tab-content table.outcomes-table tr,
   .tab-content table.skills-matrix tbody td,
-  .tab-content table.project-table tbody td {
+  .tab-content table.project-table tbody td,
+  .tab-content table.outcomes-table tbody td {
     display: block;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  /* The narrow "Evidence" gutter cannot stay nowrap once cells are stacked */
+  .tab-content table.outcomes-table tbody td:last-child {
+    white-space: normal;
+  }
+
+  /* Redundant column headers add nothing to a stacked layout */
+  .tab-content table.outcomes-table thead {
+    display: none;
   }
 
   /* Long unbreakable tokens - source filenames such as
@@ -343,7 +426,8 @@ img.profile-photo {
      the table is sized from. */
   .tab-content table.skills-matrix tbody td,
   .tab-content table.project-table tbody td,
-  .tab-content table.project-table thead th {
+  .tab-content table.project-table thead th,
+  .tab-content table.outcomes-table tbody td {
     overflow-wrap: anywhere;
   }
 

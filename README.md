@@ -44,32 +44,26 @@ apolskiy.github.io/
 │   └── workflows/
 │       └── notify_automation.yml   # Fires website_updated at the E2E suite
 ├── css/
-│   ├── apolskiybiz.css      # Site stylesheet, including the mobile media query
-│   └── style.css            # Boilerplate base styles
+│   └── apolskiybiz.css      # Site stylesheet, including the mobile media query
 ├── js/
-│   ├── apolskiybiz.js       # Tab routing + base64 link/e-mail decoding
-│   ├── app.js               # Empty; webpack entry point, unused
-│   └── vendor/              # Empty
+│   └── apolskiybiz.js       # Tab routing + base64 link/e-mail decoding
 ├── images/
 │   └── aleksandr-polskiy.jpg
-├── img/                     # Empty
 ├── index.html               # The site: profile header + five content tabs
-├── 404.html
+├── 404.html                 # Self-contained, inline-styled
 ├── favicon.ico, icon.png, icon.svg, site.webmanifest
 ├── robots.txt               # Crawling allowed
-├── LICENSE
+├── LICENSE                  # MIT
 └── README.md
 ```
 
-### A note on the webpack files
-
-`package.json`, `webpack.common.js`, `webpack.config.dev.js`, and `webpack.config.prod.js` are unused scaffolding left from an HTML5 Boilerplate starter. **GitHub Pages serves this repository directly; nothing is built.** The config is also stale - its entry point is the empty `js/app.js`, and it copies `img/` and `js/vendor/` while never referencing `js/apolskiybiz.js` or `images/` - so `npm run build` would emit a broken `dist/`. Treat these files as removable rather than as the deployment path.
+Every tracked file is either served to a visitor or required by GitHub Pages. The HTML5 Boilerplate scaffolding this project started from - `package.json`, three webpack configs, an empty `js/app.js`, empty `img/` and `js/vendor/` directories, an unreferenced `style.css`, and the upstream `LICENSE.txt` - has been removed: **GitHub Pages serves this repository directly and nothing is built**, so a build config that emitted a broken `dist/` was a trap rather than a deployment path.
 
 ---
 
 ## Automation Hand-Off
 
-`.github/workflows/notify_automation.yml` notifies [PlaywrightAPWebsiteAutomation](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation) that the live site changed. It runs only on pushes to `main` that touch `**.html`, `**.css`, or `**.js` (excluding `webpack*.js`), so README, LICENSE, and workflow edits never trigger a test run.
+`.github/workflows/notify_automation.yml` notifies [PlaywrightAPWebsiteAutomation](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation) that the live site changed. It runs only on pushes to `main` that touch `**.html`, `**.css`, or `**.js`, so README, LICENSE, and workflow edits never trigger a test run.
 
 **Required secret.** The built-in `GITHUB_TOKEN` is scoped to this repository and cannot dispatch into another one, so the workflow needs a Personal Access Token stored here as `AUTOMATION_DISPATCH_TOKEN`:
 
