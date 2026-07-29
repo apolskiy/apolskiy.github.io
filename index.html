@@ -14,7 +14,7 @@
         <ul>
           <li class="item active" id="home" data-tab="aphome1">Home</li>
           <li class="item" id="api" data-tab="aprestapiclaude2">AI Assisted Rest API</li>
-          <li class="item" id="website" data-tab="apwebsite3">Web Site</li>
+          <li class="item" id="website" data-tab="apwebsite3">Portfolio Website</li>
           <li class="item" id="webtest" data-tab="apwebtest4">Web Automation</li>
           <li class="item" id="httpemulators" data-tab="aphttpemulators5">HTTP Emulators</li>
         </ul>
@@ -128,41 +128,49 @@
         <div id="apwebsite3" class="tab-content">
           <table class="project-table">
             <thead>
-              <tr><th colspan="2">Web Site</th></tr>
+              <tr><th colspan="2">Portfolio Website</th></tr>
             </thead>
             <tbody>
               <tr>
                 <td>Repo</td>
-                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pbw==">apolskiy/apolskiy.github.io</span></td>
-              </tr>
-              <tr>
-                <td>Live Site</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9hcG9sc2tpeS5naXRodWIuaW8=">https://apolskiy.github.io</span></td>
+                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pbw==">https://github.com/apolskiy/apolskiy.github.io</span></td>
               </tr>
               <tr>
                 <td>Tagline</td>
-                <td>Single-Page Portfolio &amp; Automated Deployment Engine</td>
+                <td>Responsive software QA portfolio &amp; live target application for automated E2E testing</td>
               </tr>
               <tr>
                 <td>Overview</td>
-                <td>A responsive single-page website architecture designed to showcase engineering credentials, technical project repositories, and quality engineering standards.</td>
+                <td>A high-performance personal portfolio website showcasing software quality engineering, test automation frameworks, and personal projects. Hosted on GitHub Pages, the site serves both as an interactive professional showcase and as the live target application for an automated end-to-end regression testing pipeline.</td>
               </tr>
               <tr>
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ul>
-                    <li><strong>Dynamic SPA Router:</strong> Vanilla JavaScript tab switcher toggling <code>.active</code> classes across content containers and menu items.</li>
-                    <li><strong>Automated CI/CD:</strong> Integrated with GitHub Actions for instant verification and deployment to GitHub Pages on every git push.</li>
+                    <li><strong>Event-Driven Integration:</strong> Webhook dispatcher (<code>notify_automation.yml</code>) monitors <code>.html</code>, <code>.css</code>, and <code>.js</code> source files.</li>
+                    <li><strong>Automated Dispatch:</strong> Triggers a <code>website_updated</code> repository dispatch payload to PlaywrightAPWebsiteAutomation upon frontend updates.</li>
+                    <li><strong>Responsive Design:</strong> Native CSS Flexbox and Grid layouts optimized across mobile, tablet, and desktop viewports.</li>
+                    <li><strong>Anti-Spam Obfuscation:</strong> Client-side Base64 decoding for contact details and mail links to prevent automated scraping.</li>
                   </ul>
                 </td>
               </tr>
               <tr>
                 <td>Tech Stack</td>
-                <td>HTML, CSS, JavaScript, GitHub Actions, GitHub Pages</td>
+                <td>
+                  <ul>
+                    <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+                    <li><strong>Hosting &amp; Infrastructure:</strong> GitHub Pages, Git</li>
+                    <li><strong>CI/CD Orchestration:</strong> GitHub Actions (repository_dispatch webhooks, cURL)</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>CI / Build Status</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pby9hY3Rpb25z"><img class="ci-badge" src="https://github.com/apolskiy/apolskiy.github.io/actions/workflows/pages/pages-build-deployment/badge.svg" alt="Portfolio Website GitHub Pages build and deployment status"></span></td>
               </tr>
               <tr>
                 <td>Documentation</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pby9ibG9iL21haW4vUkVBRE1FLm1k">Full project README</span></td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pby9ibG9iL21haW4vUkVBRE1FLm1k">Project README</span></td>
               </tr>
             </tbody>
           </table>
@@ -175,29 +183,46 @@
             <tbody>
               <tr>
                 <td>Repo</td>
-                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">apolskiy/PlaywrightAPWebsiteAutomation</span> (end-to-end automation for <span class="enc-link" data-nw data-h="aHR0cHM6Ly9hcG9sc2tpeS5naXRodWIuaW8=">https://apolskiy.github.io</span>)</td>
+                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">https://github.com/apolskiy/PlaywrightAPWebsiteAutomation</span></td>
               </tr>
               <tr>
                 <td>Tagline</td>
-                <td>Cross-Browser End-to-End UI &amp; Integration Test Framework</td>
+                <td>Production-grade Playwright &amp; Pytest E2E automation suite with dynamic site crawling and Allure reporting</td>
               </tr>
               <tr>
                 <td>Overview</td>
-                <td>A standalone, modular test automation project built using Playwright, JavaScript, and HTML DOM tooling to perform full end-to-end web UI verification. Engineered to validate dynamic UI state changes, asynchronous component rendering, and web application workflows across Chromium, Firefox, and WebKit engines.</td>
+                <td>An asynchronous-ready E2E web automation and dynamic route discovery framework built in Python using Playwright and Pytest. Architected according to Principal QA standards, it automatically executes visual, functional, and layout regressions against <span class="enc-link" data-nw data-h="aHR0cHM6Ly9hcG9sc2tpeS5naXRodWIuaW8=">https://apolskiy.github.io/</span>.</td>
               </tr>
               <tr>
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ul>
-                    <li><strong>Playwright E2E Validation:</strong> Parallel cross-browser execution with automatic waiting, network interception, and assertion reporting.</li>
-                    <li><strong>CI/CD Integration:</strong> Automated test execution pipelines configured for both Jenkins and GitHub Actions.</li>
-                    <li><strong>Clean Web Stack:</strong> Built with modern JavaScript and HTML structures for testing web standards.</li>
+                    <li><strong>Page Object Model (POM):</strong> Strict encapsulation decoupling UI element locators from test logic.</li>
+                    <li><strong>Dynamic Site Exploration:</strong> Custom crawler (<code>SiteMapCrawler</code>) scans internal links and builds a <code>sitemap.json</code> artifact for dynamic route parameterization.</li>
+                    <li><strong>Concurrency &amp; Race Condition Control:</strong> Scoped GitHub Actions concurrency groups (<code>cancel-in-progress: true</code>) deduplicate simultaneous pushes.</li>
+                    <li><strong>Deployment Resilience:</strong> Dynamic health-check polling loops wait for GitHub Pages CDN propagation before executing browser contexts.</li>
+                    <li><strong>Dual Reporting Engine:</strong> Native Java 21 Allure HTML reporting paired with standalone Pytest HTML summaries.</li>
                   </ul>
                 </td>
               </tr>
               <tr>
                 <td>Tech Stack</td>
-                <td>Playwright, JavaScript, HTML, Jenkins, GitHub Actions</td>
+                <td>
+                  <ul>
+                    <li><strong>Core Automation:</strong> Playwright 1.57.0, Python 3.11+, Pytest 9.0.2, pytest-playwright</li>
+                    <li><strong>Reporting &amp; Visual Testing:</strong> Allure Pytest 2.16.0, Pytest HTML 4.2.0, Pillow 12.3.0</li>
+                    <li><strong>Quality &amp; Config:</strong> Pylint 3.3.4, python-dotenv 1.2.2</li>
+                    <li><strong>CI/CD:</strong> GitHub Actions (Java 21 JDK, Allure CLI native generation)</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>CI / Build Status</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9uL2FjdGlvbnM="><img class="ci-badge" src="https://github.com/apolskiy/PlaywrightAPWebsiteAutomation/actions/workflows/ci.yml/badge.svg" alt="PlaywrightAPWebsiteAutomation CI Pipeline status"></span></td>
+              </tr>
+              <tr>
+                <td>Documentation</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9uL2Jsb2IvbWFpbi9SRUFETUUubWQ=">Framework README</span></td>
               </tr>
             </tbody>
           </table>
@@ -210,47 +235,47 @@
             <tbody>
               <tr>
                 <td>Repo</td>
-                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQ">apolskiy/PublicAP</span></td>
+                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQ">https://github.com/apolskiy/PublicAP</span></td>
               </tr>
               <tr>
                 <td>Tagline</td>
-                <td>Lightweight HTTP Emulators &amp; Service Mocking for Deterministic QA</td>
+                <td>Dual Python &amp; Flask HTTP service emulators for REST API fault injection, custom header reflection, and server lifecycle testing</td>
               </tr>
               <tr>
                 <td>Overview</td>
-                <td>A repository of lightweight HTTP service emulators engineered to simulate backend behaviors, custom network conditions, dynamic response headers, and edge-case response codes for deterministic system qualification.</td>
+                <td>A suite of lightweight HTTP service emulators engineered in Python to enable deterministic quality assurance, REST API fault-tolerance testing, and boundary validation. Comprising an advanced standalone Python HTTP server script and a containerized Flask microservice, the project allows QA automation pipelines to mock external REST endpoints, reflect dynamic headers, and inject edge-case error conditions on demand.</td>
               </tr>
               <tr>
-                <td>Flask Error Code Emulator</td>
+                <td>Key Features &amp; Highlights</td>
                 <td>
-                  <ul>
-                    <li><strong>Custom Status Code Simulation:</strong> Configurable response emulator capable of dynamically reproducing standard, client, and server-side HTTP error states for downstream fault tolerance testing.</li>
-                    <li><strong>Supported Error Codes &amp; Statuses:</strong>
+                  <ol>
+                    <li><strong>Core Python HTTP Server Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL2Jsb2IvbWFzdGVyL3ByYWN0aWNlL2N1c3RvbV9oZWFkZXJfcmVzcG9uc2VfdG9faHR0cF9yZXF1ZXN0LnB5">custom_header_response_to_http_request.py</span>):
                       <ul>
-                        <li><strong>4xx Client Errors:</strong> 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 405 Method Not Allowed, 406 Not Acceptable, 408 Request Timeout, 409 Conflict, 410 Gone, 411 Length Required, 412 Precondition Failed, 413 Request Entity Too Large, 414 Request-URI Too Long, 415 Unsupported Media Type, 416 Requested Range Not Satisfiable, 417 Expectation Failed, 419 Insufficient Space on Resource.</li>
-                        <li><strong>5xx &amp; Custom Errors:</strong> 500 Internal Server Error, 501 Not Implemented, 503 Service Unavailable, 600 Custom Error.</li>
+                        <li><strong>Full REST API Verb Support:</strong> Handles GET, POST, PUT, PATCH, and DELETE methods for complete REST state testing.</li>
+                        <li><strong>Dynamic Header Reflection:</strong> Accepts and echoes custom HTTP response headers specified directly by the requester in real-time.</li>
+                        <li><strong>Server Lifecycle Control Codes:</strong> Automated control statuses: <strong>590</strong> (sleeps server for 120s), <strong>591</strong> (stops and restarts service after 60s), and <strong>592</strong> (shuts down service).</li>
+                        <li><strong>Input Validation:</strong> Automatically returns status code <strong>999</strong> (Internal Server Error) when parameters are missing or out of range.</li>
                       </ul>
                     </li>
-                    <li><strong>Source:</strong> <span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL3RyZWUvbWFzdGVyL2ZsYXNrX2FwcA==">PublicAP/flask_app</span></li>
-                    <li><strong>Docker Image:</strong> <span class="enc-link" data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yZXBvc2l0b3J5L2RvY2tlci9hcG9sc2tpeS9mbGFza19hcHAvZ2VuZXJhbA==">apolskiy/flask_app on Docker Hub</span></li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Custom Header &amp; Verb Response Emulator</td>
-                <td>
-                  <ul>
-                    <li><strong>Dynamic Header Reflection:</strong> Accepts and echoes custom HTTP response headers specified directly by the requester in real-time.</li>
-                    <li><strong>Full HTTP Verb Support:</strong> Supports GET, POST, PUT, PATCH, and DELETE requests for comprehensive REST API state testing.</li>
-                    <li><strong>Server Lifecycle Control Codes:</strong> Special status codes drive the server during automated runs: <strong>590</strong> sleeps the server for 120 seconds, <strong>591</strong> stops the service and restarts it after 60 seconds, and <strong>592</strong> shuts the service down.</li>
-                    <li><strong>Input Validation:</strong> <strong>999</strong> is the default error returned when parameters are invalid or out of range, responding with an internal server error.</li>
-                    <li><strong>Source:</strong> <span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL2Jsb2IvbWFzdGVyL3ByYWN0aWNlL2N1c3RvbV9oZWFkZXJfcmVzcG9uc2VfdG9faHR0cF9yZXF1ZXN0LnB5">custom_header_response_to_http_request.py</span></li>
-                  </ul>
+                    <li><strong>Flask Error Code Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL3RyZWUvbWFzdGVyL2ZsYXNrX2FwcA==">flask_app</span>):
+                      <ul>
+                        <li><strong>Comprehensive Error State Simulation:</strong> Configurable response engine capable of reproducing 4xx client errors (400-417, 419) and 5xx server errors (500, 501, 503, plus custom status 600) for fault-tolerance verification.</li>
+                        <li><strong>Containerized Execution:</strong> Published as a public image (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yZXBvc2l0b3J5L2RvY2tlci9hcG9sc2tpeS9mbGFza19hcHAvZ2VuZXJhbA==">apolskiy/flask_app</span>) on Docker Hub for containerized Linux/CI execution.</li>
+                      </ul>
+                    </li>
+                  </ol>
                 </td>
               </tr>
               <tr>
                 <td>Tech Stack</td>
-                <td>Python, Flask, HTTP/S, REST APIs, Curl, Docker, Linux</td>
+                <td>
+                  <ul>
+                    <li><strong>Languages &amp; Frameworks:</strong> Python 3.x, Flask, Python Standard Library (<code>http.server</code>)</li>
+                    <li><strong>API &amp; Protocols:</strong> REST API (Full HTTP Verbs, 4xx/5xx/6xx Fault Injection, Dynamic Header Reflection)</li>
+                    <li><strong>DevOps &amp; Containerization:</strong> Docker, Docker Hub (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yZXBvc2l0b3J5L2RvY2tlci9hcG9sc2tpeS9mbGFza19hcHAvZ2VuZXJhbA==">apolskiy/flask_app</span>), Linux (Ubuntu container environments)</li>
+                    <li><strong>Quality &amp; Tooling:</strong> Pytest, Pylint, Git</li>
+                  </ul>
+                </td>
               </tr>
             </tbody>
           </table>

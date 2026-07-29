@@ -207,15 +207,27 @@ img.profile-photo {
   color: #8b0000;
 }
 
-/* Restore list indentation inside table cells so bullets clear the borders
-   (the global "* { padding: 0 }" reset otherwise pushes markers onto the border) */
+/* Restore list indentation inside table cells so bullets and numbers clear the
+   borders (the global "* { padding: 0 }" reset otherwise pushes markers onto
+   the border). Ordered lists need a wider inset than bullets because the
+   marker is a number plus a period rather than a single glyph. */
 .tab-content td ul {
   margin: 4px 0;
   padding-left: 22px;
 }
 
+.tab-content td ol {
+  margin: 4px 0;
+  padding-left: 26px;
+}
+
 .tab-content td li {
   margin-bottom: 4px;
+}
+
+/* Give each numbered emulator room to breathe from the next one */
+.tab-content td ol > li {
+  margin-bottom: 10px;
 }
 
 /* Center table titles on screen */
