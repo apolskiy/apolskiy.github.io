@@ -273,13 +273,17 @@ img.profile-photo {
     box-sizing: border-box;
   }
 
-  /* Profile header: stack the photo above the text, centered */
+  /* Profile header: stack the photo above the text, centered.
+     box-sizing is required here: these cells keep the scoped 10px horizontal
+     padding from "#profile-header table.layout td", so without it the 100%
+     width and that padding add up and push the page 8px past the viewport. */
   #profile-header table.layout,
   #profile-header table.layout tbody,
   #profile-header table.layout tr,
   #profile-header table.layout td {
     display: block;
     width: 100%;
+    box-sizing: border-box;
   }
 
   #profile-header td.profile-photo-cell {
@@ -298,10 +302,13 @@ img.profile-photo {
     margin: 0 auto;
   }
 
-  /* Data tables: stack each row's cells vertically so nothing is cramped */
+  /* Data tables: stack each row's cells vertically so nothing is cramped.
+     max-width caps the table at the container even though a <table> box is
+     otherwise free to grow to its content's minimum width. */
   .tab-content table.skills-matrix,
   .tab-content table.project-table {
     width: 100%;
+    max-width: 100%;
   }
 
   .tab-content table.skills-matrix tbody,
@@ -313,6 +320,18 @@ img.profile-photo {
     display: block;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  /* Long unbreakable tokens - source filenames such as
+     "custom_header_response_to_http_request.py" and repository paths - would
+     otherwise set the table's minimum content width and push the whole page
+     wider than the phone viewport. "anywhere" is required rather than
+     "break-word": only "anywhere" reduces the intrinsic min-content size that
+     the table is sized from. */
+  .tab-content table.skills-matrix tbody td,
+  .tab-content table.project-table tbody td,
+  .tab-content table.project-table thead th {
+    overflow-wrap: anywhere;
   }
 
   /* Project title row stays as a full-width banner */
