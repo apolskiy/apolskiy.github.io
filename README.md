@@ -1,6 +1,7 @@
 # apolskiy.github.io Personal Portfolio Website
+#Aleksandr Polskiy
 Repository for my website:
-A clean, responsive, and performance-optimized personal portfolio website built with modern web standards and hosted on GitHub Pages. 
+A clean, responsive, and performance-optimized personal portfolio website built with modern web standards and hosted on GitHub Pages.
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
