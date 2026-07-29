@@ -229,7 +229,8 @@ img.profile-photo {
 
 /* Change link text color to red on hover (reverts to initial on mouse out) */
 .tab-content a:hover,
-#profile-header a:hover {
+#profile-header a:hover,
+#site-footer a:hover {
   color: #ff0000;
 }
 
