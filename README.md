@@ -11,7 +11,8 @@ The site doubles as the live target application for an end-to-end regression sui
 
 ## Features
 
-- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework.
+- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Six tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project.
+- **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors, because every anchor here is required to resolve to an absolute `https`/`mailto` target and a same-page fragment would break that contract.
 - **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper reading the raw markup finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
 - **Responsive Layout:** A Flexbox tab strip plus a single `max-width: 600px` breakpoint that wraps the navigation onto multiple rows, stacks the profile header, and drops the column headers from the skills matrix. Verified free of horizontal overflow at 320px, 390px, and 600px.
 - **Zero Dependencies:** One stylesheet and one script drive the whole page. No bundler output, no CDN fetches, no third-party runtime.
@@ -49,7 +50,7 @@ apolskiy.github.io/
 │   └── apolskiybiz.js       # Tab routing + base64 link/e-mail decoding
 ├── images/
 │   └── aleksandr-polskiy.jpg
-├── index.html               # The site: profile header + five content tabs
+├── index.html               # The site: profile header + six content tabs
 ├── 404.html                 # Self-contained, inline-styled
 ├── favicon.ico, icon.png, icon.svg, site.webmanifest
 ├── robots.txt               # Crawling allowed
@@ -67,8 +68,8 @@ Every tracked file is either served to a visitor or required by GitHub Pages. Th
 
 **Required secret.** The built-in `GITHUB_TOKEN` is scoped to this repository and cannot dispatch into another one, so the workflow needs a Personal Access Token stored here as `AUTOMATION_DISPATCH_TOKEN`:
 
-- **Fine-grained PAT** — resource owner `apolskiy`, repository access limited to `PlaywrightAPWebsiteAutomation`, permission **Contents: Read and write** (the scope `POST /dispatches` checks).
-- **Classic PAT** — the `repo` scope.
+- **Fine-grained PAT** - resource owner `apolskiy`, repository access limited to `PlaywrightAPWebsiteAutomation`, permission **Contents: Read and write** (the scope `POST /dispatches` checks).
+- **Classic PAT** - the `repo` scope.
 
 Add it under *Settings → Secrets and variables → Actions → New repository secret*. Without it the workflow fails loudly rather than deploying untested; a silent failure would leave a stale green badge on a page nothing verified.
 

@@ -17,6 +17,7 @@
       <nav class="menu">
         <ul>
           <li class="item active" id="home" data-tab="aphome1">Home</li>
+          <li class="item" id="outcomes" data-tab="apoutcomes6">Engineering Outcomes</li>
           <li class="item" id="api" data-tab="aprestapiclaude2">AI Assisted Rest API</li>
           <li class="item" id="website" data-tab="apwebsite3">Portfolio Website</li>
           <li class="item" id="webtest" data-tab="apwebtest4">Web Automation</li>
@@ -31,8 +32,8 @@
             </td>
             <td>
               <h2>Aleksandr Polskiy</h2>
-              <p><strong>Staff / Principal Software QA Engineer &mdash; Test Infrastructure &amp; Automation Architecture</strong></p>
-              <p>Architecting scalable test frameworks, custom service emulators, and CI/CD validation pipelines across enterprise platforms requiring 99.999% SLA reliability &mdash; owning the automation infrastructure, the release gates that depend on it, and the engineering standards that keep both trustworthy.</p>
+              <p><strong>Staff / Principal Software QA Engineer - Test Infrastructure &amp; Automation Architecture</strong></p>
+              <p>Architecting scalable test frameworks, custom service emulators, and CI/CD validation pipelines across enterprise platforms requiring 99.999% SLA reliability - owning the automation infrastructure, the release gates that depend on it, and the engineering standards that keep both trustworthy.</p>
               <p>
                 <span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5">GitHub Profile</span> &bull;
                 <span class="enc-link" data-h="aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2luL2FsZWtzYW5kci1wb2xza2l5Lw==">LinkedIn Profile</span> &bull;
@@ -48,7 +49,7 @@
             <td>
               <h3>Enterprise and Cloud Test Frameworks &amp; Quality Infrastructure Testing and Engineering</h3>
               <p>With over 15 years of technical experience in test framework architecture, system qualification, and quality engineering leadership, I specialize in building robust test automation tools, enterprise pipelines, and environment emulators. My approach combines full web UI and API automation with machine learning test optimization, deep log analytics, and strict Requirement Traceability Matrix (RTM) governance to guarantee release quality.</p>
-              <p>At staff and principal scope this means designing test infrastructure that stays economical across hundreds of builds, defining the release gates that decide whether a build ships, driving shift-left adoption through cross-functional technical review, and mentoring engineers on the standards that make automation worth trusting. Every project linked on this site is publicly readable and continuously verified &mdash; the pipelines, the quality gates, and the failure diagnostics are all inspectable rather than asserted.</p>
+              <p>At staff and principal scope this means designing test infrastructure that stays economical across hundreds of builds, defining the release gates that decide whether a build ships, driving shift-left adoption through cross-functional technical review, and mentoring engineers on the standards that make automation worth trusting. Every project linked on this site is publicly readable and continuously verified - the pipelines, the quality gates, and the failure diagnostics are all inspectable rather than asserted.</p>
             </td>
           </tr>
         </table>
@@ -95,8 +96,10 @@
             </tbody>
           </table>
 
+        </div>
+        <div id="apoutcomes6" class="tab-content">
           <h3>Selected Engineering Outcomes</h3>
-          <p class="outcomes-intro">Every outcome below is verifiable in the linked repository rather than self-reported.</p>
+          <p class="outcomes-intro">Every outcome below is verifiable in source rather than self-reported - the Evidence column opens the project it belongs to.</p>
           <table class="outcomes-table" aria-label="Selected Engineering Outcomes">
             <thead>
               <tr>
@@ -106,36 +109,36 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>Eliminated a class of false CI failures.</strong> Gated the suite on deployment settlement &mdash; no in-flight Pages run, then a repeated ETag &mdash; instead of trusting an HTTP 200. A half-propagated CDN had been timing out locators that were never broken.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+                <td><strong>Eliminated a class of false CI failures.</strong> Gated the suite on deployment settlement - no in-flight Pages run, then a repeated ETag - instead of trusting an HTTP 200. A half-propagated CDN had been timing out locators that were never broken.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
               <tr>
-                <td><strong>Cut runner spend without cutting coverage.</strong> Cancel-on-supersede concurrency collapses a commit burst into roughly one suite execution. The policy is deliberately inverted where an external API quota, not compute, is the scarce resource &mdash; there runs are serialized instead.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span><br><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L0NvdW50cnlXZWF0aGVy">AI Assisted Rest API</span></td>
+                <td><strong>Cut runner spend without cutting coverage.</strong> Cancel-on-supersede concurrency collapses a commit burst into roughly one suite execution. The policy is deliberately inverted where an external API quota, not compute, is the scarce resource - there runs are serialized instead.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span><span class="tab-jump" role="button" tabindex="0" data-target="aprestapiclaude2">AI Assisted Rest API</span></td>
               </tr>
               <tr>
                 <td><strong>Built self-extending suites.</strong> A crawler discovers the route surface at collection time; one entity dataset fans out across every suite that requests it. Publishing a page or adding an entity grows coverage with no test edit.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span><br><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L0NvdW50cnlXZWF0aGVy">AI Assisted Rest API</span></td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span><span class="tab-jump" role="button" tabindex="0" data-target="aprestapiclaude2">AI Assisted Rest API</span></td>
               </tr>
               <tr>
-                <td><strong>Reduced time-to-resolution on red builds.</strong> Each failure ships a screenshot, the rendered DOM, a replayable Playwright trace, and an LLM root-cause verdict &mdash; diagnosis happens from the CI artifact instead of a local reproduction.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+                <td><strong>Reduced time-to-resolution on red builds.</strong> Each failure ships a screenshot, the rendered DOM, a replayable Playwright trace, and an LLM root-cause verdict - diagnosis happens from the CI artifact instead of a local reproduction.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
               <tr>
                 <td><strong>Made quality gates blocking, not advisory.</strong> Static analysis runs at a hard 10.00/10 threshold before any browser starts, so a regression fails the pipeline rather than accumulating in a log nobody reads.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
               <tr>
                 <td><strong>Wired event-driven cross-repository regression.</strong> A front-end deploy dispatches an event into a separate automation repository, which waits for propagation and re-validates the live site unattended.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pbw==">Portfolio Website</span><br><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BsYXl3cmlnaHRBUFdlYnNpdGVBdXRvbWF0aW9u">Web Automation</span></td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebsite3">Portfolio Website</span><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
               <tr>
-                <td><strong>Found and fixed a real defect with the suite.</strong> A mobile overflow assertion caught a 398px document inside a 390px viewport on its first run, traced to two independent CSS causes &mdash; both since corrected and now regression-covered.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L2Fwb2xza2l5LmdpdGh1Yi5pbw==">Portfolio Website</span></td>
+                <td><strong>Found and fixed a real defect with the suite.</strong> A mobile overflow assertion caught a 398px document inside a 390px viewport on its first run, traced to two independent CSS causes - both since corrected and now regression-covered.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebsite3">Portfolio Website</span></td>
               </tr>
               <tr>
                 <td><strong>Published reusable fault-injection infrastructure.</strong> A containerized HTTP error-code simulator plus a dependency-free emulator with server-lifecycle controls, letting suites reproduce specific 4xx/5xx conditions and hung-backend timeouts on demand.</td>
-                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQ">HTTP Emulators</span></td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
               </tr>
             </tbody>
           </table>

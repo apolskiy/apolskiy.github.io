@@ -55,4 +55,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // In-page cross references (the "Evidence" column of the outcomes table).
+  // These open the relevant project tab instead of leaving the site, so the
+  // reader keeps their place. They are deliberately NOT anchors: an href of
+  // "#panel-id" would be a same-page fragment, and every link on this site is
+  // expected to resolve to an absolute https:// or mailto: target.
+  // Activation is delegated to the matching nav tab so the switching rules
+  // live in exactly one place.
+  const jumpToTab = (targetTabId) => {
+    const navItem = document.querySelector('.item[data-tab="' + targetTabId + '"]');
+    if (!navItem) return;
+    navItem.click();
+    // The reader clicked something mid-page; bring the newly opened tab into view.
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  document.querySelectorAll('.tab-jump').forEach(el => {
+    el.addEventListener('click', () => jumpToTab(el.dataset.target));
+    // Keyboard parity: these carry role="button", so Enter and Space must work.
+    el.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        jumpToTab(el.dataset.target);
+      }
+    });
+  });
 });

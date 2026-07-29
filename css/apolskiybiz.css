@@ -84,6 +84,17 @@ body{
   padding: 0 10px;
 }
 
+/* Close the biography block so the first section heading below it starts
+   somewhere, rather than the two running together as one column of prose. */
+#profile-header table.layout + table.layout {
+  margin-top: 14px;
+}
+
+/* Space the two biography paragraphs apart */
+#profile-header p + p {
+  margin-top: 10px;
+}
+
 /* Invisible layout tables: section content without any visible borders/background */
 table.layout {
   border-collapse: collapse;
@@ -196,11 +207,18 @@ img.profile-photo {
 
 .tab-content table.outcomes-table th,
 .tab-content table.outcomes-table td {
-  padding: 12px 16px;
+  padding: 20px 20px;
   text-align: left;
   vertical-align: top;
   border: 1px solid #cccccc;
-  line-height: 1.45;
+  line-height: 1.6;
+}
+
+/* Let each outcome breathe: the bold claim needs separation from the sentence
+   that supports it, or the row reads as one run-on block again. */
+.tab-content table.outcomes-table tbody td:first-child strong {
+  display: block;
+  margin-bottom: 6px;
 }
 
 .tab-content table.outcomes-table thead th {
@@ -220,9 +238,31 @@ img.profile-photo {
   font-size: 0.95rem;
 }
 
-/* Separate the stacked project links in the evidence column */
-.tab-content table.outcomes-table tbody td:last-child br {
-  line-height: 2.1;
+/* Cross references into the project tabs. Styled to read as interactive
+   without borrowing the anchor palette, since these navigate within the page
+   rather than out to a repository. */
+.tab-jump {
+  display: block;
+  margin-bottom: 10px;
+  color: #2f4f4f;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 1px dotted #2f4f4f;
+  width: fit-content;
+}
+
+.tab-jump:last-child {
+  margin-bottom: 0;
+}
+
+/* Same red the site uses for anchor hover, so hover feedback is one language
+   across the page. The dotted underline is what distinguishes an in-page jump
+   from a link that leaves the site. */
+.tab-jump:hover,
+.tab-jump:focus-visible {
+  color: #ff0000;
+  border-bottom-color: #ff0000;
+  outline: none;
 }
 
 .tab-content table.outcomes-table tbody tr:nth-child(odd) {
@@ -273,7 +313,8 @@ img.profile-photo {
 
 /* Change row text color on hover (reverts to initial on mouse out) */
 .tab-content table.skills-matrix tbody tr:hover,
-.tab-content table.project-table tbody tr:hover {
+.tab-content table.project-table tbody tr:hover,
+.tab-content table.outcomes-table tbody tr:hover {
   color: #8b0000;
 }
 
@@ -300,9 +341,35 @@ img.profile-photo {
   margin-bottom: 10px;
 }
 
-/* Center table titles on screen */
+/* Section headings inside a tab panel.
+   Each one opens a distinct block of content, so it is treated as a section
+   header rather than a caption: a rule above it, generous space, and small
+   uppercase letterforms. Without the rule the Skills Matrix read as a
+   continuation of the biography paragraph immediately above it.
+   The heading text itself is unchanged - the suite asserts on it. */
 .tab-content h3 {
+  max-width: 900px;
+  margin: 40px auto 16px;
+  padding-top: 24px;
+  border-top: 3px solid #2f4f4f;
+  color: #2f4f4f;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-align: center;
+}
+
+/* The panel already carries 20px of its own top padding, so the first heading
+   needs less margin to sit the same distance below what precedes it as the
+   later headings do. */
+.tab-content h3:first-child {
+  margin-top: 20px;
+}
+
+/* The intro line belongs to the table below it, not to the gap above it */
+.tab-content h3 + p.outcomes-intro {
+  margin-top: 0;
 }
 
 .tab-content table.project-table thead th {
