@@ -12,9 +12,10 @@ The site doubles as the live target application for an end-to-end regression sui
 ## Features
 
 - **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Six tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project.
-- **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors, because every anchor here is required to resolve to an absolute `https`/`mailto` target and a same-page fragment would break that contract.
+- **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors: an anchor here must resolve to an absolute `https`/`mailto` target or to another page of this site, and a bare same-page fragment is neither.
 - **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper reading the raw markup finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
 - **Responsive Layout:** A Flexbox tab strip plus a single `max-width: 600px` breakpoint that wraps the navigation onto multiple rows, stacks the profile header, and drops the column headers from the skills matrix. Verified free of horizontal overflow at 320px, 390px, and 600px.
+- **Measured Impact, Not Adjectives:** The Engineering Outcomes tab opens with counted figures from the automation pipeline's complete run history, and links to a standalone [case study](case-study.html) covering what was changed and what the numbers were.
 - **Zero Dependencies:** One stylesheet and one script drive the whole page. No bundler output, no CDN fetches, no third-party runtime.
 - **Continuously Verified:** Each push runs the GitHub Pages `pages-build-deployment` job. A push that touches `.html`, `.css`, or `.js` additionally fires a `website_updated` `repository_dispatch` at the automation repository, so the deployed page is re-validated end to end automatically. Documentation-only commits do not spend a pipeline run.
 
@@ -51,6 +52,7 @@ apolskiy.github.io/
 ├── images/
 │   └── aleksandr-polskiy.jpg
 ├── index.html               # The site: profile header + six content tabs
+├── case-study.html          # Standalone write-up, linked from Engineering Outcomes
 ├── 404.html                 # Self-contained, inline-styled
 ├── favicon.ico, icon.png, icon.svg, site.webmanifest
 ├── robots.txt               # Crawling allowed

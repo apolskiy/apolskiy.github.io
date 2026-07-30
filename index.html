@@ -100,6 +100,22 @@
         <div id="apoutcomes6" class="tab-content">
           <h3>Selected Engineering Outcomes</h3>
           <p class="outcomes-intro">Every outcome below is verifiable in source rather than self-reported - the Evidence column opens the project it belongs to.</p>
+          <table class="impact-table" aria-label="Measured Impact">
+            <thead>
+              <tr>
+                <th colspan="2">Measured Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Zero flaky failures across the pipeline's entire 16-run history.</strong> All seven failures resolved to a named cause: five to one real mobile-layout defect the suite caught on its first run at a 390px viewport, two to a known cross-repository ordering race. None was retried away, and the nine runs since are green.</td>
+              </tr>
+              <tr>
+                <td><strong>Diagnosis moved off the developer's machine.</strong> Each failure ships a screenshot, the rendered DOM, a replayable trace, and an LLM root-cause verdict, so a red build is read rather than reproduced - both infrastructure failures above were diagnosed from the CI log alone.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="outcomes-intro">Full write-up: <a href="case-study.html">Case Study - Making a CI Signal Trustworthy</a>.</p>
           <table class="outcomes-table" aria-label="Selected Engineering Outcomes">
             <thead>
               <tr>
@@ -328,17 +344,18 @@
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ol>
-                    <li><strong>Core Python HTTP Server Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL2Jsb2IvbWFzdGVyL3ByYWN0aWNlL2N1c3RvbV9oZWFkZXJfcmVzcG9uc2VfdG9faHR0cF9yZXF1ZXN0LnB5">custom_header_response_to_http_request.py</span>):
+                    <li><strong>Core Python HTTP Server Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL2Jsb2IvbWFzdGVyL2VtdWxhdG9ycy9jdXN0b21faGVhZGVyX3Jlc3BvbnNlX3RvX2h0dHBfcmVxdWVzdC5weQ==">custom_header_response_to_http_request.py</span>):
                       <ul>
                         <li><strong>Full REST API Verb Support:</strong> Handles GET, POST, PUT, PATCH, and DELETE methods for complete REST state testing.</li>
-                        <li><strong>Dynamic Header Reflection:</strong> Accepts and echoes custom HTTP response headers specified directly by the requester in real-time.</li>
-                        <li><strong>Server Lifecycle Control Codes:</strong> Automated control statuses: <strong>590</strong> (sleeps server for 120s), <strong>591</strong> (stops and restarts service after 60s), and <strong>592</strong> (shuts down service).</li>
-                        <li><strong>Input Validation:</strong> Automatically returns status code <strong>999</strong> (Internal Server Error) when parameters are missing or out of range.</li>
+                        <li><strong>Payload-Driven Status Selection:</strong> The response status is the last three digits of the <code>caller-number</code> field in the JSON body, so <code>18884400503</code> returns a 503. This models telephony-style routing, where the dialled number decides the outcome under test. With no body, an <code>X-Caller-Number</code> header supplies the code directly.</li>
+                        <li><strong>Server Lifecycle Control Codes:</strong> <strong>590</strong> accepts the connection and sleeps 120s without answering, reproducing a hung upstream that a mock cannot imitate; <strong>591</strong> drops and re-opens the listener after 60s; <strong>592</strong> shuts down. Single-threaded by design, which is what makes 590 a genuine stall.</li>
+                        <li><strong>Out-of-Band Error Sentinel:</strong> Status <strong>999</strong> is deliberately outside the HTTP range, so a client can never confuse "the emulator rejected my request" with a failure it was asked to produce. Returned on a missing or non-numeric <code>caller-number</code>, malformed JSON, or any unexpected exception, after which the process exits non-zero.</li>
+                        <li><strong>Session Emulation:</strong> <strong>201</strong> returns a fresh <code>session_id</code> (UUID4) per call.</li>
                       </ul>
                     </li>
-                    <li><strong>Flask Error Code Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL3RyZWUvbWFzdGVyL2ZsYXNrX2FwcA==">flask_app</span>):
+                    <li><strong>Flask Error Code Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL3RyZWUvbWFzdGVyL2VtdWxhdG9ycy9mbGFza19hcHA=">flask_app</span>):
                       <ul>
-                        <li><strong>Comprehensive Error State Simulation:</strong> Configurable response engine capable of reproducing 4xx client errors (400-417, 419) and 5xx server errors (500, 501, 503, plus custom status 600) for fault-tolerance verification.</li>
+                        <li><strong>Comprehensive Error State Simulation:</strong> <strong>21 status codes</strong> served on request via <code>/error/&lt;code&gt;</code>: seventeen 4xx (400, 401, 403, 404, 405, 406, 408-417, 419), three 5xx (500, 501, 503), and the non-standard <strong>600</strong>, which proves a client tolerates a status outside the registered range. An unlisted code returns 404, so the supported set is discoverable by probing.</li>
                         <li><strong>Containerized Execution:</strong> Published as a public image (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yL2Fwb2xza2l5L2ZsYXNrX2FwcA==">apolskiy/flask_app</span>) on Docker Hub for containerized Linux/CI execution.</li>
                       </ul>
                     </li>
@@ -350,7 +367,7 @@
                 <td>
                   <ul>
                     <li><strong>Languages &amp; Frameworks:</strong> Python 3.x, Flask, Python Standard Library (<code>http.server</code>)</li>
-                    <li><strong>API &amp; Protocols:</strong> REST API (Full HTTP Verbs, 4xx/5xx/6xx Fault Injection, Dynamic Header Reflection)</li>
+                    <li><strong>API &amp; Protocols:</strong> REST API (full HTTP verbs, 4xx/5xx/6xx fault injection, payload-driven status selection, connection-stall emulation)</li>
                     <li><strong>DevOps &amp; Containerization:</strong> Docker, Docker Hub (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yL2Fwb2xza2l5L2ZsYXNrX2FwcA==">apolskiy/flask_app</span>), Linux (Ubuntu container environments)</li>
                     <li><strong>Quality &amp; Tooling:</strong> Pytest, Pylint, Git</li>
                   </ul>
