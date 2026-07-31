@@ -373,9 +373,17 @@
                     <li><strong>Languages &amp; Frameworks:</strong> Python 3.x, Flask, Python Standard Library (<code>http.server</code>)</li>
                     <li><strong>API &amp; Protocols:</strong> REST API (full HTTP verbs, 4xx/5xx/6xx fault injection, payload-driven status selection, connection-stall emulation)</li>
                     <li><strong>DevOps &amp; Containerization:</strong> Docker, Docker Hub (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yL2Fwb2xza2l5L2ZsYXNrX2FwcA==">apolskiy/flask_app</span>), Linux (Ubuntu container environments)</li>
-                    <li><strong>Quality &amp; Tooling:</strong> Pytest, Pylint, Git</li>
+                    <li><strong>Quality &amp; Tooling:</strong> Pytest, pytest-randomly, Pylint (blocking 10.00/10 gate), GitHub Actions, Git</li>
                   </ul>
                 </td>
+              </tr>
+              <tr>
+                <td>Test Coverage</td>
+                <td><strong>93 E2E tests</strong> across both emulators, run on a four-way matrix of Ubuntu and Windows against Python 3.12 and 3.14. The Flask simulator is driven through its WSGI client for the full 21-code matrix plus real-socket assertions; the caller-number emulator gets <strong>a dedicated subprocess on an ephemeral port per test</strong>, because its control codes stall or terminate the process and a shared server would make results depend on execution order. Collection order is randomised every run, and a second pass under a fixed seed proves the isolation holds.</td>
+              </tr>
+              <tr>
+                <td>CI / Build Status</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL2FjdGlvbnM="><img class="ci-badge" src="https://github.com/apolskiy/PublicAP/actions/workflows/emulator-tests.yml/badge.svg" alt="PublicAP emulator test suite status"></span></td>
               </tr>
               <tr>
                 <td>Documentation</td>
