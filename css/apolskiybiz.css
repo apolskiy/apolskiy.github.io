@@ -215,8 +215,12 @@ img.profile-photo {
 }
 
 /* Let each outcome breathe: the bold claim needs separation from the sentence
-   that supports it, or the row reads as one run-on block again. */
-.tab-content table.outcomes-table tbody td:first-child strong {
+   that supports it, or the row reads as one run-on block again.
+   Scoped to the leading <strong> only. Applying it to every <strong> in the
+   cell turned mid-sentence emphasis into a block and split the sentence around
+   it, which is a layout bug that only appears once a row uses emphasis in
+   prose. */
+.tab-content table.outcomes-table tbody td:first-child > strong:first-child {
   display: block;
   margin-bottom: 6px;
 }

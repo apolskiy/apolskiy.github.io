@@ -157,6 +157,14 @@
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
               </tr>
               <tr>
+                <td><strong>Made self-terminating software deterministically testable.</strong> The fault-injection emulators had no tests, and the obvious reason is that they are hostile to testing: their control codes stall the process for two minutes, drop the listener, or exit non-zero mid-request. A shared server would have made every result depend on which destructive test ran first. Each test now owns a subprocess on an ephemeral port, readiness comes from polling the socket rather than sleeping, and the two-minute stall is asserted through a short client-side timeout instead of being waited out. <strong>93 tests</strong>, green on the first run across Ubuntu and Windows against Python 3.12 and 3.14.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
+              </tr>
+              <tr>
+                <td><strong>Proved the isolation rather than assuming it.</strong> Collection order is randomised on every run and CI does a second pass under a fixed seed, so a suite that only passes in one order fails instead of passing by luck. Static analysis, gated at 10.00/10 ahead of the tests, also surfaced a latent defect in the emulator itself: a control path referenced a listener that could be unbound, raising a NameError instead of performing its documented restart.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
+              </tr>
+              <tr>
                 <td><strong>Audited the audit, and found it was checking 2 links out of 16.</strong> A green link-integrity test proved nothing: role-based locators skip elements hidden from the accessibility tree, and in a tabbed layout every inactive panel is hidden, so only the header and footer were ever inspected. Caught by measuring coverage instead of trusting the passing result. The check now resolves all 16 targets, prefers HEAD with a GET fallback, paces requests per host after rate limiting was traced to the check itself, and runs on a schedule so no deploy waits on a third party.</td>
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
