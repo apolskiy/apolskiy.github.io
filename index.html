@@ -156,6 +156,10 @@
                 <td><strong>Published reusable fault-injection infrastructure.</strong> A containerized HTTP error-code simulator plus a dependency-free emulator with server-lifecycle controls, letting suites reproduce specific 4xx/5xx conditions and hung-backend timeouts on demand.</td>
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
               </tr>
+              <tr>
+                <td><strong>Audited the audit, and found it was checking 2 links out of 16.</strong> A green link-integrity test proved nothing: role-based locators skip elements hidden from the accessibility tree, and in a tabbed layout every inactive panel is hidden, so only the header and footer were ever inspected. Caught by measuring coverage instead of trusting the passing result. The check now resolves all 16 targets, prefers HEAD with a GET fallback, paces requests per host after rate limiting was traced to the check itself, and runs on a schedule so no deploy waits on a third party.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
+              </tr>
             </tbody>
           </table>
         </div>

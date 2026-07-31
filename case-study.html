@@ -59,7 +59,7 @@
 					</tr>
 					<tr>
 						<td>Suite cost</td>
-						<td><strong>45 tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation.</td>
+						<td><strong>53 tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs 52 of them: the one check that resolves third-party links is deselected and runs weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation.</td>
 					</tr>
 					<tr>
 						<td>Quality gate</td>

@@ -19,18 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Decode all base64-obfuscated hyperlinks. Each <span class="enc-link" data-h="...">
   // keeps its visible label as text; the real URL lives base64-encoded in data-h.
-  document.querySelectorAll('.enc-link').forEach(el => {
-    if (!el.dataset.h) return;
+  document.querySelectorAll('.enc-link').forEach(placeholder => {
+    if (!placeholder.dataset.h) return;
     const link = document.createElement('a');
-    link.href = atob(el.dataset.h);
+    link.href = atob(placeholder.dataset.h);
     // Preserve the original contents (text and/or elements such as badge images)
-    while (el.firstChild) link.appendChild(el.firstChild);
+    while (placeholder.firstChild) link.appendChild(placeholder.firstChild);
     // Opt-in "open in new tab" via the data-nw attribute
-    if (el.hasAttribute('data-nw')) {
+    if (placeholder.hasAttribute('data-nw')) {
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
     }
-    el.replaceWith(link);
+    placeholder.replaceWith(link);
   });
 
   //menu tabs, activation and deactivation loading appropriate content into div
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // In-page cross references (the "Evidence" column of the outcomes table).
+  // In-page cross-references (the "Evidence" column of the outcomes table).
   // These open the relevant project tab instead of leaving the site, so the
   // reader keeps their place. They are deliberately NOT anchors: an href of
   // "#panel-id" would be a same-page fragment, and every link on this site is
@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  document.querySelectorAll('.tab-jump').forEach(el => {
-    el.addEventListener('click', () => jumpToTab(el.dataset.target));
+  document.querySelectorAll('.tab-jump').forEach(crossReference => {
+    crossReference.addEventListener('click', () => jumpToTab(crossReference.dataset.target));
     // Keyboard parity: these carry role="button", so Enter and Space must work.
-    el.addEventListener('keydown', event => {
+    crossReference.addEventListener('keydown', event => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        jumpToTab(el.dataset.target);
+        jumpToTab(crossReference.dataset.target);
       }
     });
   });
