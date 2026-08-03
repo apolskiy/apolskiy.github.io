@@ -43,7 +43,7 @@
 				<tbody>
 					<tr>
 						<td>Unexplained (flaky) failures</td>
-						<td><strong>Zero across all 16 runs.</strong> Every failure resolved to a named cause; none was retried away or ignored.</td>
+						<td><strong>Zero across all 27 runs.</strong> Every failure resolved to a named cause; none was retried away or ignored.</td>
 					</tr>
 					<tr>
 						<td>Failures that were real product defects</td>
@@ -51,15 +51,15 @@
 					</tr>
 					<tr>
 						<td>Failures that were infrastructure</td>
-						<td><strong>2 runs</strong>, both the same cross-repository ordering race, both diagnosed from the CI log alone with no local reproduction: the strict-mode error named the two colliding elements outright.</td>
+						<td><strong>3 runs</strong>, every one the same cross-repository ordering race and every one diagnosed from the CI log alone with no local reproduction. Two had the site deployed ahead of the framework, one had the framework ahead of the site; in each case the error named the colliding elements outright. The lesson is in <em>What transfers</em> below.</td>
 					</tr>
 					<tr>
 						<td>Runs since, on push and manual dispatch</td>
-						<td><strong>9 of 9 green.</strong></td>
+						<td><strong>8 of 8 green.</strong></td>
 					</tr>
 					<tr>
 						<td>Suite cost</td>
-						<td><strong>53 tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs 52 of them: the one check that resolves third-party links is deselected and runs weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation.</td>
+						<td><strong>58 tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs 57 of them: the one check that resolves third-party links is deselected and runs weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation.</td>
 					</tr>
 					<tr>
 						<td>Quality gate</td>
@@ -73,6 +73,7 @@
 				<li><strong>An availability check is not a freshness check.</strong> If a test can observe two versions of the target in one run, the suite has a correctness problem no retry setting will fix.</li>
 				<li><strong>Reproduction is the expensive step.</strong> Attaching evidence at the moment of failure moves diagnosis to the artifact and makes a red build cheap to act on.</li>
 				<li><strong>Concurrency policy follows the scarce resource.</strong> Cancel superseded runs where compute is scarce; serialize them where an external quota is.</li>
+				<li><strong>When a change spans two repositories, the dependent one ships second.</strong> Every infrastructure failure here was the same mistake in both directions: a test asserting markup that had not deployed yet, or a page carrying markup the framework did not yet understand. The rule is not "framework first", it is "whichever side depends on the other goes last" - and for a genuinely mutual change, one transient red is the honest cost.</li>
 				<li><strong>"Zero flaky failures" is a claim worth measuring.</strong> Counting causes across the whole run history is more honest, and more useful, than a pass-rate percentage that hides why anything failed.</li>
 			</ul>
 

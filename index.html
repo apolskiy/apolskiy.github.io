@@ -108,10 +108,10 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>Zero flaky failures across the pipeline's entire 16-run history.</strong> All seven failures resolved to a named cause: five to one real mobile-layout defect the suite caught on its first run at a 390px viewport, two to a known cross-repository ordering race. None was retried away, and the nine runs since are green.</td>
+                <td><strong>Zero flaky failures across the pipeline's entire 27-run history.</strong> All eight failures resolved to a named cause: five to one real mobile-layout defect the suite caught on its first run at a 390px viewport, three to the same cross-repository ordering race, where a site and its test framework were deployed out of step. None was retried away, and the eight runs since are green.</td>
               </tr>
               <tr>
-                <td><strong>Diagnosis moved off the developer's machine.</strong> Each failure ships a screenshot, the rendered DOM, a replayable trace, and an LLM root-cause verdict, so a red build is read rather than reproduced - both infrastructure failures above were diagnosed from the CI log alone.</td>
+                <td><strong>Diagnosis moved off the developer's machine.</strong> Each failure ships a screenshot, the rendered DOM, a replayable trace, and an LLM root-cause verdict, so a red build is read rather than reproduced - all three infrastructure failures above were diagnosed from the CI log alone, which named the colliding elements outright.</td>
               </tr>
             </tbody>
           </table>
@@ -249,7 +249,8 @@
                 <td>
                   <ul>
                     <li><strong>Zero-Dependency Frontend:</strong> No framework, bundler output, or third-party runtime - one stylesheet and one script drive the entire page.</li>
-                    <li><strong>Single-Page Tab Routing:</strong> Vanilla ES6+ DOM manipulation swaps <code>data-tab</code> panels in place, with no page reloads and no router library.</li>
+                    <li><strong>Single-Page Tab Routing:</strong> Vanilla ES6+ DOM manipulation swaps <code>data-tab</code> panels in place across six tabs, with no page reloads and no router library. A standalone case-study page sits alongside it as a real second document, reached by an ordinary relative link.</li>
+                    <li><strong>Cross-Tab Citations:</strong> Each engineering outcome cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors, because every anchor here must resolve to an absolute target or another page of the site, and a bare fragment is neither. Keyboard activation is part of the contract, not an afterthought.</li>
                     <li><strong>Anti-Spam Obfuscation:</strong> Every outbound URL and the contact address ship as Base64 payloads (<code>data-h</code> / <code>data-e</code>) and are decoded into real anchors on <code>DOMContentLoaded</code>, so scrapers never read them from the markup; a <code>&lt;noscript&gt;</code> fallback keeps the site reachable without JavaScript.</li>
                     <li><strong>Responsive Layout:</strong> A CSS Flexbox tab strip plus a <code>max-width: 600px</code> breakpoint that wraps the navigation and restructures the skills matrix for mobile viewports.</li>
                     <li><strong>Continuously Verified:</strong> Each push runs the GitHub Pages build-and-deployment job, and the deployed page is then re-validated end to end by the Playwright suite in the Web Automation tab.</li>
@@ -306,6 +307,8 @@
                     <li><strong>Deployment Resilience:</strong> Before any browser context launches, CI polls the site repository's Actions API until no Pages deployment is in flight, then waits for the served <code>ETag</code> to repeat across consecutive polls - an HTTP 200 alone is no proof of freshness, and testing a moving CDN target is how a passing locator times out mid-run.</li>
                     <li><strong>Concurrency Control &amp; Runner-Cost Efficiency:</strong> Concurrency groups scoped by workflow, event, and ref with <code>cancel-in-progress: true</code>. During a rapid commit cycle each new push cancels the superseded run instead of queueing behind it, so a burst of N commits consumes roughly one full-suite execution rather than N - billed runner minutes track the number of states worth testing, not the number of pushes. The same rule removes the race where two runs assert against the same deployment slot.</li>
                     <li><strong>Blocking Quality Gate:</strong> <code>pylint --fail-under=10</code> across every package and <code>conftest.py</code> runs before the suite - a style regression fails the pipeline instead of printing a warning.</li>
+                    <li><strong>No Third Parties on the Deploy Path:</strong> The one check that resolves off-site links is marked <code>external</code> and deselected from the deployment run, then executed on a weekly schedule instead. Link rot is a monthly problem; checking it per push would put GitHub and Docker Hub in the critical path of a deploy signal and generate enough request pressure to trip rate limiting on its own. It fails only on 404/410, because 401, 403 and 429 mean "not reachable by an anonymous caller" rather than "gone".</li>
+                    <li><strong>Evidence-Integrity Checks:</strong> The suite holds the site to its own claims: every published outcome must cite a project, each citation must open the tab it names, and every project panel must carry a documentation link and a build badge sourced from that project's own repository. A stale reference cannot quietly point a reader somewhere wrong.</li>
                     <li><strong>Diagnosable Failures (Developer Experience):</strong> A red build ships everything needed to explain itself. Each failure attaches a full-page screenshot, the fully rendered DOM including script-injected nodes, a Playwright trace openable in Trace Viewer for step-by-step time travel through the run, and the Claude verdict - so the first question a developer asks is answered from the CI artifact rather than by reproducing the failure locally. Reproduction is the expensive step in time-to-resolution; these artifacts are designed to remove it.</li>
                     <li><strong>Dual Reporting Engine:</strong> Native Java 21 Allure HTML reporting paired with a self-contained Pytest HTML summary, both uploaded as build artifacts. Every test carries epic / feature / story / severity metadata and each phase is an Allure step, so the report reads as a user journey instead of a click log.</li>
                   </ul>
@@ -315,13 +318,17 @@
                 <td>Tech Stack</td>
                 <td>
                   <ul>
-                    <li><strong>Core Automation:</strong> Playwright 1.61.0, Python 3.10+ (developed on 3.14, CI on 3.11), Pytest 9.1.1, pytest-playwright 0.8.0</li>
+                    <li><strong>Core Automation:</strong> Playwright 1.61.0, Python 3.10+ (developed and CI-pinned on 3.14), Pytest 9.1.1, pytest-playwright 0.8.0</li>
                     <li><strong>AI Diagnostics:</strong> Anthropic SDK 0.120.2 (Claude-based failure triage)</li>
-                    <li><strong>Reporting &amp; Imaging:</strong> Allure Pytest 2.16.0, Pytest HTML 4.2.0, Pillow 12.3.0 (threshold-based screenshot diffing)</li>
+                    <li><strong>Reporting &amp; Imaging:</strong> Allure Pytest 2.16.0, Pytest HTML 4.2.0, Playwright traces, Pillow 12.3.0</li>
                     <li><strong>Quality &amp; Config:</strong> Pylint 4.0.6 held at 10.00/10, python-dotenv 1.2.2</li>
-                    <li><strong>CI/CD:</strong> GitHub Actions on Ubuntu (Temurin JDK 21, Allure CLI 2.29.0), Bash / cURL polling against the GitHub REST API</li>
+                    <li><strong>CI/CD:</strong> GitHub Actions on Ubuntu (Temurin JDK 21, Allure CLI 2.29.0), two workflows - a deployment-gated E2E pipeline and a weekly outbound link check - plus Bash / cURL polling against the GitHub REST API</li>
                   </ul>
                 </td>
+              </tr>
+              <tr>
+                <td>Test Coverage</td>
+                <td><strong>58 tests</strong> against the live site, of which <strong>10 are generated at collection time</strong> by crawling the site's own route graph, so publishing a page grows the suite with no test edit. Seven modules cover SPA routing, cross-viewport layout, base64 link decoding, shared hover styling, per-project panel completeness, engineering-outcome evidence integrity, and per-route health. 57 run on the deployment path; the single third-party link check runs weekly instead.</td>
               </tr>
               <tr>
                 <td>CI / Build Status</td>
