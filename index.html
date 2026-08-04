@@ -165,6 +165,10 @@
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
               </tr>
               <tr>
+                <td><strong>Cut the published container 8.6x and proved the reduction holds.</strong> The image shipped on a full Debian base with the pip cache retained and an unrelated log file baked in, and its <code>.dockerignore</code> sat outside the build context, so Docker never read it - a rebuild from a working directory would have copied a 528 MB local virtual environment into a public image. A slim base plus ignore rules scoped to the context root took the published download from <strong>397 MB to 46 MB</strong>. Confirmed by rebuilding from a deliberately dirtied context and asserting the artifact still held only the application and its seven-package dependency closure.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
+              </tr>
+              <tr>
                 <td><strong>Audited the audit, and found it was checking 2 links out of 16.</strong> A green link-integrity test proved nothing: role-based locators skip elements hidden from the accessibility tree, and in a tabbed layout every inactive panel is hidden, so only the header and footer were ever inspected. Caught by measuring coverage instead of trusting the passing result. The check now resolves all 16 targets, prefers HEAD with a GET fallback, paces requests per host after rate limiting was traced to the check itself, and runs on a schedule so no deploy waits on a third party.</td>
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
@@ -375,7 +379,7 @@
                     <li><strong>Flask Error Code Emulator</strong> (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL3RyZWUvbWFzdGVyL2VtdWxhdG9ycy9mbGFza19hcHA=">flask_app</span>):
                       <ul>
                         <li><strong>Comprehensive Error State Simulation:</strong> <strong>21 status codes</strong> served on request via <code>/error/&lt;code&gt;</code>: seventeen 4xx (400, 401, 403, 404, 405, 406, 408-417, 419), three 5xx (500, 501, 503), and the non-standard <strong>600</strong>, which proves a client tolerates a status outside the registered range. An unlisted code returns 404, so the supported set is discoverable by probing.</li>
-                        <li><strong>Containerized Execution:</strong> Published as a public image (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yL2Fwb2xza2l5L2ZsYXNrX2FwcA==">apolskiy/flask_app</span>) on Docker Hub for containerized Linux/CI execution.</li>
+                        <li><strong>Containerized Execution:</strong> Published as a public image (<span class="enc-link" data-nw data-h="aHR0cHM6Ly9odWIuZG9ja2VyLmNvbS9yL2Fwb2xza2l5L2ZsYXNrX2FwcA==">apolskiy/flask_app</span>) on Docker Hub for containerized Linux/CI execution. Built on <code>python:3.14.4-slim</code> and pinned to a Flask-only dependency set: the image carries Flask and its six transitive dependencies and nothing else, confirmed by reading the published layers rather than trusting the requirements file. A <code>.dockerignore</code> at the build-context root keeps local virtual environments, caches and stray logs out of the artifact, taking the published download from <strong>397 MB to 46 MB</strong>.</li>
                       </ul>
                     </li>
                   </ol>
