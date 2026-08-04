@@ -169,6 +169,10 @@
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
               </tr>
               <tr>
+                <td><strong>Closed the gap between a published claim and the published artifact.</strong> Proving the image was minimal on the day it was built proves nothing about the day after. A careless rebuild is invisible from the browser - the tab still renders, the link still resolves, and only the artifact underneath changes - so the page would keep advertising a dependency set the image no longer had. The suite now reads the published image straight from the registry on a schedule, resolving a pull token, the platform manifest, and the layer metadata to assert the installed closure still matches what this site claims. Kept off the deployment path: a container registry has no business gating a deploy signal.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span><span class="tab-jump" role="button" tabindex="0" data-target="aphttpemulators5">HTTP Emulators</span></td>
+              </tr>
+              <tr>
                 <td><strong>Audited the audit, and found it was checking 2 links out of 16.</strong> A green link-integrity test proved nothing: role-based locators skip elements hidden from the accessibility tree, and in a tabbed layout every inactive panel is hidden, so only the header and footer were ever inspected. Caught by measuring coverage instead of trusting the passing result. The check now resolves all 16 targets, prefers HEAD with a GET fallback, paces requests per host after rate limiting was traced to the check itself, and runs on a schedule so no deploy waits on a third party.</td>
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
