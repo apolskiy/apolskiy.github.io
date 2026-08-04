@@ -59,7 +59,7 @@
 					</tr>
 					<tr>
 						<td>Suite cost</td>
-						<td><strong>58 tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs 57 of them: the one check that resolves third-party links is deselected and runs weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation.</td>
+						<td><strong><span class="suite-count" data-scope="total">61</span> tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs <span class="suite-count" data-scope="deploy">59</span> of them: the two checks that reach a third party - resolving outbound links, and reading the published container image to confirm it still matches what the site claims - are deselected and run weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation. The two figures above are read back from this page on every run and compared against the suite that is executing, so they cannot drift out of date unnoticed.</td>
 					</tr>
 					<tr>
 						<td>Quality gate</td>
@@ -75,6 +75,7 @@
 				<li><strong>Concurrency policy follows the scarce resource.</strong> Cancel superseded runs where compute is scarce; serialize them where an external quota is.</li>
 				<li><strong>When a change spans two repositories, the dependent one ships second.</strong> Every infrastructure failure here was the same mistake in both directions: a test asserting markup that had not deployed yet, or a page carrying markup the framework did not yet understand. The rule is not "framework first", it is "whichever side depends on the other goes last" - and for a genuinely mutual change, one transient red is the honest cost.</li>
 				<li><strong>"Zero flaky failures" is a claim worth measuring.</strong> Counting causes across the whole run history is more honest, and more useful, than a pass-rate percentage that hides why anything failed.</li>
+				<li><strong>A number nobody checks is a number that is already wrong.</strong> Every figure on a page is a claim, and a hand-maintained one decays the first time the thing it describes changes. Publishing it is the easy half; the hard half is arranging for the claim to fail loudly when it stops being true.</li>
 			</ul>
 
 			<p class="doc-back"><a href="./">&larr; Back to portfolio</a></p>
