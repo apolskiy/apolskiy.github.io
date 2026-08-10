@@ -24,6 +24,39 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.1.1 - 2026-08-10
+
+### Changed
+
+- **The link-obfuscation claim now states what it does not protect against.**
+  Nothing previously written was false - each claim was scoped to "the raw
+  markup" or "visible text", and both remained true - but a reader could
+  reasonably infer a guarantee that was never there, and the limitation was
+  stated nowhere.
+
+  What it actually buys: it defeats scrapers that fetch HTML without executing
+  JavaScript, which is most of them. What it does not: once the decoder runs,
+  the address is a working `mailto:` in the DOM, so the browser shows it in the
+  status bar on hover and devtools shows it outright. Base64 is an encoding
+  rather than a cipher, so a scraper that decodes `data-` attributes gets it
+  without executing anything. And any headless browser defeats the mechanism
+  entirely - which this repository already demonstrated in a different section,
+  where the automation's crawler is documented as rendering pages in a real
+  browser *because* an HTTP-only crawler would find none of these links. The
+  bypass was described three sections above the claim; the two were never
+  connected.
+
+  Keeping the address in a real anchor is a deliberate trade, now recorded as
+  one: constructing it at click time would keep it out of the DOM at the cost of
+  a reader's ability to copy or middle-click it, and would stop nobody who can
+  run a browser. A portfolio exists to be contacted.
+
+  Also noted: the same encoding on the GitHub, LinkedIn and Docker Hub links
+  buys no anti-spam value at all. Those URLs are meant to be found; they share
+  the mechanism only because it is applied uniformly.
+
+---
+
 ## v1.1.0 - 2026-08-10
 
 ### Added

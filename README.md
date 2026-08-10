@@ -7,7 +7,7 @@ The site doubles as the live target application for an end-to-end regression sui
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
-> **Documentation status:** describes **v1.1.0**, reviewed 2026-08-10.
+> **Documentation status:** describes **v1.1.1**, reviewed 2026-08-10.
 > Each section below carries the release and date its content last changed, so a
 > reader arriving at a later version can see at a glance which parts moved. This
 > file always describes the *current* site; release-to-release history lives in
@@ -17,11 +17,15 @@ The site doubles as the live target application for an end-to-end regression sui
 
 ## Features
 
-<sub>v1.0.0 &middot; 2026-08-10</sub>
+<sub>v1.1.1 &middot; 2026-08-10</sub>
 
 - **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Seven tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project - AI Assisted Rest API, Portfolio Website, Web Automation, HTTP Emulators, and VM Cluster Deployment. The router binds by `data-tab` rather than by an enumerated list, so a tab is published by adding a nav item and a panel; nothing in the script changes.
 - **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors: an anchor here must resolve to an absolute `https`/`mailto` target or to another page of this site, and a bare same-page fragment is neither.
-- **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper reading the raw markup finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
+- **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper that fetches the HTML without executing it finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
+
+  **What this does and does not protect against.** It is obfuscation, not encryption, and the distinction is worth stating rather than leaving a reader to infer a guarantee that is not there. It defeats scrapers that fetch HTML without running JavaScript, which is most of them, and that is the whole of the benefit. It defeats nothing else. Once the decoder has run, the contact address is a real `mailto:` anchor in the DOM: the browser shows it in the status bar on hover, right-click offers to copy it, and devtools displays it outright. Base64 is an encoding rather than a cipher, so a scraper that simply decodes `data-` attributes reads the address without executing anything at all. And any headless browser defeats the mechanism completely - demonstrated in this repository's own automation, whose crawler renders each page in a real browser *precisely because* an HTTP-only crawler would discover none of these links.
+
+  Keeping the address in a working anchor is the deliberate trade. Constructing it at click time would keep it out of the DOM, at the cost of the reader's ability to copy or middle-click it, and against an adversary who can defeat the measure with commodity tooling regardless. A portfolio exists to be contacted. Note also that the same encoding applied to the GitHub, LinkedIn and Docker Hub links buys no anti-spam value whatever - those URLs are meant to be found; they share the mechanism only because it is applied uniformly.
 - **Responsive Layout:** A Flexbox tab strip plus a single `max-width: 600px` breakpoint that wraps the navigation onto multiple rows, stacks the profile header, and drops the column headers from the skills matrix. Verified free of horizontal overflow at 320px, 390px, and 600px.
 - **Measured Impact, Not Adjectives:** The Engineering Outcomes tab opens with counted figures from the automation pipeline's complete run history, and links to a standalone [case study](case-study.html) covering what was changed and what the numbers were.
 - **Zero Dependencies:** One stylesheet and one script drive the whole page. No bundler output, no CDN fetches, no third-party runtime.
