@@ -24,6 +24,36 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.1.3 - 2026-08-10
+
+### Changed
+
+- **Removed a "see below" from the Test Coverage cell and named the two tests
+  where they are first mentioned.** Splitting the cell into paragraphs in
+  v1.1.2 fixed the two figures reading as a contradiction, but introduced a
+  worse problem in the same sentence: the reader was told two tests run weekly
+  and pointed forward into four paragraphs, only one of which said which two.
+  A pointer that makes a reader hunt is not an explanation, and this cell is
+  describing test coverage - the one subject where being vague is
+  self-defeating.
+
+  The two are now identified in the sentence that introduces them, with the
+  reason attached: they are the only tests depending on anything outside this
+  site being reachable, so they are deselected from the deploy run and execute
+  weekly. Nothing in the cell now refers forward; the module list moved into its
+  own paragraph rather than trailing the figures it has nothing to do with.
+
+### Notes
+
+- An in-page anchor was considered and rejected. Every anchor on this site must
+  resolve to an absolute `https`/`mailto` target or to another page, and
+  `test_decoded_links_use_absolute_safe_schemes` enforces that by rejecting a
+  bare `#fragment` outright. A jump link would have meant a new control type,
+  new script, and new coverage - to solve a problem that disappears entirely by
+  saying the thing in place rather than promising it later.
+
+---
+
 ## v1.1.2 - 2026-08-10
 
 ### Changed
