@@ -24,6 +24,37 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.1.2 - 2026-08-10
+
+### Changed
+
+- **The Web Automation tab's Test Coverage cell is broken into paragraphs, and
+  its two figures now appear together.** The cell read as a single dense block
+  in which "73 tests" opened the text and "71 run on the deployment path"
+  arrived three sentences later, with nothing in between stating that the second
+  is a subset of the first. Both numbers were correct - and both are verified
+  against the running suite on every execution - but a reader met two different
+  totals for the same suite and had no way to see they were not in conflict. A
+  figure that is accurate and reads as a contradiction is still a defect in the
+  page.
+
+  The total and the deployment-path count now sit in the same sentence with the
+  relationship stated, and the remaining detail is split by subject: how the
+  suite grows without being edited, which two tests are held off the deployment
+  path and why, and the Chromium-only CI caveat.
+
+- `css/apolskiybiz.css` gained a paragraph rule for project-table cells, since
+  the browser default margin would otherwise push the first line away from the
+  cell's own padding.
+
+### Notes
+
+- The equivalent figures in the case study were left alone: that passage already
+  says "the deployment pipeline runs 71 of them", which states the relationship
+  the tab was missing.
+
+---
+
 ## v1.1.1 - 2026-08-10
 
 ### Changed

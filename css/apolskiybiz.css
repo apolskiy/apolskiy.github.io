@@ -332,6 +332,21 @@ img.profile-photo {
   border: 1px solid #cccccc;
 }
 
+/* Paragraphs inside a project cell. A cell dense enough to need them - the test
+   coverage cell states a total, a subset and the reason for the split - reads as
+   one wall of text otherwise, and two related figures separated by three
+   sentences look like a contradiction rather than a breakdown.
+   The default paragraph margin would push the first line away from the cell's
+   own padding, so the outer margins are removed and only the gap between
+   paragraphs is kept. */
+.tab-content table.project-table td p {
+  margin: 0 0 10px 0;
+}
+
+.tab-content table.project-table td p:last-child {
+  margin-bottom: 0;
+}
+
 /* Project title row: darker header, matching the Skills Matrix */
 .tab-content table.project-table thead th {
   background-color: #2f4f4f;
