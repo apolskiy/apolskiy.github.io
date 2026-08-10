@@ -24,6 +24,33 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.1.0 - 2026-08-10
+
+### Changed
+
+- **The document title now identifies the person rather than the file types.**
+  It read `Sample Projects PYTHON/GO//Playwright/JavaScript/HTML/CSS` - a
+  keyword list, carrying a stray double slash, that named neither the owner nor
+  what the site is. The title is the single most visible piece of text the site
+  has: it is the browser tab, the bookmark, and the blue line in a search
+  result. It is now
+  `Aleksandr Polskiy - Staff / Principal Software QA Engineer Portfolio`,
+  matching how the profile header already describes the role.
+- `404.html` and `site.webmanifest` brought in line with the same wording, so
+  the tab title, the install prompt and the error page no longer disagree about
+  what the site is called.
+
+### Notes
+
+- The old title was pinned by an automated check that required the word
+  "Playwright". That assertion moved with this change - see the corresponding
+  entry in the
+  [automation suite's changelog](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation/blob/main/CHANGELOG.md).
+  A title check tied to one library in a list that keeps changing was asserting
+  the wrong invariant; the owner's name is the part that has to be there.
+
+---
+
 ## v1.0.0 - 2026-08-10
 
 First release under version tracking. The site predates this file; commit-level
