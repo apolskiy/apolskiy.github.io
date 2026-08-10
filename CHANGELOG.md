@@ -26,6 +26,16 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ## v1.1.0 - 2026-08-10
 
+### Added
+
+- **A meta description on `index.html` and `case-study.html`.** The title and
+  the description are the whole of what a search result shows, and the site had
+  only the first. Neither is visible anywhere in the rendered page, so their
+  absence was invisible to a reader and to every check that existed.
+- Both are now held to a length range by the automation suite. That check caught
+  the case-study description on the run that introduced it: 199 characters
+  against a 160 ceiling, which a search result would have truncated mid-sentence.
+
 ### Changed
 
 - **The document title now identifies the person rather than the file types.**

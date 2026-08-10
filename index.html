@@ -9,6 +9,7 @@
 			<link rel="manifest" href="site.webmanifest">
 			<meta name="theme-color" content="#fafafa">
 			<title>Aleksandr Polskiy - Staff / Principal Software QA Engineer Portfolio</title>
+			<meta name="description" content="Staff / Principal Software QA Engineer, SF Bay Area. Test framework architecture, CI/CD release gates, and service emulators in Python, Playwright, and Go.">
 			<!--Aleksandr Polskiy -->
 		</head>
 		<body>
@@ -351,7 +352,7 @@
               </tr>
               <tr>
                 <td>Test Coverage</td>
-                <td><strong><span class="suite-count" data-scope="total">71</span> tests</strong> against the live site, of which <strong>10 are generated at collection time</strong> by crawling the site's own route graph, so publishing a page grows the suite with no test edit. Nine modules cover SPA routing, cross-viewport layout, base64 link decoding, shared hover styling, per-project panel completeness and internal consistency, engineering-outcome evidence integrity, published-container verification, the suite-size figures this site quotes, and per-route health. Several of those parameterize over the tab list itself, so publishing a project tab adds its cases with no test edit - the VM Cluster Deployment tab contributed five that way. <span class="suite-count" data-scope="deploy">69</span> run on the deployment path; the two third-party checks - outbound link rot and the published container image - run weekly instead. CI runs Chromium; the suite runs on Firefox and WebKit on request, so a WebKit-specific regression would not be caught by the pipeline.</td>
+                <td><strong><span class="suite-count" data-scope="total">73</span> tests</strong> against the live site, of which <strong>12 are generated at collection time</strong> by crawling the site's own route graph, so publishing a page grows the suite with no test edit - a new page arrives already checked for status, console and network errors, rendered content, a usable meta description, and layout at both viewports. Nine modules cover SPA routing, cross-viewport layout, base64 link decoding, shared hover styling, per-project panel completeness and internal consistency, engineering-outcome evidence integrity, published-container verification, the suite-size figures this site quotes, and per-route health. Several of those parameterize over the tab list itself, so publishing a project tab adds its cases with no test edit - the VM Cluster Deployment tab contributed five that way. <span class="suite-count" data-scope="deploy">71</span> run on the deployment path; the two third-party checks - outbound link rot and the published container image - run weekly instead. CI runs Chromium; the suite runs on Firefox and WebKit on request, so a WebKit-specific regression would not be caught by the pipeline.</td>
               </tr>
               <tr>
                 <td>CI / Build Status</td>
