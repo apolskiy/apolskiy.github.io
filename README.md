@@ -7,11 +7,19 @@ The site doubles as the live target application for an end-to-end regression sui
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
+> **Documentation status:** describes **v1.0.0**, reviewed 2026-08-10.
+> Each section below carries the release and date its content last changed, so a
+> reader arriving at a later version can see at a glance which parts moved. This
+> file always describes the *current* site; release-to-release history lives in
+> [CHANGELOG.md](CHANGELOG.md).
+
 ---
 
 ## Features
 
-- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Six tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project.
+<sub>v1.0.0 &middot; 2026-08-10</sub>
+
+- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Seven tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project - AI Assisted Rest API, Portfolio Website, Web Automation, HTTP Emulators, and VM Cluster Deployment. The router binds by `data-tab` rather than by an enumerated list, so a tab is published by adding a nav item and a panel; nothing in the script changes.
 - **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors: an anchor here must resolve to an absolute `https`/`mailto` target or to another page of this site, and a bare same-page fragment is neither.
 - **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper reading the raw markup finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
 - **Responsive Layout:** A Flexbox tab strip plus a single `max-width: 600px` breakpoint that wraps the navigation onto multiple rows, stacks the profile header, and drops the column headers from the skills matrix. Verified free of horizontal overflow at 320px, 390px, and 600px.
@@ -22,6 +30,8 @@ The site doubles as the live target application for an end-to-end regression sui
 ---
 
 ## Tech Stack
+
+<sub>v1.0.0 &middot; 2026-08-10</sub>
 
 - **Markup & Styling:** HTML5, CSS3 (Flexbox for the tab strip, a `max-width: 600px` media query for mobile; page layout uses semantic tables marked `role="presentation"` where they are presentational)
 - **Scripting:** Vanilla JavaScript (ES6+, DOM manipulation, base64 decoding) - no modules, no transpilation
@@ -34,11 +44,15 @@ The site doubles as the live target application for an end-to-end regression sui
 
 ## Browser Support
 
+<sub>v1.0.0 &middot; 2026-08-10</sub>
+
 Exercised on **Chromium** and **Firefox (Gecko)** by the automated suite; CI runs Chromium. WebKit is expected to work - the page uses no engine-specific features - but is not covered by an automated check.
 
 ---
 
 ## Project Structure
+
+<sub>v1.0.0 &middot; 2026-08-10</sub>
 
 ```text
 apolskiy.github.io/
@@ -51,20 +65,26 @@ apolskiy.github.io/
 │   └── apolskiybiz.js       # Tab routing + base64 link/e-mail decoding
 ├── images/
 │   └── aleksandr-polskiy.jpg
-├── index.html               # The site: profile header + six content tabs
+├── index.html               # The site: profile header + seven content tabs
 ├── case-study.html          # Standalone write-up, linked from Engineering Outcomes
 ├── 404.html                 # Self-contained, inline-styled
 ├── favicon.ico, icon.png, icon.svg, site.webmanifest
 ├── robots.txt               # Crawling allowed
+├── .editorconfig            # Shared indentation and newline settings
+├── .gitattributes           # Line-ending normalization
+├── .gitignore
+├── CHANGELOG.md             # Release-to-release history; this file holds only the present
 ├── LICENSE                  # MIT
 └── README.md
 ```
 
-Every tracked file is either served to a visitor or required by GitHub Pages. The HTML5 Boilerplate scaffolding this project started from - `package.json`, three webpack configs, an empty `js/app.js`, empty `img/` and `js/vendor/` directories, an unreferenced `style.css`, and the upstream `LICENSE.txt` - has been removed: **GitHub Pages serves this repository directly and nothing is built**, so a build config that emitted a broken `dist/` was a trap rather than a deployment path.
+Every tracked file is either served to a visitor, required by GitHub Pages, or one of the four repository-hygiene files listed at the bottom. The HTML5 Boilerplate scaffolding this project started from - `package.json`, three webpack configs, an empty `js/app.js`, empty `img/` and `js/vendor/` directories, an unreferenced `style.css`, and the upstream `LICENSE.txt` - has been removed: **GitHub Pages serves this repository directly and nothing is built**, so a build config that emitted a broken `dist/` was a trap rather than a deployment path.
 
 ---
 
 ## Automation Hand-Off
+
+<sub>v1.0.0 &middot; 2026-08-10</sub>
 
 `.github/workflows/notify_automation.yml` notifies [PlaywrightAPWebsiteAutomation](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation) that the live site changed. It runs only on pushes to `main` that touch `**.html`, `**.css`, or `**.js`, so README, LICENSE, and workflow edits never trigger a test run.
 
@@ -80,6 +100,8 @@ The dispatch races the Pages deployment, and that is intentional: the automation
 ---
 
 ## Local Development
+
+<sub>v1.0.0 &middot; 2026-08-10</sub>
 
 No toolchain required. Open `index.html` in a browser, or serve the directory so that root-relative paths resolve the way they do in production:
 

@@ -22,6 +22,7 @@
           <li class="item" id="website" data-tab="apwebsite3">Portfolio Website</li>
           <li class="item" id="webtest" data-tab="apwebtest4">Web Automation</li>
           <li class="item" id="httpemulators" data-tab="aphttpemulators5">HTTP Emulators</li>
+          <li class="item" id="vmcluster" data-tab="apvmcluster7">VM Cluster Deployment</li>
         </ul>
       </nav>
       <div id="profile-header">
@@ -71,7 +72,7 @@
               </tr>
               <tr>
                 <td>Automation &amp; Programming</td>
-                <td>Python (advanced automation &amp; scripting), Custom Python Frameworks, Playwright, Pytest, Selenium WebDriver, REST API Validation, Fault Injection &amp; Service Virtualization, Custom Service Emulators (Flask, <code>http.server</code>), Process-Level Test Isolation, Static Analysis Gating (Pylint), Go (Golang), JavaScript (ES6+), HTML5, CSS3, Shell/Bash Scripting</td>
+                <td>Python (advanced automation &amp; scripting), Custom Python Frameworks, Playwright, Pytest, Selenium WebDriver, REST API Validation, Fault Injection &amp; Service Virtualization, Custom Service Emulators (Flask, <code>http.server</code>), Process-Level Test Isolation, Static Analysis Gating (Pylint), Go (Golang), JavaScript (ES6+), HTML5, CSS3, Shell/Bash Scripting, PowerShell Automation, Strict Static Typing (mypy)</td>
               </tr>
               <tr>
                 <td>Backend Verification &amp; Databases</td>
@@ -79,11 +80,11 @@
               </tr>
               <tr>
                 <td>Networking &amp; Security Infrastructure</td>
-                <td>TCP/IP, UDP, IPsec, DNS, TLS/SSL, SSH, SIP, HTTP/S, Wireshark (deep-packet analysis), cURL utilities</td>
+                <td>TCP/IP, UDP, IPsec, DNS, TLS/SSL, SSH/SFTP, SIP, HTTP/S, HTTP Load Balancing &amp; Active Health Checking (Apache <code>mod_proxy_balancer</code>), Authenticated Encryption (AES-256-GCM), Ed25519 Key Management, Credential-Free Image Hardening, Wireshark (deep-packet analysis), cURL utilities</td>
               </tr>
               <tr>
                 <td>Infrastructure &amp; DevOps</td>
-                <td>Docker, Jenkins Agents, GitHub Actions, Cross-Platform CI Matrices (Linux/Windows, multi-version Python), Git, AWS (EC2), VMware, VirtualBox, VM Deployments</td>
+                <td>Docker, Docker Compose, Jenkins Agents, GitHub Actions, Cross-Platform CI Matrices (Linux/Windows, multi-version Python), Infrastructure Provisioning &amp; Configuration Management, Golden-Image Pipelines, cloud-init First-Boot Provisioning, OCI Registries (GHCR, Docker Hub, ORAS), High-Availability &amp; Failover Testing, Git, AWS (EC2), VMware, VirtualBox, VM Deployments</td>
               </tr>
               <tr>
                 <td>Operating Systems &amp; Environments</td>
@@ -176,6 +177,18 @@
                 <td><strong>Audited the audit, and found it was checking 2 links out of 16.</strong> A green link-integrity test proved nothing: role-based locators skip elements hidden from the accessibility tree, and in a tabbed layout every inactive panel is hidden, so only the header and footer were ever inspected. Caught by measuring coverage instead of trusting the passing result. The check now resolves all 16 targets, prefers HEAD with a GET fallback, paces requests per host after rate limiting was traced to the check itself, and runs on a schedule so no deploy waits on a third party.</td>
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="apwebtest4">Web Automation</span></td>
               </tr>
+              <tr>
+                <td><strong>Cut a load-balancer outage from 2 lost requests in 10 to at most the one already in flight.</strong> The balancer discovered a dead backend only by failing live traffic at it, then waited out a 60-second retry timer before trying again, so an outage cost a stream of errors at both ends. Active health checking on a 2-second interval with a single-failure threshold replaced that. The result is measured rather than described: each backend was killed outright while the balancer was polled continuously, giving 114 requests with <strong>zero</strong> errors on one run and 95 with <strong>one</strong> on the other - the request already committed to the dying member, which took 5.0s, the balancer's own timeout expiring against a machine that no longer existed. So the published claim is not that failover is free, but that it costs at most that one request and nothing after it.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apvmcluster7">VM Cluster Deployment</span></td>
+              </tr>
+              <tr>
+                <td><strong>Made a VM image publishable without granting access to every cluster deployed from it.</strong> A usable image and a distributable one pull in opposite directions: whatever is baked in so the author can log in also lets every downloader log in, permanently and to every guest cloned from it. The build now strips cached registry, git and shell credentials, every human login, and <strong>every SSH key including the operational account's own</strong>, then <strong>fails the export rather than shipping</strong> if one survived - a check worth having precisely because the failure would otherwise be silent and irreversible once published. Identity is supplied per guest instead, from a 66 KB first-boot seed carrying the deployer's own key, which also deleted a boot-rename-reboot pass from provisioning. Two people deploying the same image get clusters neither can reach in the other's environment.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apvmcluster7">VM Cluster Deployment</span></td>
+              </tr>
+              <tr>
+                <td><strong>Tested the two things the runner made it easy not to test.</strong> Hosted runners offer no nested virtualization, so the resilience behaviour could not execute in CI at all; and the image publish and pull scripts were fully documented but had never once been run, which is how a wrong default path survived in them. Both are the shape of gap that stays green forever. The scripts now make a real round trip through an OCI registry on every push, asserting the appliance comes back byte-identical, and the failover exercise runs against a container stack modelling the same topology. That substitution is only honest because the two targets are pinned to the same hostnames, the same scheduling, and the <strong>same health-check settings</strong> in both configurations - written to match and commented as such, because a drift between them would leave the CI result meaningless while still reporting green.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apvmcluster7">VM Cluster Deployment</span></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -257,7 +270,7 @@
                 <td>
                   <ul>
                     <li><strong>Zero-Dependency Frontend:</strong> No framework, bundler output, or third-party runtime - one stylesheet and one script drive the entire page.</li>
-                    <li><strong>Single-Page Tab Routing:</strong> Vanilla ES6+ DOM manipulation swaps <code>data-tab</code> panels in place across six tabs, with no page reloads and no router library. A standalone case-study page sits alongside it as a real second document, reached by an ordinary relative link.</li>
+                    <li><strong>Single-Page Tab Routing:</strong> Vanilla ES6+ DOM manipulation swaps <code>data-tab</code> panels in place across seven tabs, with no page reloads and no router library. A standalone case-study page sits alongside it as a real second document, reached by an ordinary relative link.</li>
                     <li><strong>Cross-Tab Citations:</strong> Each engineering outcome cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors, because every anchor here must resolve to an absolute target or another page of the site, and a bare fragment is neither. Keyboard activation is part of the contract, not an afterthought.</li>
                     <li><strong>Anti-Spam Obfuscation:</strong> Every outbound URL and the contact address ship as Base64 payloads (<code>data-h</code> / <code>data-e</code>) and are decoded into real anchors on <code>DOMContentLoaded</code>, so scrapers never read them from the markup; a <code>&lt;noscript&gt;</code> fallback keeps the site reachable without JavaScript.</li>
                     <li><strong>Responsive Layout:</strong> A CSS Flexbox tab strip plus a <code>max-width: 600px</code> breakpoint that wraps the navigation and restructures the skills matrix for mobile viewports.</li>
@@ -337,7 +350,7 @@
               </tr>
               <tr>
                 <td>Test Coverage</td>
-                <td><strong><span class="suite-count" data-scope="total">61</span> tests</strong> against the live site, of which <strong>10 are generated at collection time</strong> by crawling the site's own route graph, so publishing a page grows the suite with no test edit. Nine modules cover SPA routing, cross-viewport layout, base64 link decoding, shared hover styling, per-project panel completeness, engineering-outcome evidence integrity, published-container verification, the suite-size figures this site quotes, and per-route health. <span class="suite-count" data-scope="deploy">59</span> run on the deployment path; the two third-party checks - outbound link rot and the published container image - run weekly instead. CI runs Chromium; the suite runs on Firefox and WebKit on request, so a WebKit-specific regression would not be caught by the pipeline.</td>
+                <td><strong><span class="suite-count" data-scope="total">71</span> tests</strong> against the live site, of which <strong>10 are generated at collection time</strong> by crawling the site's own route graph, so publishing a page grows the suite with no test edit. Nine modules cover SPA routing, cross-viewport layout, base64 link decoding, shared hover styling, per-project panel completeness and internal consistency, engineering-outcome evidence integrity, published-container verification, the suite-size figures this site quotes, and per-route health. Several of those parameterize over the tab list itself, so publishing a project tab adds its cases with no test edit - the VM Cluster Deployment tab contributed five that way. <span class="suite-count" data-scope="deploy">69</span> run on the deployment path; the two third-party checks - outbound link rot and the published container image - run weekly instead. CI runs Chromium; the suite runs on Firefox and WebKit on request, so a WebKit-specific regression would not be caught by the pipeline.</td>
               </tr>
               <tr>
                 <td>CI / Build Status</td>
@@ -412,6 +425,69 @@
               <tr>
                 <td>Documentation</td>
                 <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1B1YmxpY0FQL2Jsb2IvbWFzdGVyL1JFQURNRS5tZA==">Emulator README</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="apvmcluster7" class="tab-content">
+          <table class="project-table">
+            <thead>
+              <tr><th colspan="2">VM Cluster Deployment</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Repo</td>
+                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1ZNLURlcGxveW1lbnQtYW5kLUNvbmZpZ3VyYXRpb24=">https://github.com/apolskiy/VM-Deployment-and-Configuration</span></td>
+              </tr>
+              <tr>
+                <td>Tagline</td>
+                <td>Deterministic VM cluster provisioning from a credential-free golden image, with an encrypted host inventory and load-balancer failover that is measured rather than asserted</td>
+              </tr>
+              <tr>
+                <td>Overview</td>
+                <td>An infrastructure automation and validation harness that deploys a three-node Ubuntu cluster on a Windows VirtualBox host from a single golden image: an Apache load balancer in front of two backends, plus a Go service that serves an AES-256-GCM encrypted inventory of the deployed hosts. Python drives provisioning, Go implements the inventory service, and pytest with Playwright and Allure validates the running cluster. The same suite runs against a Docker Compose stack that models the identical topology, which is what lets a hosted CI runner - where nested virtualization does not exist - still exercise the load balancing and failover behaviour on every push.</td>
+              </tr>
+              <tr>
+                <td>Key Features &amp; Highlights</td>
+                <td>
+                  <ul>
+                    <li><strong>Failover Measured, Not Claimed:</strong> Each backend is killed outright with <code>VBoxManage controlvm poweroff</code> while the balancer is polled continuously. Across the two runs, 114 requests with <strong>0 errors</strong> and 95 requests with <strong>1 error</strong> - the single request already committed to the dying member, which took 5.0s, the balancer's own <code>timeout=5</code> expiring against a machine that no longer exists. So the claim published is not that failover is free, but that it costs at most the one in-flight request and nothing after it. Health checking at <code>hcinterval=2 hcfails=1</code> is what keeps the window that short: before it was added the same exercise lost roughly 2 requests in 10, because the balancer discovered failures only by failing live traffic.</li>
+                    <li><strong>A Distributable Image That Grants Nobody Access:</strong> An image that is usable and an image that is publishable pull in opposite directions - anything baked in that lets the author log in lets every downloader log in. The build sanitizes before export, stripping cached registry, git and <code>gh</code> credentials, shell history, and <strong>every SSH key including the operational account's own <code>authorized_keys</code></strong>, and <strong>fails the export rather than shipping</strong> if one survives. Identity arrives per guest instead, from a 66 KB cloud-init seed ISO carrying the hostname, a unique instance id, and the deployer's own public key. Two people deploying the same image get clusters neither can reach in the other's environment.</li>
+                    <li><strong>Deploys That Install Nothing:</strong> Package installation is the slow, non-deterministic part of any deploy, so it moves into a one-time image build. The Go toolchain is pinned by SHA-256, fetched on the automation host, pushed to the guest over SFTP and re-verified there, because guests reach large downloads unreliably over the bridged link while the host does not. A substituted or corrupted archive fails closed.</li>
+                    <li><strong>A Recompile Gate That Knows When It Is Needed:</strong> The baked inventory binary carries a SHA-256 fingerprint over every Go source that determines it. <code>configure</code> compares that against the local sources: identical means the baked binary is authoritative and nothing is compiled, different means the Go service was edited since the image was built, so it installs the pinned toolchain, rebuilds, and restamps. The running system is verified against source on every configure and rebuilt only when it has genuinely drifted.</li>
+                    <li><strong>Encryption Proven Across Two Languages:</strong> The inventory is authenticated encryption, not encoding - <code>nonce || ciphertext || tag</code>, base64-framed, which is byte-for-byte what Go's <code>gcm.Seal</code> emits and what Python's <code>AESGCM.encrypt</code> produces with the nonce prepended. The contract is pinned by a Go test that decrypts a fixture the Python client generated, so the two implementations cannot drift apart silently. The service's decrypted and raw endpoints are tested as a pair: the first proves it can decrypt, the second proves what sits on disk is genuinely ciphertext. Either alone would pass while the other failed.</li>
+                    <li><strong>Two Targets, Kept Deliberately Identical:</strong> Hosted runners provide no nested virtualization, so the VirtualBox path cannot run in CI at all. Substituting containers is only honest because the two are held to the same hostnames, the same balancer scheduling, and the <strong>same health-check settings</strong> in both the container config and the vhost the automation renders - a change to one without the other would make the CI result meaningless, which is why they are written to match and commented as such.</li>
+                    <li><strong>Both Members Taken Down, Not Just One:</strong> CI stops each backend in turn, asserts the survivor served every request with no errors and that the stopped member answered nothing, then restarts it and asserts it rejoins the pool. Failing over correctly for one member and not the other is a real asymmetry, and only exercising both would find it.</li>
+                    <li><strong>Publish Scripts Exercised, Not Just Documented:</strong> The image publish and pull scripts were documented but had never actually been run, which is how a wrong default path survived in them. A CI job now pushes a stand-in appliance through a real OCI registry using those same scripts and asserts the bytes come back byte-identical. The throwaway artifact is deleted afterwards, and the step degrades cleanly when the cleanup token is absent so a fork still passes.</li>
+                    <li><strong>Composable Test Selection:</strong> Markers run on two independent axes - tier says what a test needs in order to run, theme says which part of the system it covers - so <code>-m "inventory and not e2e"</code> is a meaningful selection rather than a coincidence. Themes mirror the Allure feature labels, so a pytest selection and the report group the same tests the same way, and every test carries exactly one theme, which makes the themes partition the suite instead of overlapping it.</li>
+                    <li><strong>Outages Reported Rather Than Hung:</strong> With the jump station stopped, <code>verify</code> exits non-zero naming <code>apjump poweroff</code> in 0.7s and the E2E tier skips in 5.4s with every message naming the unreachable endpoint. A cluster that is down should say so immediately; nothing here waits out a timeout to reach the same conclusion.</li>
+                    <li><strong>A Documentation Gate That Reminds Instead of Blocking:</strong> Each README section carries the release and date its content last changed, and a CI step reports any section whose content moved while its stamp did not. It is deliberately non-blocking: a documentation gate that fails builds teaches people to route around it.</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Tech Stack</td>
+                <td>
+                  <ul>
+                    <li><strong>Languages:</strong> Python 3.12+ (provisioning, CLI, test suite), Go 1.26 (inventory service and offline manifest utility), PowerShell (host-side lifecycle scripts), Bash (CI)</li>
+                    <li><strong>Virtualization &amp; Provisioning:</strong> VirtualBox 7.x via <code>VBoxManage</code>, golden-image export and clone, cloud-init <code>NoCloud</code> seed ISOs, SSH/SFTP, Docker Compose as the parallel container target</li>
+                    <li><strong>Networking &amp; Load Balancing:</strong> Apache <code>mod_proxy_balancer</code> with <code>mod_proxy_hcheck</code> active health checking, <code>byrequests</code> scheduling, backend identity stamped both as an HTTP header and as a DOM meta tag so a proxy cache cannot make a single-member pool look balanced</li>
+                    <li><strong>Cryptography:</strong> AES-256-GCM authenticated encryption (Go <code>crypto/cipher</code> and Python <code>cryptography</code>, interoperable byte for byte), Ed25519 key generation, SHA-256 pinning of the toolchain archive and of the compiled binary's sources</li>
+                    <li><strong>Quality &amp; Tooling:</strong> Pytest with two-axis markers, Playwright, Allure, Pylint at 10.00/10, mypy <code>strict</code>, <code>go vet</code>, a documentation-stamp checker, GitHub Actions, ORAS against GHCR</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Coverage</td>
+                <td><strong>174 pytest tests</strong> plus <strong>18 Go tests</strong>. The tiers split at what a test needs: <strong>155</strong> need no infrastructure and run anywhere, covering cryptography, configuration, the manifest, the recompile-gate fingerprint, host and IP selection, and the survivors-mode logic; the remaining <strong>19</strong> need a live cluster and <strong>skip while naming the unreachable endpoint</strong> rather than failing, with <code>--require-cluster</code> turning those skips into hard failures for CI. CI runs the unit tier, the Go suite, and then the full E2E suite plus a real failover exercise against the container stack. What cannot run there is stated rather than glossed over: the VirtualBox path needs nested virtualization no hosted runner provides, and is validated on a VirtualBox host instead.</td>
+              </tr>
+              <tr>
+                <td>CI / Build Status</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1ZNLURlcGxveW1lbnQtYW5kLUNvbmZpZ3VyYXRpb24vYWN0aW9ucw=="><img class="ci-badge" src="https://github.com/apolskiy/VM-Deployment-and-Configuration/actions/workflows/ci.yml/badge.svg" alt="VM-Deployment-and-Configuration VM Cluster CI status"></span></td>
+              </tr>
+              <tr>
+                <td>Documentation</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1ZNLURlcGxveW1lbnQtYW5kLUNvbmZpZ3VyYXRpb24vYmxvYi9tYWluL1JFQURNRS5tZA==">Cluster README</span></td>
               </tr>
             </tbody>
           </table>

@@ -59,7 +59,7 @@
 					</tr>
 					<tr>
 						<td>Suite cost</td>
-						<td><strong><span class="suite-count" data-scope="total">61</span> tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs <span class="suite-count" data-scope="deploy">59</span> of them: the two checks that reach a third party - resolving outbound links, and reading the published container image to confirm it still matches what the site claims - are deselected and run weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation. The two figures above are read back from this page on every run and compared against the suite that is executing, so they cannot drift out of date unnoticed.</td>
+						<td><strong><span class="suite-count" data-scope="total">71</span> tests</strong>, of which 10 are generated at collection time by crawling the site's own route graph. The deployment pipeline runs <span class="suite-count" data-scope="deploy">69</span> of them: the two checks that reach a third party - resolving outbound links, and reading the published container image to confirm it still matches what the site claims - are deselected and run weekly instead, so no deploy waits on GitHub or Docker Hub. Roughly 90 seconds of wall clock per job including the deployment gate, dependency install and report generation. The two figures above are read back from this page on every run and compared against the suite that is executing, so they cannot drift out of date unnoticed.</td>
 					</tr>
 					<tr>
 						<td>Quality gate</td>
