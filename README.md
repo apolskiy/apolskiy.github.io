@@ -7,7 +7,7 @@ The site doubles as the live target application for an end-to-end regression sui
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
-> **Documentation status:** describes **v1.2.0**, reviewed 2026-08-12.
+> **Documentation status:** describes **v1.3.0**, reviewed 2026-08-12.
 > Each section below carries the release and date its content last changed, so a
 > reader arriving at a later version can see at a glance which parts moved. This
 > file always describes the *current* site; release-to-release history lives in
@@ -88,9 +88,13 @@ Every tracked file is either served to a visitor, required by GitHub Pages, or o
 
 ## Automation Hand-Off
 
-<sub>v1.0.0 &middot; 2026-08-10</sub>
+<sub>v1.3.0 &middot; 2026-08-12</sub>
 
-`.github/workflows/notify_automation.yml` notifies [PlaywrightAPWebsiteAutomation](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation) that the live site changed. It runs only on pushes to `main` that touch `**.html`, `**.css`, or `**.js`, so README, LICENSE, and workflow edits never trigger a test run.
+`.github/workflows/notify_automation.yml` notifies [PlaywrightAPWebsiteAutomation](https://github.com/apolskiy/PlaywrightAPWebsiteAutomation) that the live site changed. It runs on pushes to `main` that touch `**.html`, `**.css`, or `**.js`, so README, LICENSE, and workflow edits never trigger a test run.
+
+It also accepts a **manual run** (*Actions → Notify Automation Suite → Run workflow*), with an optional one-line reason recorded in the run log. The path filter is deliberately narrow, and that leaves legitimate reasons to re-validate with no way to say so: a deploy that raced its own dispatch, a suite fixed after a red run, a documentation commit that turned out to touch the page after all. Without a button the only route was to invent a change to an `.html` file and push it, which puts a fabricated commit in the history of the very thing under test - a bad trade.
+
+Dispatching from here is not the same as dispatching the suite from its own repository, and both are worth keeping. Running it there tests the site. Running it here tests the site *and* the notification path - the PAT, its scope, its expiry - which is otherwise exercised only by a real deploy, and so is otherwise only ever found to be broken at the moment it was needed.
 
 **Required secret.** The built-in `GITHUB_TOKEN` is scoped to this repository and cannot dispatch into another one, so the workflow needs a Personal Access Token stored here as `AUTOMATION_DISPATCH_TOKEN`:
 

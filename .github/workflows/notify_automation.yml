@@ -6,6 +6,20 @@ name: Notify Automation Suite
 # Only files that can change what a visitor sees are watched. A README edit, a
 # LICENSE change, or a tweak to the unused webpack scaffolding must not spend a
 # pipeline run: none of them reach the served page.
+#
+# `workflow_dispatch` exists so the notification can be sent without a commit.
+# The path filter is deliberately narrow, which means a legitimate reason to
+# re-validate - a deploy that raced its dispatch, a suite fixed after a red run,
+# a doc-only commit that turned out to touch the page after all - previously
+# left only one way out: invent a change to an .html file and push it. Fabricating
+# a commit to trigger a pipeline puts noise in the history of the thing being
+# tested, which is a bad trade for a button.
+#
+# This is not the same as dispatching the suite from its own repository, and both
+# are worth having. Running it there tests the site. Running it here tests the
+# site *and* the notification path - the PAT, its scope, and its expiry - which
+# is otherwise only ever exercised by a real deploy, and therefore only ever
+# discovered to be broken at the moment it was needed.
 on:
   push:
     branches: [ main ]
@@ -13,6 +27,13 @@ on:
       - '**.html'
       - '**.css'
       - '**.js'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Why this notification is being sent by hand'
+        required: false
+        default: 'Manual re-validation of the live site'
+        type: string
 
 # One notification per branch; a burst of pushes only needs the newest sha,
 # and the suite re-tests whatever is live by the time it runs anyway.
@@ -31,8 +52,19 @@ jobs:
           # another one, so a PAT is required. See the README for the exact
           # scope this needs.
           DISPATCH_TOKEN: ${{ secrets.AUTOMATION_DISPATCH_TOKEN }}
+          # Passed through the environment rather than interpolated into the
+          # script body. A `${{ }}` expansion inside `run:` is substituted before
+          # the shell ever sees it, so free text there is executed rather than
+          # read - the standard workflow-injection shape. Empty on a push, where
+          # no input exists.
+          DISPATCH_REASON: ${{ inputs.reason }}
         run: |
           set -euo pipefail
+
+          echo "Triggered by: ${GITHUB_EVENT_NAME}"
+          if [ -n "${DISPATCH_REASON:-}" ]; then
+            echo "Reason: ${DISPATCH_REASON}"
+          fi
 
           if [ -z "${DISPATCH_TOKEN}" ]; then
             echo "::error::AUTOMATION_DISPATCH_TOKEN is not set. The E2E suite will"

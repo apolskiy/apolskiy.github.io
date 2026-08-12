@@ -24,6 +24,45 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.3.0 - 2026-08-12
+
+### Added
+
+- **`notify_automation.yml` accepts a manual run**, with an optional one-line
+  reason echoed into the run log. The path filter that keeps documentation
+  commits from spending a pipeline run is deliberately narrow, and it left
+  legitimate reasons to re-validate with no way to act on them: a deploy that
+  raced its own dispatch, a suite fixed after a red run, a documentation commit
+  that turned out to touch the page after all. The only route was to invent a
+  change to an `.html` file and push it - a fabricated commit in the history of
+  the very thing under test, which is a poor price for a button.
+
+  This does not duplicate the automation repository's own manual trigger; the
+  two test different things. Running it there tests the site. Running it here
+  tests the site *and* the notification path - the PAT, its scope, its expiry -
+  which a real deploy is otherwise the only thing that exercises, so a broken
+  credential would otherwise be discovered at the exact moment it was needed.
+
+  Filed as Minor rather than Patch: no content moved, but the repository can now
+  do something it could not do before, and the version should say so.
+
+### Fixed
+
+- **An outcome row quoted a test total that no longer matched the one this site
+  publishes.** The row about the error log said the log had been recorded "on 12
+  of 73 tests"; 73 was the size of the suite *before* that work, and the Web
+  Automation tab two clicks away publishes 74. Both numbers were defensible on
+  their own and the pair was indefensible - a reader had no way to tell which
+  was current, and unlike the published figures, the 73 was verified by nothing.
+
+  The denominator is gone rather than corrected. The claim was never about a
+  ratio: it is that only the per-route load checks recorded anything and nothing
+  that clicks did, which is both the actual point and immune to the suite
+  growing. A number nothing verifies does not belong on a page whose premise is
+  that its numbers are verifiable.
+
+---
+
 ## v1.2.0 - 2026-08-12
 
 ### Added
