@@ -24,6 +24,43 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.3.1 - 2026-08-12
+
+A copy correction on the Web Automation tab and in *Browser Support*.
+**Patch**: no structure, URL or navigation changed.
+
+### Fixed
+
+- **The Web Automation tab implied WebKit coverage that this site's own README
+  denied.** The tab said the suite "runs on Firefox and WebKit on request";
+  *Browser Support* said WebKit "is expected to work but is not covered by an
+  automated check". Two pages of the same site, two different answers about the
+  same suite.
+
+  Resolved by measurement rather than by rewording. The suite was run on all
+  three engines against the live site on 2026-08-12 and passed its 72
+  deployment-path tests on each - Chromium 34.6s, WebKit 52.1s, Firefox 102.7s.
+  WebKit had not been covered because it was not installed for the pinned
+  Playwright release, not because it failed. Both places now state that result,
+  dated, and say plainly that CI still runs Chromium alone, so the other two are
+  a verified state rather than a continuously enforced one.
+
+- **Playwright's WebKit is no longer allowed to read as Safari.** Both places now
+  note it is a build of the engine sharing the renderer but not Safari's platform
+  integration - evidence the page is engine-neutral, not evidence that Safari
+  works. Claiming Safari coverage on that basis would be worth less than stating
+  the gap.
+
+### Changed
+
+- **The Chromium-only decision is now argued from the numbers on the tab
+  itself**: three engines agreeing is the expected result for a page built on
+  ordinary DOM, CSS and `atob`, and re-running all three per push would cost
+  roughly 3.4x the wall clock while admitting engine-specific timing flake into
+  the signal that gates a deploy.
+
+---
+
 ## v1.3.0 - 2026-08-12
 
 ### Added

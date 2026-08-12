@@ -7,7 +7,7 @@ The site doubles as the live target application for an end-to-end regression sui
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
-> **Documentation status:** describes **v1.3.0**, reviewed 2026-08-12.
+> **Documentation status:** describes **v1.3.1**, reviewed 2026-08-12.
 > Each section below carries the release and date its content last changed, so a
 > reader arriving at a later version can see at a glance which parts moved. This
 > file always describes the *current* site; release-to-release history lives in
@@ -48,9 +48,11 @@ The site doubles as the live target application for an end-to-end regression sui
 
 ## Browser Support
 
-<sub>v1.0.0 &middot; 2026-08-10</sub>
+<sub>v1.3.1 &middot; 2026-08-12</sub>
 
-Exercised on **Chromium** and **Firefox (Gecko)** by the automated suite; CI runs Chromium. WebKit is expected to work - the page uses no engine-specific features - but is not covered by an automated check.
+Exercised on **Chromium**, **Firefox (Gecko)** and **WebKit** by the automated suite, all three passing its 72 deployment-path tests as of 2026-08-12. CI runs Chromium only, so the other two are a verified state rather than a continuously enforced one, and a regression specific to either would not be caught by the pipeline.
+
+Note what the WebKit result does and does not mean: Playwright ships a build of the WebKit engine, not Safari. It shares the renderer, not Safari's platform integration, so a pass here is evidence the page's layout and scripting are engine-neutral - not a substitute for testing on Safari itself.
 
 ---
 
