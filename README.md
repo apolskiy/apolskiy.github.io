@@ -7,7 +7,7 @@ The site doubles as the live target application for an end-to-end regression sui
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
-> **Documentation status:** describes **v1.3.1**, reviewed 2026-08-12.
+> **Documentation status:** describes **v1.4.0**, reviewed 2026-08-12.
 > Each section below carries the release and date its content last changed, so a
 > reader arriving at a later version can see at a glance which parts moved. This
 > file always describes the *current* site; release-to-release history lives in

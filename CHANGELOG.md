@@ -24,6 +24,51 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.4.0 - 2026-08-12
+
+The HTTP Emulators tab catches up with the project it describes. **Minor**: new
+content on an existing tab, no structure, URL or navigation change.
+
+### Added
+
+- **Latency injection is now described on the tab.** The emulator gained
+  `X-Response-Delay-Ms` in PublicAP v1.1.0 and this page did not know about it -
+  the tab described the Flask emulator purely as 21 status codes and a container.
+  The new bullet covers the header, the `X-Applied-Delay-Ms` echo that makes a
+  delay assertable from the response rather than a stopwatch, the 999 refusal for
+  a delay that cannot be honoured, and why the 30s ceiling refuses rather than
+  clamps. It also states plainly that this complements control code 590 rather
+  than replacing it: 590 never answers, latency injection answers late by a known
+  amount, and the cases either side of a timeout boundary need the second.
+- **Release-versioned image tags are documented.** Tags now name the emulator
+  release - `1.1.0` to pin in CI, `1.0.0` for the pre-latency image, `latest` for
+  a look around - replacing a scheme that tagged the Python base version and so
+  read like a release of the emulator without being one.
+
+### Fixed
+
+- **The published emulator test count was stale in two places.** The tab's
+  coverage row and the Engineering Outcomes row both said **93**; the suite is at
+  **108**. Unlike the deployment-path figures on the Web Automation tab, this
+  number is not read back off the page by any test, so nothing would have caught
+  it - it is maintained rather than verified, and that distinction is worth
+  knowing when reading it.
+- **The Engineering Outcomes row no longer implies its achievement covers the
+  current total.** It read "93 tests, green on the first run", which fused a
+  historical claim to a live number; as the suite grew, updating the number alone
+  would have quietly extended "green on the first run" to fifteen tests written
+  months later. It now separates the two: that suite went green on its first run,
+  and the suite stands at 108 today.
+
+### Changed
+
+- **The containerization bullet notes that latency injection added no
+  dependency.** It is `time.sleep` from the standard library, so the image still
+  carries Flask and its six transitive dependencies and nothing else - the claim
+  the scheduled consumer test verifies by reading the published layers.
+
+---
+
 ## v1.3.1 - 2026-08-12
 
 A copy correction on the Web Automation tab and in *Browser Support*.
