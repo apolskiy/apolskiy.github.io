@@ -24,6 +24,79 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.2.0 - 2026-08-12
+
+### Added
+
+- **An Engineering Outcomes row: "Closed the gap between a page that renders and
+  a page that works."** Placed fifth, beside the other rows about diagnosing a
+  red build. The automation suite recorded the browser's
+  error log on 12 of its 73 tests and only at load time, so a JavaScript
+  exception thrown while a visitor clicked a tab was invisible to all of it -
+  the checks that followed reported a locator timeout, which says an element
+  never appeared and nothing at all about why. Every page in that suite now
+  records, the interaction path is asserted, and the log is attached to every
+  failure. Cited to Web Automation, like the other rows about that pipeline.
+
+- **A paragraph in the Web Automation tab's Test Coverage cell** describing what
+  is recorded, which two tests assert on it, and why those assertions are scoped
+  to this site's own origin: the five CI badges on this page are served by
+  GitHub, and a bad minute there is worth recording but not worth failing a
+  deploy over.
+
+### Changed
+
+- **Published suite figures move to 72 tests on the deployment path plus 2 run
+  weekly, 74 in total**, and the module count to ten. As always these are not
+  maintained by hand - they carry `class="suite-count"` and are read back off
+  this page by the suite on every run, so the figures and the suite agree by
+  construction.
+
+- **The two figures are now written as a sum rather than as a pair.** Both the
+  tab and the case study led with the total and named the deployment-path count
+  second, which put the larger number first and left a reader to work out that
+  the second was a subset of it - and shortened anywhere to "74/72" it read as a
+  fraction with the denominator smaller than the numerator, which is not a
+  quantity at all. They now read "72 on the deployment path, plus 2 run weekly -
+  74 in total", so the arithmetic is on the page instead of in the reader's
+  head. The markup and the `data-scope` values are unchanged, so the figures are
+  still read back and verified on every run.
+
+- **The four places this site enumerates what a failure ships now include the
+  browser's error log** - the *Diagnosable Failures* feature bullet, the
+  *Reduced time-to-resolution* outcome, the *Diagnosis moved off the developer's
+  machine* impact row, and the case study's *What was changed* paragraph. All
+  four listed the screenshot, the DOM, the trace and the LLM verdict, and each
+  would have been quietly incomplete.
+
+- **The AI triage claim now says what the model is given, and how it is told to
+  read it.** The bullet described a DOM snapshot being sent to Claude; the error
+  log now goes with it, and the two answer different halves of the question -
+  the DOM shows what the page ended up as, the log shows what went wrong on the
+  way there. A script that threw before it could bind the tab router explains a
+  missing panel far more directly than the absence of that panel does, so
+  sending only the DOM was asking for a cause while withholding the evidence for
+  it.
+
+  The bullet also records the reading rules the prompt states outright rather
+  than leaving to inference - a failure supported only by third-party events is
+  a flake, an empty log is evidence rather than an absence of it - and that both
+  inputs are size-bounded and announce their own truncation, since a model
+  reasoning over a fragment it believes is whole gives a confident wrong answer
+  rather than a missing one.
+
+### Notes
+
+- This release and the automation suite's v1.2.0 depend on each other: this page
+  advertises 72 plus 2, and the suite that verifies those figures is the one
+  that grew to 74. Whichever repository is pushed first goes red until the other
+  follows, which is the cross-repository ordering race already documented in the
+  case study. A re-run does not fix it - a re-run replays the same commit rather
+  than picking up the default branch - so the second push is what turns the
+  signal green.
+
+---
+
 ## v1.1.3 - 2026-08-10
 
 ### Changed
