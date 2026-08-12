@@ -24,6 +24,38 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.5.0 - 2026-08-12
+
+The HTTP Emulators tab gains the container-level coverage. **Minor**: new
+content on an existing tab, no structure, URL or navigation change.
+
+### Added
+
+- **The tab now describes the 28 tests that exercise the artifact rather than
+  the code.** It states the seam they close, which is the part worth reading: the
+  108 source tests and the automation suite's registry check both pass against an
+  image built from stale source, because one inspects the code and the other
+  inspects the layers, and neither asks the container to answer a request. It
+  also covers why the suite runs twice against two different containers - one
+  built from the commit, one pulled from Docker Hub - and why two of its
+  assertions are deliberately not HTTP requests, since an image running as root
+  and shipping its own Dockerfile serves traffic perfectly well.
+
+### Changed
+
+- **The emulator test figure is now stated as a sum**, matching how the Web
+  Automation tab already phrases its own: *108 tests against the source, plus 28
+  against a running container - 136 in total*. A bare 136 would have hidden that
+  the two halves answer different questions and run in different places.
+- **The Engineering Outcomes row is scoped explicitly** to the suite it is about.
+  It claims a specific achievement - making self-terminating software
+  deterministically testable - which is a property of the 108, so it now says
+  that suite stands at 108 with a further 28 exercising the container. Without
+  the qualifier a reader moving between the two tabs would have found 108 in one
+  place and 136 in the other and reasonably concluded one was stale.
+
+---
+
 ## v1.4.0 - 2026-08-12
 
 The HTTP Emulators tab catches up with the project it describes. **Minor**: new
