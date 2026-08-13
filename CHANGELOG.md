@@ -24,6 +24,48 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.6.0 - 2026-08-13
+
+The AI Assisted REST API tab gains the static analysis gate. **Minor**: new
+content on an existing tab, no structure, URL or navigation change.
+
+### Added
+
+- **An Engineering Outcomes row: *Found a quality gate that existed only on
+  paper*.** It sits directly beneath *Made quality gates blocking, not advisory*
+  because the two are the same claim from opposite ends - one project's gate was
+  already blocking, and the row below records a second project that declared the
+  same standard in two places, enforced it in none, and shipped a `.pylintrc`
+  that could not be parsed at all. The row states the measured before and after
+  (9.45/10 against nineteen findings, now a blocking 10.00/10) and notes the
+  finding was confirmed by probe rather than inferred, since "this config was
+  never in effect" is exactly the sort of claim that deserves evidence. Cited to
+  the AI Assisted Rest API tab.
+
+- **A *Static Analysis Gates the Suite* bullet** covering CountryWeather's new
+  `lint` job: `pylint --fail-under=10` over every tracked `.py` file, with the
+  test job declaring `needs: lint`. The bullet leads with why the jobs are
+  ordered that way rather than with the tool, because the ordering is the
+  interesting part - it is the same quota argument the tab already makes twice
+  (serialized runs, and skipping documentation-only commits), applied a third
+  time: the linter spends no API quota, so it is the cheap check and belongs
+  first.
+
+### Changed
+
+- **The *AI-Assisted Engineering* bullet no longer stops at "the rules exist".**
+  It said conventions were codified as machine-readable rules in
+  `.claude/rules/`, which was true and incomplete - nothing ran a linter, so the
+  rules bound a generator and nothing else. It now says so, and points at the
+  gate that makes them binding.
+- **The *One Entry Point* bullet** records that the `Makefile` now owns the
+  pylint invocation alongside the pytest one, so `make lint` is the same command
+  locally and in CI.
+- **The Tech Stack CI/CD line** names Pylint 4.0.6 as a blocking 10.00/10 gate
+  ahead of the suite.
+
+---
+
 ## v1.5.0 - 2026-08-12
 
 The HTTP Emulators tab gains the container-level coverage. **Minor**: new
