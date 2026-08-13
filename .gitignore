@@ -12,3 +12,5 @@ Thumbs.db
 # Node (kept only in case tooling is reintroduced; the site itself has no build
 # step and is served directly from the repository root by GitHub Pages)
 node_modules/
+#live.html local snap shot is not used by website nor CI
+live.html
