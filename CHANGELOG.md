@@ -24,6 +24,44 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.8.0 - 2026-08-17
+
+### Added
+
+- **A Live Report row on the Test Insights panel**, linking to the reliability
+  report published at
+  [apolskiy.github.io/PortfolioTestInsights](https://apolskiy.github.io/PortfolioTestInsights/).
+  It is regenerated from the durable record on every collection, so its figures
+  cannot drift away from their source - which is the reason it is linked rather
+  than summarized here. A hand-written copy of those numbers on this page would
+  be stale the first time the data moved, and nothing would say so.
+
+### Fixed
+
+- **Every Documentation link now names the repository it opens.** The labels had
+  drifted into a set that was inconsistent at best and misleading at worst:
+
+  | Was | Actually opened |
+  |---|---|
+  | Full project README | CountryWeather |
+  | Project README | apolskiy.github.io |
+  | Framework README | PlaywrightAPWebsiteAutomation |
+  | Emulator README | PublicAP |
+  | Cluster README | VM-Deployment-and-Configuration |
+  | Collector README | PortfolioTestInsights |
+
+  The first two are the real problem: two near-identical generic phrases naming
+  two different repositories, so a reader could not tell which they would land
+  on. "Collector" named a repository that no longer exists under that name.
+
+  Each label is now its repository's name, verified programmatically against the
+  decoded target of its own link. This also makes visible to a reader the
+  agreement the automation suite already enforces between a panel's Repo row, CI
+  badge and Documentation link - previously only a machine could see that the
+  three belonged together.
+
+---
+
 ## v1.7.0 - 2026-08-16
 
 ### Added
