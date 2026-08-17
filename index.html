@@ -24,6 +24,7 @@
           <li class="item" id="webtest" data-tab="apwebtest4">Web Automation</li>
           <li class="item" id="httpemulators" data-tab="aphttpemulators5">HTTP Emulators</li>
           <li class="item" id="vmcluster" data-tab="apvmcluster7">VM Cluster Deployment</li>
+          <li class="item" id="testinsights" data-tab="apinsights8">Test Insights</li>
         </ul>
       </nav>
       <div id="profile-header">
@@ -153,6 +154,14 @@
               <tr>
                 <td><strong>Found a quality gate that existed only on paper.</strong> A second framework declared the same standard and enforced none of it: its README required Pylint compliance, its machine-readable code rules required it again, and a <code>.pylintrc</code> sat in the repository root - but no pipeline step and no Make target ever invoked the linter, and the config file's own first line was a stray language label that left it unparseable, so even a manual run silently fell back to Pylint's defaults rather than the settings the file appeared to specify. Confirmed by probe rather than inferred. Measured for the first time, the code scored <strong>9.45/10</strong> against nineteen findings, among them a config file opened with no explicit encoding - a real defect on any non-UTF-8 console. It now runs at a blocking <strong>10.00/10</strong> ahead of the test job, which is also the cheaper order: the linter spends none of the capped API quota the suite spends.</td>
                 <td><span class="tab-jump" role="button" tabindex="0" data-target="aprestapiclaude2">AI Assisted Rest API</span></td>
+              </tr>
+              <tr>
+                <td><strong>Caught four repositories deleting their own test history, with three days to spare.</strong> Every suite was producing per-test results faithfully and every one was losing them on a rolling 90-day clock - and for public repositories 90 days is GitHub's retention <em>maximum</em>, not its default, so no configuration change could have saved them. Nothing had noticed because each run looked green in isolation; what was missing was the record <em>across</em> runs, which is the only thing that can say whether a failure is a flake or a regression. Measuring first showed the oldest artifacts expiring in <strong>three days</strong>, which set the build order: capture the data, leave everything reproducible for later. The backfill took <strong>13,458 results across 234 tests and 136 runs, reaching back to 2026-05-21</strong>.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apinsights8">Test Insights</span></td>
+              </tr>
+              <tr>
+                <td><strong>Disproved my own design assumption before writing the code that depended on it.</strong> The collector was specified around JUnit XML, which every suite was assumed to emit. Downloading one artifact per repository showed otherwise: the <em>largest</em> suite emits none at all, and a third publishes raw Allure results whose schema differs from the generated report in timing, step location, and the meaning of <code>name</code>. Adding <code>--junitxml</code> to each suite would have been a one-line change and would have recovered <strong>no historical run whatever</strong>, since the artifacts were already frozen. Three parsers shipped instead of one. The same survey caught an identity trap: one suite titles its tests, so keying on the displayed name would have forked a test's history every time someone improved a title - now prevented outright by assigned identifiers across all <strong>233 tests</strong> in four repositories.</td>
+                <td><span class="tab-jump" role="button" tabindex="0" data-target="apinsights8">Test Insights</span></td>
               </tr>
               <tr>
                 <td><strong>Wired event-driven cross-repository regression.</strong> A front-end deploy dispatches an event into a separate automation repository, which waits for propagation and re-validates the live site unattended.</td>
@@ -362,11 +371,11 @@
               <tr>
                 <td>Test Coverage</td>
                 <td>
-                  <p><strong><span class="suite-count" data-scope="deploy">72</span> tests on the deployment path, plus 2 that run weekly - <span class="suite-count" data-scope="total">74</span> in total</strong>, all against the live site. Those 2 are the only tests that depend on anything outside this site being reachable - one resolves every outbound link the page publishes, the other reads the published container image from its registry - so they are deselected from the deploy run and execute on a schedule instead. A deploy signal has no business failing because GitHub or Docker Hub is briefly unavailable.</p>
+                  <p><strong><span class="suite-count" data-scope="deploy">78</span> tests on the deployment path, plus 2 that run weekly - <span class="suite-count" data-scope="total">80</span> in total</strong>, all against the live site. Those 2 are the only tests that depend on anything outside this site being reachable - one resolves every outbound link the page publishes, the other reads the published container image from its registry - so they are deselected from the deploy run and execute on a schedule instead. A deploy signal has no business failing because GitHub or Docker Hub is briefly unavailable.</p>
                   <p><strong>Both figures above are read back off this page on every run</strong> and compared against the suite that is executing, so neither can drift out of date unnoticed - they are verified rather than maintained.</p>
                   <p><strong>Ten modules</strong> cover SPA routing, cross-viewport layout, base64 link decoding, shared hover styling, per-project panel completeness and internal consistency, engineering-outcome evidence integrity, published-container verification, the suite-size figures this site quotes, per-route health, and runtime health while the page is being used.</p>
-                  <p><strong>Every page records what the browser complains about</strong> - console errors, requests that failed, responses of 400 and above, and unhandled JavaScript exceptions - from before the first navigation until the page closes. On a failure that log is attached to both reports alongside the screenshot and trace, whether or not the failing test was looking at it. Two tests assert on it: one per discovered route at load, and one that walks all seven tabs first, because the router and the link decoder are the only scripts here and neither runs until something is clicked. Those assertions are scoped to this site's own origin - the CI badges above are served by GitHub, and a bad minute there is worth recording but not worth failing a deploy over.</p>
-                  <p><strong>The suite grows without being edited.</strong> <strong>12 tests are generated at collection time</strong> by crawling the site's own route graph, so a newly published page arrives already checked for status, console and network errors, rendered content, a usable meta description, and layout at both viewports. Several other modules parameterize over the tab list itself, so publishing a project tab adds its cases the same way - the VM Cluster Deployment tab contributed five.</p>
+                  <p><strong>Every page records what the browser complains about</strong> - console errors, requests that failed, responses of 400 and above, and unhandled JavaScript exceptions - from before the first navigation until the page closes. On a failure that log is attached to both reports alongside the screenshot and trace, whether or not the failing test was looking at it. Two tests assert on it: one per discovered route at load, and one that walks all eight tabs first, because the router and the link decoder are the only scripts here and neither runs until something is clicked. Those assertions are scoped to this site's own origin - the CI badges above are served by GitHub, and a bad minute there is worth recording but not worth failing a deploy over.</p>
+                  <p><strong>The suite grows without being edited.</strong> <strong>12 tests are generated at collection time</strong> by crawling the site's own route graph, so a newly published page arrives already checked for status, console and network errors, rendered content, a usable meta description, and layout at both viewports. Several other modules parameterize over the tab list itself, so publishing a project tab adds its cases the same way - the Test Insights tab contributed six.</p>
                   <p><strong>All three engines pass; CI runs Chromium only.</strong> The deployment-path tests were verified on Chromium, Firefox and WebKit on 2026-08-12, with identical results - which is what a page resting on ordinary DOM, CSS and <code>atob</code> rather than engine-specific APIs should produce. Re-running all three per push would cost roughly 3.4x the wall clock, Firefox alone being three times Chromium, and would admit engine-specific timing flake into the one signal that gates a deploy. The other two are therefore verified on demand rather than continuously, and a regression specific to either would not be caught by the pipeline. Playwright's WebKit is a build of the engine, not Safari: it shares the renderer, not Safari's platform integration, so this is evidence the page is engine-neutral rather than evidence that Safari works.</p>
                 </td>
               </tr>
@@ -509,6 +518,70 @@
               <tr>
                 <td>Documentation</td>
                 <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1ZNLURlcGxveW1lbnQtYW5kLUNvbmZpZ3VyYXRpb24vYmxvYi9tYWluL1JFQURNRS5tZA==">Cluster README</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="apinsights8" class="tab-content">
+          <table class="project-table">
+            <thead>
+              <tr><th colspan="2">Test Insights</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Repo</td>
+                <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BvcnRmb2xpb1Rlc3RJbnNpZ2h0cw==">https://github.com/apolskiy/PortfolioTestInsights</span></td>
+              </tr>
+              <tr>
+                <td>Tagline</td>
+                <td>A cross-repository test-results warehouse that keeps four suites' history past the point GitHub deletes it, normalising three incompatible report formats onto one schema</td>
+              </tr>
+              <tr>
+                <td>Overview</td>
+                <td>A read-only collector that pulls test results out of the GitHub Actions artifacts of the other four repositories in this portfolio, normalises them, and appends them to a durable record. It exists because none of that history was being kept beyond 90 days - and for public repositories 90 days is GitHub's retention <em>maximum</em>, not its default, so no setting prevents the loss. Every reliability question worth asking needs per-test history across runs, and that history was being produced faithfully by every suite and then deleted on a rolling clock. The first backfill captured <strong>13,458 results across 234 tests and 136 runs, reaching back to 2026-05-21</strong> - three days before the oldest of those artifacts expired.</td>
+              </tr>
+              <tr>
+                <td>Key Features &amp; Highlights</td>
+                <td>
+                  <ul>
+                    <li><strong>Built Against the Formats That Exist, Not the One Assumed:</strong> The design began with the assumption that everything emits JUnit XML. Downloading one artifact per repository disproved it: the largest suite emits <strong>no JUnit XML at all</strong>, only a generated Allure report, and a third repository publishes raw Allure results whose schema differs from that report in timing, step location and the meaning of <code>name</code>. So three parsers rather than one. Adding <code>--junitxml</code> to the suites would have been a one-line change each and would not have recovered a single historical run, which is the whole reason the format survey came before the code.</li>
+                    <li><strong>An Identity Trap Found Before It Corrupted Anything:</strong> One suite uses <code>@allure.title</code>, so its results carry a human sentence in <code>name</code> against the real function in <code>fullName</code>. Keying identity on <code>name</code> would have forked a test's history silently every time someone improved a title. Identity is derived from <code>fullName</code> and the display name is stored as a label only - and the four suites now publish assigned IDs (<code>PAWA_</code>, <code>CWA_</code>, <code>PAP_</code>, <code>VMD_</code>) so renaming is free by construction rather than by care.</li>
+                    <li><strong>A Confidently Wrong Answer Refused:</strong> Half of the site suite's runs are <code>repository_dispatch</code>, where the automation repository's commit is frozen while the deployed site changed underneath. A flakiness detector keyed on <code>head_sha</code> would look at five runs of one commit, see one failure, and report a flaky test - when the input genuinely differed. <code>sut_version</code> is recorded separately and left <strong>null rather than guessed</strong>, and same-input queries skip those rows. Reporting nothing beats reporting something wrong.</li>
+                    <li><strong>Empty Artifacts Recorded as Evidence:</strong> An expired artifact is routine; an artifact that <em>exists while containing no results</em> is the opposite - the upload step worked, so the run believed it had something to publish. Each is written to an anomalies partition with the reason, the pattern that missed, and a sample of what the archive actually held, because a wrong glob and an empty report produce the same symptom and want opposite fixes. The first backfill found one and it was real: a failed run that generated an Allure report shell over zero test cases.</li>
+                    <li><strong>Diagnostics Captured, Not Summarised:</strong> Every non-passing result carries its full stack trace alongside its message, read from whichever of three places the source format keeps it. A message says a test failed; only the trace says where. All 34 failures in the backfill carry one.</li>
+                    <li><strong>Coverage Gaps Represented Rather Than Averaged Away:</strong> <code>source_format</code>, <code>has_steps</code> and <code>has_trace</code> sit on every row, so "no failing steps recorded" can always be told from "this format cannot express any". JUnit carries no steps, and only 13 of 174 sampled results from one suite carry them - a step-level report that skipped this check would describe a fraction of the corpus as though it were the whole.</li>
+                    <li><strong>Append-Only Text as the Record, SQLite as the Index:</strong> Committing a database file was the obvious choice and the wrong one: a binary rewritten daily stores a full new copy in history on every commit and cannot be reviewed in a diff. The durable record is NDJSON partitioned by repository and month, so appends produce small deltas and a bad ingestion is visible in review. The queryable index is derived and gitignored - generated things do not go in git.</li>
+                    <li><strong>Absence Distinguished From Success:</strong> A test missing from a run is recorded as <code>not_run</code>, never omitted and never conflated with <code>skipped</code>, which is reserved for what a format explicitly reported. Deselection by marker is normal in these suites, so without this "never failed" would be indistinguishable from "has not run since May". Synthesis is bounded by each test's observed lifetime, because marking runs before a test existed would manufacture history rather than record it.</li>
+                    <li><strong>A Lint Gate That Cannot Pass by Finding Nothing:</strong> <code>make lint</code> enumerates tracked files from git, and git returns nothing until the first <code>git add</code> - at which point pylint exits 0 having linted zero files. The recipe fails loudly on an empty list, because a gate that passes by finding nothing is exactly the defect that left a sibling repository's linter silently disabled for months.</li>
+                    <li><strong>Deliberately Not a Machine-Learning Project:</strong> Thirty-one failed runs across the whole portfolio, most of them pipeline defects since fixed, is not a training set - and "same input, differing outcome" is a <code>GROUP BY</code>, not a prediction. The store is built first; the question of whether a model earns its place is left to be answered on evidence rather than on aspiration.</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Tech Stack</td>
+                <td>
+                  <ul>
+                    <li><strong>Language:</strong> Python 3.14 with strict type hints throughout and <code>from __future__ import annotations</code></li>
+                    <li><strong>Ingestion:</strong> GitHub Actions REST API via <code>requests</code>, paginated, with <code>Retry-After</code> handling and bounded exponential backoff; selective in-memory zip extraction so only the files a parser needs are decompressed</li>
+                    <li><strong>Formats Parsed:</strong> raw Allure results, generated Allure report documents, and JUnit XML - one parser each, selected by configuration rather than by a branch in code</li>
+                    <li><strong>Storage:</strong> append-only NDJSON partitioned by repository and month, idempotent on a five-field row key; SQLite as a derived, gitignored index</li>
+                    <li><strong>Configuration:</strong> YAML, with named regex groups in artifact patterns so a build matrix becomes parameter columns instead of four near-identical entries</li>
+                    <li><strong>Quality &amp; Tooling:</strong> Pylint at a blocking 10.00/10 with name-length rules enforced by configuration, a Makefile owning every invocation, GitHub Actions</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Coverage</td>
+                <td>Ingestion is v0.1.0 and the unit tier is <strong>not yet shipped</strong>, which is stated here rather than implied by an absent row. The ordering was deliberate and driven by a date: the oldest artifacts in the portfolio expired three days after the first backfill, so the data was captured first and everything reproducible was left for after. Tests will run against <strong>recorded fixture artifacts</strong> - one per source format - rather than the live API, because a parser test that needs the network is not a unit test and would break the day an artifact expires. CI gates on static analysis in the meantime, and does not pretend to a test job that would collect nothing.</td>
+              </tr>
+              <tr>
+                <td>CI / Build Status</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BvcnRmb2xpb1Rlc3RJbnNpZ2h0cy9hY3Rpb25z"><img class="ci-badge" src="https://github.com/apolskiy/PortfolioTestInsights/actions/workflows/ci.yml/badge.svg" alt="PortfolioTestInsights CI status"></span></td>
+              </tr>
+              <tr>
+                <td>Documentation</td>
+                <td><span class="enc-link" data-nw data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L1BvcnRmb2xpb1Rlc3RJbnNpZ2h0cy9ibG9iL21haW4vcmVhZG1lLm1k">Collector README</span></td>
               </tr>
             </tbody>
           </table>

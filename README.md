@@ -7,7 +7,7 @@ The site doubles as the live target application for an end-to-end regression sui
 
 **Live Website:** [https://apolskiy.github.io](https://apolskiy.github.io)
 
-> **Documentation status:** describes **v1.6.0**, reviewed 2026-08-13.
+> **Documentation status:** describes **v1.7.0**, reviewed 2026-08-16.
 > Each section below carries the release and date its content last changed, so a
 > reader arriving at a later version can see at a glance which parts moved. This
 > file always describes the *current* site; release-to-release history lives in
@@ -19,7 +19,7 @@ The site doubles as the live target application for an end-to-end regression sui
 
 <sub>v1.1.1 &middot; 2026-08-10</sub>
 
-- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Seven tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project - AI Assisted Rest API, Portfolio Website, Web Automation, HTTP Emulators, and VM Cluster Deployment. The router binds by `data-tab` rather than by an enumerated list, so a tab is published by adding a nav item and a panel; nothing in the script changes.
+- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Eight tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project - AI Assisted Rest API, Portfolio Website, Web Automation, HTTP Emulators, VM Cluster Deployment, and Test Insights. The router binds by `data-tab` rather than by an enumerated list, so a tab is published by adding a nav item and a panel; nothing in the script changes.
 - **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors: an anchor here must resolve to an absolute `https`/`mailto` target or to another page of this site, and a bare same-page fragment is neither.
 - **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper that fetches the HTML without executing it finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
 

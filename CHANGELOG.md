@@ -24,6 +24,47 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.7.0 - 2026-08-16
+
+### Added
+
+- **A Test Insights tab**, the eighth, covering
+  [PortfolioTestInsights](https://github.com/apolskiy/PortfolioTestInsights) -
+  the cross-repository collector that keeps the other four suites' results past
+  GitHub's 90-day artifact retention. Panel id `apinsights8`, following the
+  convention that ids carry the ordinal a tab was added in rather than its
+  position, so nothing renumbers when a tab is inserted.
+
+  The panel carries the same rows every project panel carries - repo, tagline,
+  overview, highlights, tech stack, test coverage, CI badge, documentation -
+  because the automation suite asserts that a panel ships no fewer rows than its
+  siblings. That constraint had a real consequence: the collector had no CI
+  workflow, so one was written before the tab could be published rather than
+  pointing a badge at a pipeline that did not exist.
+
+  Its Test Coverage row states that the unit tier is **not yet shipped**, and
+  why. An absent row would have implied nothing; a stated absence is a claim
+  that can be checked.
+
+- **Two Engineering Outcomes rows**, both cited to the new tab: the four
+  repositories found to be losing their own test history on a 90-day clock with
+  three days left to act, and the format survey that disproved the collector's
+  founding assumption before the code depending on it was written.
+
+### Changed
+
+- **Published suite-size figures**, on the landing page and in the case study,
+  from **72/74 to 78/80**. Adding one navigation tab grew the automation suite
+  by six tests without a test being written, because several of its modules
+  parametrize over the tab list. Both figures are read back off these pages on
+  every run and compared against the executing suite, so the update was not
+  optional - the suite failed until the pages agreed with it.
+
+- **Feature list and prose counts** updated from seven tabs to eight, including
+  the runtime-health description of walking every tab.
+
+---
+
 ## v1.6.0 - 2026-08-13
 
 The AI Assisted REST API tab gains the static analysis gate. **Minor**: new
