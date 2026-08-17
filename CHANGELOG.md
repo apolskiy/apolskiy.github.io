@@ -24,6 +24,34 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.9.0 - 2026-08-17
+
+### Added
+
+- **An Engineering Outcomes row on calibrating an error budget**, cited to Test
+  Insights. It records a different kind of outcome from its neighbours: not a
+  pre-existing defect found in someone else's code, but a metric caught being
+  wrong before it was published. Asked to move toward error budgets, the first
+  implementation flagged 51 of 225 tests as having spent theirs - arithmetic on
+  noise, since the median test in that record has a 1 ms baseline. A measured
+  100 ms floor reduced it to 78 tests judged and zero breaches.
+
+  The row also answers the p99 half of the same suggestion, which the data does
+  not support: the average test carries 24 to 154 observations, and a p99 over
+  24 samples is the single worst run wearing a percentile's name.
+
+- **A Test Insights feature bullet** covering the same budget, framed around the
+  calibration rather than the result. "No test has breached" is a thin claim to
+  lead with; how the threshold was arrived at is the part worth reading.
+
+### Fixed
+
+- **Documentation status line corrected.** It still read v1.7.0 after the v1.8.0
+  entry shipped, so the README described itself as a release behind the history
+  beside it.
+
+---
+
 ## v1.8.0 - 2026-08-17
 
 ### Added
