@@ -24,6 +24,31 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.9.1 - 2026-08-18
+
+### Fixed
+
+- **The AI Assisted Rest API tab claimed the entity name was the test id.** It
+  was true when written and stopped being true the moment assigned IDs shipped.
+  The entity name is a pytest parametrization label - the `[Germany]` suffix
+  that distinguishes generated cases in a report - while identity is now carried
+  by `CWA_10001` through `CWA_10009`. Leaving both under the phrase "test id"
+  described exactly the collision the assigned IDs were introduced to prevent,
+  on the page that elsewhere claims to have prevented it.
+
+  The bullet now says what the label does, and a second bullet states plainly
+  that a case label is not identity: the label moves whenever the dataset is
+  edited, the ID does not, and that difference is what lets the cross-repository
+  record follow a test across a rename.
+
+- **A stray `F` rendered beside the tab's Tagline row.** A single character had
+  been typed outside a table cell, so the browser hoisted it out of the table
+  and painted it above - visible on one tab and no other. Found by reading, not
+  by the suite: the crawler asserts on structure and link targets, and a loose
+  text node between `</td>` and `<td>` breaks neither.
+
+---
+
 ## v1.9.0 - 2026-08-17
 
 ### Added

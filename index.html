@@ -225,7 +225,7 @@
                 <td><span class="enc-link" data-h="aHR0cHM6Ly9naXRodWIuY29tL2Fwb2xza2l5L0NvdW50cnlXZWF0aGVy">apolskiy/CountryWeather</span></td>
               </tr>
               <tr>
-                <td>Tagline</td>F
+                <td>Tagline</td>
                 <td>Resilient, data-driven REST API test framework with response-time SLA gates and AI-assisted engineering conventions</td>
               </tr>
               <tr>
@@ -236,7 +236,8 @@
                 <td>Key Features &amp; Highlights</td>
                 <td>
                   <ul>
-                    <li><strong>Single Source of Truth &amp; Dynamic Parametrization:</strong> Any test in any module that declares an <code>entity</code> parameter is automatically parametrized across every record in <code>master_entities.json</code>, with the entity name as the test id. Five entities currently expand nine test functions into <strong>33 executed cases</strong>; adding a country grows both suites with no test edit.</li>
+                    <li><strong>Single Source of Truth &amp; Dynamic Parametrization:</strong> Any test in any module that declares an <code>entity</code> parameter is automatically parametrized across every record in <code>master_entities.json</code>, with the entity name labelling each generated case - <code>test_country_schema[Germany]</code> rather than <code>[entity0]</code>. Five entities currently expand nine test functions into <strong>33 executed cases</strong>; adding a country grows both suites with no test edit.</li>
+                    <li><strong>Case Labels Are Not Identity:</strong> That entity label reads well in a report and is the wrong thing to key history on, because it moves whenever the dataset is edited and says nothing about which test ran. Identity is carried separately by an assigned ID - <code>CWA_10001</code> through <code>CWA_10009</code>, authored once as <code>@pytest.mark.test_id</code> and republished by a collection hook as both an Allure label and a JUnit property. A test can be renamed, re-parametrized or moved between modules and its history still stitches, which is what makes the cross-repository record on the Test Insights tab able to follow a test across renames at all.</li>
                     <li><strong>Network Resilience:</strong> A centralized <code>ApiClient</code> retries connection and timeout failures plus HTTP 429/502/503/504 with exponential backoff (<code>retry_backoff * 2**attempt</code>), deferring to the server's <code>Retry-After</code> header when present.</li>
                     <li><strong>Proactive Rate-Limit Pacing:</strong> Beyond reactive retries, the client enforces a minimum interval between the start of consecutive requests across the whole session, so the suite never bursts past the v5 API's short-window limit in the first place.</li>
                     <li><strong>Performance SLA Gates:</strong> Every call is asserted against a per-environment <code>max_response_time</code> (5.0s countries, 3.0s weather). Only the successful attempt is timed - backoff and failed-attempt time are deliberately excluded, so a retry storm cannot be misread as server latency.</li>
