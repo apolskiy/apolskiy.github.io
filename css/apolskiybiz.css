@@ -26,11 +26,16 @@ body{
   margin: 10px auto;        /* auto left/right centers the shrink-wrapped menu */
   width: fit-content;       /* only as wide as the tabs; grows as items are added */
   display: flex;            /* Arrange tabs horizontally */
-  align-items: center;
+  align-items: stretch;     /* every tab as tall as the tallest, so a one-word
+                               label is not a smaller button than a wrapped one */
   justify-content: center;  /* Center the tabs horizontally */
 }
 
 .item {
+  display: flex;            /* center the label within the stretched tab */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 10px 10px;
   cursor: pointer;
   border-radius: 15px/25px;

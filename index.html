@@ -624,7 +624,7 @@
                 <td>Overview</td>
                 <td>
                   <p>One project in two repositories. <strong>AP-Harness-QC</strong> ingests hand-authored evaluation cases, dispatches each to a provider's endpoint, judges the response with deterministic assertions alongside an LLM-as-a-judge pass, and writes a verdict with a durable per-test record. <strong>AP-Model-QC</strong> holds the cases themselves - eight corpora covering requirement matching, instruction following, code comprehension, grounding, ambiguity, premise discrimination, tool compliance, and security, including prompt injection - and consumes the harness as a pinned dependency rather than a copy.</p>
-                  <p>The split is what lets each side change without destabilizing the other: the harness is modified and proven against recorded responses, and the cases are added and tuned against a harness known to be good. <strong>No green harness, no model run</strong> - the case repository refuses to evaluate against a harness whose own gate is not green. The harness runs against recordings; the models run live, against the real engines and a real judge.</p>
+                  <p>The repository split lets the model test cases and the harness change without destabilizing each other. Harness modifications are made and tested against recorded responses, while test cases are added and tuned against a harness known to be good. <strong>No green harness, no model run:</strong> the case repository, AP-Model-QC, refuses to evaluate against a harness whose own gate is not green. While the harness runs against recordings, the models run live against the real engines and a real judge.</p>
                 </td>
               </tr>
               <tr>
