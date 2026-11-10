@@ -17,9 +17,9 @@ The site doubles as the live target application for an end-to-end regression sui
 
 ## Features
 
-<sub>v1.1.1 &middot; 2026-08-10</sub>
+<sub>v1.10.0 &middot; 2026-11-10</sub>
 
-- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Eight tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project - AI Assisted Rest API, Portfolio Website, Web Automation, HTTP Emulators, VM Cluster Deployment, and Test Insights. The router binds by `data-tab` rather than by an enumerated list, so a tab is published by adding a nav item and a panel; nothing in the script changes.
+- **Single-Page Tab Navigation:** `js/apolskiybiz.js` swaps `data-tab` panels in place by toggling an `active` class - no page reloads, no router library, no framework. Nine tabs: Home (identity and skills), Engineering Outcomes (cross-project results), then one per project - AI Assisted Rest API, Portfolio Website, Web Automation, HTTP Emulators, VM Cluster Deployment, Test Insights, and Multi-LLM Evaluation. Multi-LLM Evaluation is the one project tab describing two repositories, a harness and its evaluation cases, because they are one project split so each side can change without destabilizing the other. The router binds by `data-tab` rather than by an enumerated list, so a tab is published by adding a nav item and a panel; nothing in the script changes.
 - **Cross-Tab Citations:** Each row of the Engineering Outcomes table cites the project it can be verified against, and the citation opens that project's tab rather than leaving the site. These controls carry a button role instead of being anchors: an anchor here must resolve to an absolute `https`/`mailto` target or to another page of this site, and a bare same-page fragment is neither.
 - **Anti-Scraping Link Obfuscation:** Every outbound URL and the contact address ship as base64 payloads (`data-h` / `data-e`) inside `span.enc-link` placeholders and are decoded into real anchors on `DOMContentLoaded`, so a scraper that fetches the HTML without executing it finds no addresses. Links marked `data-nw` open in a new tab, hardened with `rel="noopener noreferrer"`. A `<noscript>` LinkedIn fallback keeps contact reachable without JavaScript.
 
@@ -71,7 +71,7 @@ apolskiy.github.io/
 │   └── apolskiybiz.js       # Tab routing + base64 link/e-mail decoding
 ├── images/
 │   └── aleksandr-polskiy.jpg
-├── index.html               # The site: profile header + eight content tabs
+├── index.html               # The site: profile header + nine content tabs
 ├── case-study.html          # Standalone write-up, linked from Engineering Outcomes
 ├── 404.html                 # Self-contained, inline-styled
 ├── favicon.ico, icon.png, icon.svg, site.webmanifest

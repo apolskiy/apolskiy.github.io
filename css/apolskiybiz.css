@@ -394,6 +394,31 @@ img.profile-photo {
   margin-bottom: 4px;
 }
 
+/* Copy-paste reproductions inside a project cell, collapsed behind a summary so
+   a long command does not bury the prose around it.
+   The block wraps rather than scrolls. A table cell grows to fit its widest
+   unbreakable line, so a scrolling block would still widen the whole table and
+   push the page sideways at 390px; pre-wrap only breaks the line on screen,
+   and a copied block keeps its original line breaks. */
+.tab-content td details {
+  margin: 8px 0;
+}
+
+.tab-content td summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab-content td pre.repro {
+  margin: 6px 0 10px 0;
+  padding: 8px 10px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 /* Give each numbered emulator room to breathe from the next one */
 .tab-content td ol > li {
   margin-bottom: 10px;

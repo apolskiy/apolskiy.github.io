@@ -24,6 +24,40 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.0 - 2026-11-10
+
+### Added
+
+- **Multi-LLM Evaluation tab (`apllmeval9`).** One project in two repositories,
+  AP-Harness-QC (the harness) and AP-Model-QC (the evaluation cases), on one
+  tab because they are one project: the cases cannot run without a green
+  harness. Beyond the usual rows it carries:
+  - a Test Coverage row whose figures are marked up with the repository and
+    figure they come from, checked weekly against those READMEs;
+  - a Standing Finding row describing the one open finding, against Gemini,
+    with collapsed reproductions through the SDK as filed, through `curl`, and
+    from the committed recording with no key;
+  - a How It Was Built row stating what Claude Code wrote and what the author
+    decided, reviewed and corrected;
+  - CI badges for the full chain: the harness gate, the four engine gates and
+    the four monthly live evaluations;
+  - links to both READMEs and both published Allure reports.
+- **An Engineering Outcomes row** citing the new tab: findings traced back to
+  the evaluation itself before any was reported against a vendor.
+- **Skills matrix:** LLM evaluation harnesses, LLM-as-a-Judge, prompt-injection
+  testing, and multi-provider LLM SDKs.
+- **`pre.repro` and `details` styling** for copy-paste reproductions. The
+  blocks wrap rather than scroll, because a table cell grows to fit its widest
+  unbreakable line and a scrolling block would still push the page sideways at
+  390px.
+
+### Changed
+
+- **Suite-size figures** on the Web Automation tab and in the case study:
+  90 on the deployment path and 93 in total, with a third weekly test.
+- **Tab counts in prose:** the Portfolio Website tab said seven tabs (stale
+  since Test Insights) and the Web Automation tab said eight; both now say nine.
+
 ## v1.9.1 - 2026-08-18
 
 ### Fixed
