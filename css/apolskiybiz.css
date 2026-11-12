@@ -131,7 +131,7 @@ img.ci-badge {
    select every descendant cell and would restyle a table inside a cell. */
 .badge-grid {
   display: inline-grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   gap: 6px 16px;
   align-items: center;
   margin-top: 10px;
@@ -152,10 +152,12 @@ img.ci-badge {
   display: block;
 }
 
-/* Two badges side by side do not fit a phone. Stack each engine's pair beside
-   its name instead; the column headers go, because each badge's own label
-   already says gate or evaluate. */
-@media (max-width: 600px) {
+/* Three badges side by side do not fit a phone or a narrow window. Stack each
+   engine's three beside its name instead; the column headers go, because each
+   badge's own label already says gate, scheduled or by-claude.
+   Changed 2026-11-12: a third badge per engine, so the breakpoint moved from
+   600px to 1100px and an engine name spans three rows. */
+@media (max-width: 1100px) {
   .badge-grid {
     grid-template-columns: auto auto;
     overflow-wrap: normal;
@@ -168,12 +170,31 @@ img.ci-badge {
 
   .badge-grid .badge-engine {
     grid-column: 1;
-    grid-row: span 2;
+    grid-row: span 3;
   }
 
   .badge-grid .enc-link,
   .badge-grid a {
     grid-column: 2;
+  }
+}
+
+/* On a phone the longest badge and the engine name together are wider than
+   the cell, so the name sits above its badges in one column.
+   Added 2026-11-12: the by-claude badge overflowed a 390px viewport by 40px. */
+@media (max-width: 600px) {
+  .badge-grid {
+    grid-template-columns: auto;
+  }
+
+  .badge-grid .badge-engine {
+    grid-row: auto;
+    margin-top: 6px;
+  }
+
+  .badge-grid .enc-link,
+  .badge-grid a {
+    grid-column: 1;
   }
 }
 

@@ -24,6 +24,29 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.2 - 2026-11-12
+
+### Changed
+
+- **Multi-LLM Evaluation tab brought current with both repositories'
+  CHANGELOGs of 2026-11-12.** The calibration highlight now describes the
+  redesign: the judge grades authored samples, clean or carrying one or two
+  stated mistakes, through the same path a model's response takes, instead of
+  placing rubric examples at their labeled level. Two new highlights record
+  why: the first live calibration run failed four examples that review showed
+  were mislabeled, and a consumer regression whose baseline replay could not
+  run is now skipped instead of failed. Each engine's on-demand live evaluation
+  judged by Claude is named in the second-judge highlight and the CI line, and
+  gets its own column of status badges. The three-rungs highlight gives the
+  first complete live evaluation's timing, 49 minutes for OpenAI judged by
+  Claude, and why that sets how often live evaluation runs. The figures moved
+  with the READMEs: 1120 harness test cases and 429 requirements; 265
+  preconditions, 6 calibration cases grading 16 samples, and 243 requirements
+  in the case repository.
+- **The badge grid holds three badges per engine.** Below 1100px each engine's
+  three badges stack beside its name; below 600px the name sits above them,
+  because the longest badge beside the name overflowed a 390px phone by 40px.
+
 ## v1.10.1 - 2026-11-12
 
 ### Changed
