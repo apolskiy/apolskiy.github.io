@@ -46,6 +46,10 @@ in the evening in one timezone still agrees with the commit that carries it.
 - **The badge grid holds three badges per engine.** Below 1100px each engine's
   three badges stack beside its name; below 600px the name sits above them,
   because the longest badge beside the name overflowed a 390px phone by 40px.
+- **The test-suite figures moved to 94 tests, 4 of them weekly**, on the Web
+  Automation tab and in the CI case study, for PlaywrightAPWebsiteAutomation
+  v1.5.0, whose new weekly test resolves every CI status badge so a renamed
+  workflow cannot leave a broken image on a panel.
 
 ## v1.10.1 - 2026-11-12
 
