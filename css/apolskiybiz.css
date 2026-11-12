@@ -125,6 +125,58 @@ img.ci-badge {
   vertical-align: middle;
 }
 
+/* Status badges for one repository with several engines, laid out as a small
+   engine-by-workflow grid. A grid of spans rather than a nested table, because
+   the project-table rules (zebra rows, bold first cell, mobile block layout)
+   select every descendant cell and would restyle a table inside a cell. */
+.badge-grid {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  gap: 6px 16px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.badge-grid .badge-head {
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 2px;
+}
+
+.badge-grid .badge-engine {
+  font-weight: 600;
+}
+
+.badge-grid img.ci-badge {
+  display: block;
+}
+
+/* Two badges side by side do not fit a phone. Stack each engine's pair beside
+   its name instead; the column headers go, because each badge's own label
+   already says gate or evaluate. */
+@media (max-width: 600px) {
+  .badge-grid {
+    grid-template-columns: auto auto;
+    overflow-wrap: normal;
+    row-gap: 4px;
+  }
+
+  .badge-grid .badge-head {
+    display: none;
+  }
+
+  .badge-grid .badge-engine {
+    grid-column: 1;
+    grid-row: span 2;
+  }
+
+  .badge-grid .enc-link,
+  .badge-grid a {
+    grid-column: 2;
+  }
+}
+
 /* Profile photo cell, sits to the left of the name/description.
    Scoped under #profile-header so it beats the generic "table.layout td { padding: 0 }"
    rule and actually keeps space between the image and the text. */

@@ -24,6 +24,31 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.1 - 2026-11-12
+
+### Changed
+
+- **Multi-LLM Evaluation tab brought current with both repositories'
+  CHANGELOGs.** The engine status badges are laid out as an engine-by-workflow
+  grid, which collapses to two columns on a phone, instead of one crowded run. A
+  new highlight states that the judge is calibrated against its rubric's
+  anchored examples before it grades, and that a miscalibrated judge is reported
+  as an instrument defect with its family left ungraded. The spend ceiling now
+  counts the judge as well as the candidate, and each run publishes what each
+  role spent. The model-version probe runs weekly, not daily. The figures moved
+  with the READMEs: 1111 harness test cases and 426 requirements; 264
+  preconditions and 242 requirements in the case repository, plus a
+  judge-calibration case for each case family whose rubric carries examples.
+- **Test Insights tab brought current with PortfolioTestInsights v0.6.0.** It
+  collects six suites, not four, now that the two Multi-LLM Evaluation
+  repositories have joined, and the overview says what their failures mean: a
+  harness failure is a defect, because a model result is valid only when the
+  harness that produced it works, while a graded case is expected to fail
+  wherever a model falls short. Two highlights are new: the ID uniqueness rule
+  that refused the renames it existed to survive, and the volume controls
+  measured before the QC artifacts were collected. The error-budget figure, the
+  `MQC_` ID prefix and the collector's version are updated.
+
 ## v1.10.0 - 2026-11-10
 
 ### Added
