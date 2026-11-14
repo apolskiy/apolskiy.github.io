@@ -24,6 +24,33 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.4 - 2026-11-14
+
+### Changed
+
+- **Multi-LLM Evaluation tab brought current with the banded live runs and
+  per-judge calibration.** The three-rungs highlight is now the regression
+  run's three stages, named by candidate and judge mode as both repositories
+  now name them (`replay -> replay`, `replay -> live`, `live -> live`), each
+  running the gate's priority bands as separate jobs under one $7.00 ceiling,
+  because a single session per stage reported a P1 security failure as one red
+  beside a P2 phrasing check and could not skip dependents before dispatching
+  them. Calibration is a monthly job per judge that commits a record every live
+  band reads, instead of a step every engine's run paid for again. The
+  second-judge highlight states the cross-vendor judging (Claude judges OpenAI
+  and Gemini, Gemini judges Claude and Grok); the credentials highlight states
+  that no live run waits for a reviewer, since one ceiling bounds the run and
+  disabling a workflow stops it. The CI line, the engines line and the badge
+  column heading follow, and the two calibration workflows have badges. The
+  figures moved with both READMEs: 1130 harness test cases and 431
+  requirements; 279 preconditions and 251 requirements.
+- **How It Was Built records the live-workflow rework.** Claude applied the
+  specified priority banding to the replay workflows and ignored it in the live
+  ones, where it saves the money and separates release blockers from phrasing
+  defects, and had to be made to reread the rules and redo them; and only
+  hooks blocking forbidden shell constructs, not the written rules, stopped it
+  reaching for them.
+
 ## v1.10.3 - 2026-11-12
 
 ### Removed
