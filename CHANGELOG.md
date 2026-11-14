@@ -24,6 +24,18 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.3 - 2026-11-12
+
+### Removed
+
+- **The live-evaluation timing on the Multi-LLM Evaluation tab.** It quoted
+  the first run to complete all three rungs, 49 minutes for OpenAI judged by
+  Claude. That run did not follow the band structure the design requires for
+  live tests, and the live jobs are being redone, with judge calibration moving
+  out of every live run into a separate job per judge. Its timing describes
+  neither the design nor what the redone jobs will take, so it is withdrawn
+  until a run of the redone jobs can be quoted.
+
 ## v1.10.2 - 2026-11-12
 
 ### Changed
