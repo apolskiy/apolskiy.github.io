@@ -24,6 +24,31 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.5 - 2026-11-14
+
+### Added
+
+- **A Working With Claude Code row on the Multi-LLM Evaluation tab.** Both QC
+  repositories' build logs record, entry by entry, the mistakes the owner
+  caught and the fix, and read together they show patterns: a rule applied
+  only where Claude was editing (the live workflows left unbanded, a
+  calibration filter built and never called), banned shell commands that only
+  a hook stopped, with Claude Code's own reminder recommending them,
+  conclusions ahead of the evidence, plausible claims that cost money, and
+  scope beyond what was asked. Each is listed with how the owner adjusted to
+  it. How It Was Built now points to the row instead of repeating it.
+- **An Engineering Outcomes row: an AI agent's recurring mistakes turned into
+  checks that enforce themselves.** Written rules held only where the agent
+  was looking; the outcome is that each rule that mattered moved to where it
+  cannot be skipped, a CI test for the live bands and a hook for the banned
+  commands, with the build log making recurrences visible.
+
+### Changed
+
+- **AP-Model-QC figures moved to 282 preconditions and 254 requirements** with
+  its README, after the live debug job that waits for approval, runs at most 20
+  tests and keeps its recordings.
+
 ## v1.10.4 - 2026-11-14
 
 ### Changed
