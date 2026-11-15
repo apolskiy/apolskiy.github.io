@@ -24,6 +24,24 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.8 - 2026-11-15
+
+### Changed
+
+- **How It Was Built on the Multi-LLM Evaluation tab is paragraphs, not one
+  block.** It read as a wall of text. It now opens with the project's premise:
+  by design, Claude Code coded it end to end, to see whether that could be
+  done and to draw lessons learned and adjustments for projects coded purely
+  by Claude Code, with every design and coding issue addressed through
+  instructions at the command line. Separate paragraphs follow for the design,
+  the rules, the corrections and the credentials. The later design decisions
+  are a list.
+- **A list followed by a paragraph inside a project-table cell keeps the
+  paragraph gap**, which it had lost.
+- **The Scope Beyond What Was Asked pattern** in the Working With Claude Code
+  row now says each unnecessary field was eliminated when the owner objected,
+  rather than that each was cut back when the owner said so.
+
 ## v1.10.7 - 2026-11-15
 
 ### Changed

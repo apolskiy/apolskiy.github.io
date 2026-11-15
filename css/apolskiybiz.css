@@ -484,6 +484,12 @@ img.profile-photo {
   padding-left: 22px;
 }
 
+/* A list between paragraphs keeps the paragraph gap after it.
+   Added 2026-11-15: How It Was Built became paragraphs with a list. */
+.tab-content td ul:has(+ p) {
+  margin-bottom: 10px;
+}
+
 .tab-content td ol {
   margin: 4px 0;
   padding-left: 26px;
