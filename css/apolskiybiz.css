@@ -152,6 +152,15 @@ img.ci-badge {
   display: block;
 }
 
+/* The judges' calibration badges, one row per judge, in a grid of their own
+   below the engines so a judge added later is one more row.
+   Added 2026-11-15: the calibration badges sat on one line directly under
+   Grok's row and read as part of it. */
+.badge-grid.judge-grid {
+  grid-template-columns: auto auto;
+  margin-top: 18px;
+}
+
 /* Three badges side by side do not fit a phone or a narrow window. Stack each
    engine's three beside its name instead; the column headers go, because each
    badge's own label already says gate, scheduled or by-claude.
@@ -173,6 +182,17 @@ img.ci-badge {
     grid-row: span 3;
   }
 
+  /* A judge has one badge, so its name spans one row. Its calibration header
+     stays, across the grid, or the judges would read as engines listed twice. */
+  .badge-grid.judge-grid .badge-engine {
+    grid-row: auto;
+  }
+
+  .badge-grid.judge-grid .badge-head:nth-child(2) {
+    display: block;
+    grid-column: 1 / -1;
+  }
+
   .badge-grid .enc-link,
   .badge-grid a {
     grid-column: 2;
@@ -183,7 +203,8 @@ img.ci-badge {
    the cell, so the name sits above its badges in one column.
    Added 2026-11-12: the by-claude badge overflowed a 390px viewport by 40px. */
 @media (max-width: 600px) {
-  .badge-grid {
+  .badge-grid,
+  .badge-grid.judge-grid {
     grid-template-columns: auto;
   }
 

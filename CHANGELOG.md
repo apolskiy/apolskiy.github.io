@@ -24,6 +24,45 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.7 - 2026-11-15
+
+### Changed
+
+- **The Multi-LLM Evaluation tab credits the design decisions to their
+  owner.** How It Was Built named only the Phase 0 decisions, so the design
+  that followed read as the agent's. Checked against both repositories' build
+  logs and instructions, it now names the later decisions that were the
+  owner's, several of them overriding what Claude had built or proposed: the
+  priority bands and floors, one job per band and per engine, three
+  observations escalating to five, a second judge, `passw`, the stage naming,
+  the banding of live runs, the per-judge calibration redesign and the approval
+  on live debugging. It also states that every correction, to design and code
+  alike, was made by instructing Claude Code at the command line, never by
+  writing code, and that the style rules include splitting a module by subject
+  before the linter's 1000-line limit. The calibration-redesign highlight says
+  whose review found the mislabeled examples.
+- **Judge calibration badges moved into a grid of their own** in the CI / Build
+  Status cell, one row per judge under a Judge / Calibration header, so a judge
+  added later is one more row. On one line directly under Grok's row they read
+  as part of it. At narrow widths the calibration header stays visible, or the
+  two judges would read as engines listed twice.
+
+## v1.10.6 - 2026-11-14
+
+### Changed
+
+- **The Multi-LLM Evaluation tab describes the live debug job.** AP-Model-QC
+  split debugging into a replay job that reaches no key and a live job, in an
+  environment of its own, that waits for the owner's approval, takes at most 20
+  tests at a $0.50 ceiling by default, and keeps its recordings. The
+  credentials highlight said no live run waits for a reviewer, which the live
+  debug job now contradicts; it now says the regression runs wait for none and
+  names the exception. The debug highlight states the replay-first rule and
+  what a live debug run is for.
+- **AP-Harness-QC figure moved to 1131 test cases** with its README, after its
+  spend-ceiling check learned to read through a consumer's local composite
+  actions, where a live band run could otherwise pass with no ceiling.
+
 ## v1.10.5 - 2026-11-14
 
 ### Added
