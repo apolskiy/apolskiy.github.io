@@ -24,6 +24,25 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.9 - 2026-11-16
+
+### Changed
+
+- **The Multi-LLM Evaluation tab describes the live-only regression run.**
+  AP-Model-QC's regression run dropped its two replay stages, which repeated
+  what every gate certifies and let a machinery defect hold up measuring a
+  model fix. It now runs the case repository's unit tests, checks that the
+  judge's latest calibration succeeded on the model now served, then
+  `live -> live` in three band jobs, and counts every skip against a band's
+  floor. The three-stages highlight became two: one names each run by its
+  modes and what it measures, the other describes the regression run. The
+  design list in How It Was Built says runs, not the regression run's stages,
+  are named by mode.
+- **Figures moved with both READMEs:** AP-Harness-QC to 1140 test cases and 436
+  requirements, after quarantine began holding out only an entry in force;
+  AP-Model-QC to 291 preconditions and 257 requirements. The weekly figure
+  check (run 43896830534) caught the earlier move of the case repository.
+
 ## v1.10.8 - 2026-11-15
 
 ### Changed
