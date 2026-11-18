@@ -24,6 +24,25 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.10 - 2026-11-17
+
+### Changed
+
+- **How It Was Built on the Multi-LLM Evaluation tab opens with the project's
+  goal as set at the start:** a project coded end to end by Claude Code, a
+  harness and a demonstration case repository for testing LLM engines, with
+  deterministic checks for every rule, rubric and instruction violation a rule
+  can catch and LLM judges only for what is not deterministic.
+- **The hooks pattern in Working With Claude Code carries the measured
+  numbers** that AP-Harness-QC's build log now records across every session
+  transcript: 3,327 banned shell commands issued, 144 of those that ran ending
+  in an error Claude then repaired, and 38 refused by the hook at about 21,000
+  tokens, the repair cost avoided still being measured.
+- **Figures moved with both READMEs:** AP-Harness-QC to 1174 test cases and 445
+  requirements, AP-Model-QC to 304 preconditions and 264 requirements, after
+  both repositories' fixes for skipping only the cases a missing artifact,
+  record or report affects, and for keeping the artifacts a re-run band reads.
+
 ## v1.10.9 - 2026-11-16
 
 ### Changed
