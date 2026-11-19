@@ -24,6 +24,19 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.11 - 2026-11-18
+
+### Changed
+
+- **The regression-run highlight on the Multi-LLM Evaluation tab states two
+  new guards from AP-Model-QC.** A run started right after a push now waits up
+  to thirty minutes for its engine's gate at the same commit and reports what
+  that gate concluded, rather than spending beside it. A band re-run later
+  rests only on foundation results measured on the model now served, since the
+  harness records the served model on them and refuses another's.
+- **Figures moved with both READMEs:** AP-Harness-QC to 1179 test cases and 447
+  requirements, AP-Model-QC to 316 preconditions and 270 requirements.
+
 ## v1.10.10 - 2026-11-17
 
 ### Changed
