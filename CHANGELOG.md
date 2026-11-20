@@ -24,6 +24,19 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.13 - 2026-11-20
+
+### Changed
+
+- **The Engineering Outcomes row on turning an AI agent's recurring mistakes
+  into checks carries the measured scale**, as the Multi-LLM Evaluation tab
+  already does: counted across two months of session transcripts on
+  2026-11-17, 3,327 banned shell commands issued, 144 of those that ran ending
+  in an error Claude then repaired, and the hook's 38 refusals to that date
+  costing about 21,000 tokens. The row is the one a reader meets first, and it
+  named the hook without saying what it was stopping. The counts are dated
+  because the harness project's session keeps recording refusals.
+
 ## v1.10.12 - 2026-11-20
 
 ### Changed
