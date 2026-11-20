@@ -24,6 +24,32 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.12 - 2026-11-20
+
+### Changed
+
+- **The regression-run highlight quotes measured timing per band**, from the
+  five complete live runs of 2026-11-20 on Claude, Gemini and Grok: 41 to 52
+  minutes each, about two minutes of checks, 4 to 8 for P0, under 4 for P1 and
+  34 to 43 for P2 through P4. The timing quoted before the banded rework was
+  withdrawn in v1.10.3.
+- **The debug highlight on the Multi-LLM Evaluation tab states what a debug
+  run gained in AP-Model-QC.** It runs the named cases without their
+  foundations unless asked, can take a failing case to a set number of
+  observations so a finding reaches a vendor with a rate behind it, and opens
+  its summary with what pytest did, going red when nothing ran. A live debug
+  run had reported success having measured nothing.
+- **The skipped-regression highlight covers a baseline that ran none of its
+  cases**, which the harness now skips as an unmet prerequisite as well, after
+  a "before" replay in which every case raised failed a change that broke
+  nothing.
+- **The hooks pattern dates its counts to 2026-11-17** and says the tally keeps
+  growing, since the harness project's session records each new refusal and a
+  bare figure would read as final.
+- **Figures moved with both READMEs:** AP-Harness-QC to 1189 test cases and 450
+  requirements, AP-Model-QC to 96 graded cases (42 security), 84 tasks, 324
+  preconditions, 275 requirements and 1152 candidate responses.
+
 ## v1.10.11 - 2026-11-18
 
 ### Changed
