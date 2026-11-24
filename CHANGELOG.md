@@ -24,6 +24,16 @@ in the evening in one timezone still agrees with the commit that carries it.
 
 ---
 
+## v1.10.14 - 2026-11-22
+
+### Changed
+
+- **Figures moved with both READMEs:** AP-Harness-QC to 1227 test cases and 461
+  requirements, AP-Model-QC to 329 preconditions and 278 requirements. Only the
+  figures move: the new findings and rubric corrections from the latest live
+  runs are not yet in the case repository's findings register, so the tab's
+  Standing Finding still names Gemini's `134206` alone.
+
 ## v1.10.13 - 2026-11-20
 
 ### Changed
